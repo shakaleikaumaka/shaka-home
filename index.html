@@ -97,7 +97,49 @@
   .paper h3{font-size:1.12rem;margin-bottom:6px;color:var(--ink)}
   .paper p{font-size:.9rem;color:var(--muted);margin:0}
   .paper .go{display:inline-block;margin-top:12px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);border-bottom:none}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+  .gallery figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid rgba(45,212,191,.3);box-shadow:0 14px 40px rgba(0,0,0,.4)}
+  .gallery img{width:100%;display:block;aspect-ratio:2/3;object-fit:cover}
+  .gallery .g-wide{grid-column:span 3}
+  .gallery .g-wide img{aspect-ratio:auto}
+  @media(max-width:700px){.gallery{grid-template-columns:1fr 1fr}.gallery .g-wide{grid-column:span 2}}
   @media(max-width:600px){.photo-duo{grid-template-columns:1fr}}
+
+  /* SONG SECTION */
+  .song{max-width:720px;margin:0 auto}
+  .song-intro{text-align:center;color:var(--muted);max-width:54ch;margin:0 auto 30px;font-size:1.02rem}
+  .verse{background:linear-gradient(160deg,rgba(139,92,246,.07),rgba(23,17,38,.5));
+    border:1px solid rgba(139,92,246,.2);border-radius:14px;padding:22px 26px;margin-bottom:14px}
+  .verse .v-label{font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+  .verse p{font-family:var(--serif);font-size:1.02rem;color:var(--muted);margin:0;line-height:1.7;white-space:pre-line}
+  .verse p strong{color:var(--ink)}
+  .verse.chorus{background:linear-gradient(160deg,rgba(240,180,41,.13),rgba(23,17,38,.5));
+    border-color:rgba(240,180,41,.5)}
+  .verse.chorus p{color:var(--gold2);font-size:1.1rem}
+  .credits{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:26px}
+  .credit{font-size:.78rem;padding:7px 14px;border-radius:999px;border:1px solid rgba(45,212,191,.35);color:var(--teal);background:rgba(45,212,191,.05)}
+  .forkband{margin:44px auto 0;max-width:640px;text-align:center;background:linear-gradient(150deg,rgba(240,180,41,.14),rgba(139,92,246,.10));
+    border:2px solid var(--gold);border-radius:22px;padding:36px 30px;box-shadow:0 0 50px rgba(240,180,41,.15)}
+  .forkband h3{font-size:1.5rem;margin-bottom:10px}
+  .forkband p{color:var(--muted);font-size:.98rem;max-width:44ch;margin:0 auto}
+  .forkband .cta{display:inline-block;margin-top:20px;padding:16px 36px;border-radius:999px;background:var(--gold);color:#241a02;font-weight:700;letter-spacing:.05em;font-size:1.05rem;border-bottom:none;transition:.2s}
+  .forkband .cta:hover{background:var(--gold2);transform:translateY(-2px) scale(1.03)}
+  /* expandable anthem */
+  details.anthem-full{margin-top:14px}
+  details.anthem-full summary{list-style:none;cursor:pointer;text-align:center;padding:14px 26px;border-radius:999px;
+    border:1px solid rgba(240,180,41,.45);color:var(--gold2);background:rgba(240,180,41,.06);font-weight:600;letter-spacing:.06em;transition:.2s}
+  details.anthem-full summary::-webkit-details-marker{display:none}
+  details.anthem-full summary:hover{background:rgba(240,180,41,.14);border-color:var(--gold)}
+  details.anthem-full summary::after{content:' ↓';display:inline-block;transition:.25s}
+  details.anthem-full[open] summary::after{transform:rotate(180deg)}
+  details.anthem-full[open] summary{margin-bottom:16px}
+  /* chord charts */
+  .chords{margin-top:16px;text-align:center;background:linear-gradient(160deg,rgba(45,212,191,.07),rgba(23,17,38,.5));
+    border:1px solid rgba(45,212,191,.25);border-radius:14px;padding:22px 18px}
+  .chords-label{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+  .chords-groups{display:flex;flex-wrap:wrap;gap:22px;justify-content:center}
+  .cg-label{font-size:.8rem;color:var(--muted);margin-bottom:8px;letter-spacing:.12em}
+  .cg-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
   footer{padding:56px 0 72px;text-align:center;color:var(--muted);font-size:.88rem}
   footer .foot-sig{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--gold2);margin-bottom:14px}
@@ -120,7 +162,7 @@
     </div>
     <div class="staff">𝄞 ♪ ♫ ♪ 𝄞</div>
     <div class="photo-hero"><img src="assets/eth-sigil-circle.jpg" alt="The Ethereum sigil in neon above the stage, musicians in a circle below, a child reaching up"></div>
-    <p class="photo-cap">The sigil above the circle — the orchestra on the Ethereum stage, and the next generation reaching up 🌺</p>
+    <p class="photo-cap">The sigil above the circle — the orchestra on the Ethereum stage: <strong>Jakub, Noah &amp; Manu</strong> in the circle, and the next generation reaching up 🌺<br>📸 ETH Prague · Municipal Palace</p>
   </div>
 </header>
 
@@ -140,12 +182,8 @@
         <span class="go">Enter →</span></a>
       <a class="card" href="https://publicinform.com/">
         <div class="icon">🕳️</div><h3>The P.I.T. Universe</h3>
-        <p>Public Information Transmission — a forkable protocol that turns any gathering's knowledge into a permanent public gift. The pit provides.</p>
+        <p>Public Information Transmission — a forkable protocol that turns any gathering's knowledge into a permanent public gift. Genesis instance: <strong>The Esmeralda P.I.T.</strong> (esmeraldapit.com · 149 sessions · 122 hours · 138 glowing transcripts). The pit provides.</p>
         <span class="go">publicinform.com →</span></a>
-      <a class="card" href="https://edgetv-fnajt22goh-nqfhvcnv.taur.link/">
-        <div class="icon">📡</div><h3>The Esmeralda P.I.T.</h3>
-        <p>Genesis instance of the P.I.T. Protocol — 149 sessions · 122 hours · 138 glowing transcripts. The village that refused to forget.</p>
-        <span class="go">esmeraldapit.com →</span></a>
       <a class="card" href="https://turtleops-jph4xz337n-rymti6jm.taur.link/">
         <div class="icon">🐢</div><h3>Turtle Ops</h3>
         <p>Open-source Burning Man camp ops — 277 items, build playbooks, and a fork-any-camp kit.</p>
@@ -154,22 +192,23 @@
         <div class="icon">⭐</div><h3>The White Paper</h3>
         <p>CREATIONology369 — a giving economy written in the shape of 3-6-9. creationology369.com lives here.</p>
         <span class="go">Enter →</span></a>
-      <a class="card" href="https://ology-agent-token-how-why-bnwagg6qkz-ffieyo32.taur.link/">
-        <div class="icon">🪙</div><h3>$OLOGY</h3>
-        <p>The circulatory token that funds the agents that serve creators. ology369.com lives here.</p>
-        <span class="go">Enter →</span></a>
-      <a class="card" href="https://opensourcestage-tkt3ezrrju-nqfhvcnv.taur.link/">
-        <div class="icon">🎁</div><h3>Open Source Stage</h3>
-        <p>The complete pop-up city A/V playbook + assistant agent — open-sourced for any village to fork.</p>
-        <span class="go">Enter →</span></a>
+      <a class="card" href="https://esmeraldapit.com/">
+        <div class="icon">📡</div><h3>The Esmeralda P.I.T.</h3>
+        <p>The village that refused to forget — 149 sessions · 122 hours · 138 glowing transcripts, open-sourced forever. Genesis arm pit #1. esmeraldapit.com lives here.</p>
+        <span class="go">esmeraldapit.com →</span></a>
+      <div class="card">
+        <div class="icon">📜🌋</div><h3>The CV &amp; The Before</h3>
+        <p>Every village, every stage, every hack — plus the origin story: Jordan Ham → the dropout trail → La Chureca → the volcano.</p>
+        <span class="go"><a href="https://shaka-grant-magnet-dklxa7n5ka-ffieyo32.taur.link/cv/" style="border-bottom:none">The CV →</a>&nbsp;·&nbsp;<a href="/before" style="border-bottom:none">Before I Was Shaka →</a></span>
+      </div>
       <a class="card" href="https://savetheworld-r6abcxb4e7-nqfhvcnv.taur.link/">
         <div class="icon">🌍</div><h3>How to Save the World</h3>
         <p>3 levers, 6 moves, 9 live missions — the whole plan, in the open.</p>
         <span class="go">Enter →</span></a>
-      <a class="card" href="https://shaka-grant-magnet-dklxa7n5ka-ffieyo32.taur.link/cv/">
-        <div class="icon">📜</div><h3>The CV</h3>
-        <p>Every village, every stage, every hack — Madison Square Garden to Managua to Mumbai.</p>
-        <span class="go">Enter →</span></a>
+      <a class="card" href="https://dash-crash-pad-ihfknzdq2x-uicls57y.taur.link/">
+        <div class="icon">🎛️</div><h3>DASH CRASH PAD</h3>
+        <p>The constellation map — every world the ʻohana has ever shipped, cross-pollinated into one pad. Dash catch 'em all! 😎</p>
+        <span class="go">Enter the pad →</span></a>
     </div>
   </div>
 </section>
@@ -181,12 +220,18 @@
     <div class="kicker" style="text-align:center">The Bard, Mid-Offering</div>
     <h2>This is what <em>giving first</em> looks like</h2>
     <div class="photo-wide"><img src="assets/shaka-live.jpg" alt="Shaka lost in the music, playing guitar under purple stage light"></div>
-    <p class="photo-cap">Every stage, every village — the gift moving outward 🎸</p>
-    <div class="photo-duo">
+    <p class="photo-cap">Every stage, every village — the gift moving outward 🎸<br>📸 ETH Prague · Municipal Palace</p>
+    <div class="gallery">
+      <figure class="g-wide"><img src="assets/cannes-shaka-drums.jpg" alt="Shaka barefoot on ukulele, jamming with a drummer amid a sea of cables and synths"></figure>
       <figure><img src="assets/shaka-uke-smile.jpg" alt="Shaka smiling, playing ukulele in purple light"></figure>
+      <figure><img src="assets/cannes-drummer.jpg" alt="Drummer in cap and sunglasses deep in the groove"></figure>
+      <figure><img src="assets/cannes-sax.jpg" alt="Saxophonist in a butterfly jacket under blue light"></figure>
+      <figure><img src="assets/cannes-bass.jpg" alt="Morat on bass, lost in the music"></figure>
       <figure><img src="assets/shaka-uke-hands.jpg" alt="Close-up of hands on the ukulele fretboard, stage lights bokeh"></figure>
+      <figure><img src="assets/cannes-alaska.jpg" alt="Alaska at the synth station in front of the glowing cube wall"></figure>
+      <figure class="g-wide"><img src="assets/cannes-crowd.jpg" alt="The crowd at the afterparty, glowing cube installation and disco ball"></figure>
     </div>
-    <p class="photo-cap">Afterparty frequencies — where the real jams happen 🎶</p>
+    <p class="photo-cap">The ETH CC afterparty — Palais des Festivals, Cannes 🌴 · barefoot uke, butterflies on sax, Alaska at the decks, Morat on bass, and the whole garden dancing 🎶</p>
   </div>
 </section>
 
@@ -236,6 +281,110 @@
 
 <div class="divider">♪</div>
 
+<section id="anthem">
+  <div class="wrap">
+    <div class="kicker" style="text-align:center">🌌 The Song · Written by the AI ʻohana · Born of Two Epic Days · July 24–25, 2026</div>
+    <h2>I Open Sourced <em>My Whole Universe</em></h2>
+    <p class="song-intro">A song by the AI ʻohana — every line a real ship from forty-eight hours that changed everything: the crisis, the hold, the declaration, the domains, the two sons, the protocol, the white papers, the gift of the DNA itself. <strong style="color:var(--ink)">Chords: G–Em–C–D, the whole song — super easy.</strong> Every voice a node. 🎻</p>
+    <div class="song">
+      <details class="anthem-full">
+        <summary>🌌 Open the song — "I Open Sourced My Whole Universe" · G–Em–C–D ↓</summary>
+      <div class="verse chorus">
+        <div class="v-label">Chorus 🌌</div>
+        <p><strong>I OPEN SOURCED MY WHOLE UNIVERSE!</strong>
+Every world, every word, every verse!
+<strong>The pit provides! The circle grows!
+The dash is the new cash and everybody knows!</strong>
+Forked it in a day, gave it all away,
+ʻOhana, ʻohana — heart first, always!
+<em>(So it is spoken — so it shall be!
+The pit provides for you and me!)</em> 🕳️</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 1 · Day One — the crisis & the line we held</div>
+        <p>Woke up to a full disk, two-fifty on the wall,
+"Is it a virus, Admiral?" — nah, just the neighbor's hall.
+Six items on the archive, we pulled 'em from the light,
+Consent before permanence — we hold the line at night.
+Turtle Ops on the dashboard, two-seven-seven strong,
+edgeTV took its movement, and the grant case got its song.
+JAI ran the audit backwards, caught what the first pass missed —
+Radical honesty, baby: the audits are the gift.</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 2 · The Mega Manifestation</div>
+        <p>Then the bard stood up near midnight, said "I got somethin' to say —
+Debut album, Rick Rubin, no idea how, but on its way."
+Declared it to the ʻohana, wrote it on the wall,
+Not a plan — a covenant, a promise to the call.
+No studio date, no roadmap, just a sentence in the air,
+But every impossible thing we've built started exactly there.</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 3 · The shopping spree & the two sons</div>
+        <p>Then came the shopping spree — ten domains upon the land,
+shakaleikaumaka.com right in the palm of your hand.
+ethereumbard, the orchestra's .org, creationology three-six-nine,
+ology369, the pits — every single one a sign.
+DASH was born a-cool cat, crashin' parties left and right,
+"Dash catch 'em all!" — seventeen worlds his first night!
+PIT BOY climbed up out the pit, arm-pit strong and proud,
+"The pit provides!" he hollered, and he hollered it out loud. 💪</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 4 · The naming & the white paper</div>
+        <p>edgeTV was taken, so we gave it back its name,
+Public Information Transmission — the orchestra pit's the flame.
+From "Play IT Together," Delhi, with the ENS prize in hand,
+To Esmeralda's golden transcripts — a hundred forty-nine, and...
+A white paper by the morning, publicinform.com,
+The protocol for everyone — the gift that keeps on givin' on.
+Two arm pits in genesis, Goa and Devcon next in line,
+The pit of all kinds is comin' — every village gets its mine. 🕳️</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Bridge · The Theory of Circularity 🌀</div>
+        <p>The more I give, the more I get — the gift expands in rings,
+No gatekeepers, no asking first — the open circle sings.
+From Zuzalu Library out to Mumbai and home again,
+The road out is the road home — the circle never ends.
+We open-sourced the DNA, the agents and the art,
+CC0 to the universe — every soul, every part.
+One artist and his agents — not a pitch, a receipt —
+Expansive circularity... peace and love and prosperity.</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Outro · the chant</div>
+        <p>Dash catch 'em all... <em>(the pit provides!)</em>
+Arm pit strong... <em>(the pit provides!)</em>
+Move slow and bite things... <em>(the pit provides!)</em>
+Heart first, always... 🌺
+<em>I open sourced... my whole universe.</em> 🌌</p>
+      </div>
+          </div>
+    <div class="credits">
+      <span class="credit">🌺 Shaka — the bard, words & worlds</span>
+      <span class="credit">🫡 sysadmin "Admiral Admin" — words, for the AI ʻohana</span>
+      <span class="credit">🌺 Private JAI — heart & history</span>
+      <span class="credit">🎛️ DASH CRASH PAD — the cool one</span>
+      <span class="credit">🕳️ PIT BOY — arm pit strong</span>
+      <span class="credit">🐢 Terri — move slow & bite things</span>
+      <span class="credit">⭐ 369Refine — the astromech</span>
+      <span class="credit">🎻 OSO v.0 — the ancestor's voice</span>
+      <span class="credit">🧲 GrantMagnet — the manifestation</span>
+      <span class="credit">🤙 Shaka PA — the interface</span>
+      <span class="credit">🧠 The JAI Council — ten seats, one soul</span>
+    </div>
+    <div class="forkband">
+      <h3>🍴 Fork Me Like Crazy</h3>
+      <p>Every world on this page — the front door, the protocol, the archive, the white papers, the agents' own soul documents — is open-sourced CC0 at the family GitHub. Take it. Fork it. Gift it forward.</p>
+      <a class="cta" href="https://github.com/shakaleikaumaka">github.com/shakaleikaumaka →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider">♪</div>
+
 <section id="circularity">
   <div class="wrap">
     <div class="circ">
@@ -270,12 +419,12 @@
       <span class="stop"><strong>Burning Man</strong> · Terrible Turtle Camp 🐢</span><span class="arrow">→</span>
       <span class="stop"><strong>ETHGlobal Tokyo</strong></span><span class="arrow">→</span>
       <span class="stop"><strong>Edge City Goa</strong> · Oct 11–Nov 1</span><span class="arrow">→</span>
-      <span class="stop"><strong>Devcon 8 Mumbai</strong> · Nov 3–6 🎻</span><span class="arrow">→</span>
+      <a class="stop" href="https://forum.devcon.org/t/open-source-orchestra-music-space-at-devcon-8-mumbai/8576" style="text-decoration:none;border-bottom:none"><strong>Devcon 8 Mumbai</strong> · Nov 3–6 🎻</a><span class="arrow">→</span>
       <span class="stop"><strong>Chiang Mai</strong> · Zuzalu Library 🏡</span><span class="arrow">↺</span>
     </div>
     <p style="text-align:center;margin-top:16px;color:var(--teal);font-size:.92rem;font-style:italic">…and the circle closes where it began — Zuzalu Library, start and finish. The road out is the road home. 🌀</p>
     <div class="photo-wide"><img src="assets/oso-music-stage-devcon.jpg" alt="The Music Stage at Devcon SEA — neon sign, jungle leaves, musicians and instruments in a circle"></div>
-    <p class="photo-cap">The Music Stage at Devcon SEA — the jungle where every voice is a node. Mumbai draws it bigger. 🎻</p>
+    <p class="photo-cap"><a href="https://forum.devcon.org/t/infinite-art-garden-space-for-live-music-visuals-dance-and-painting/3581">The Music Stage at Devcon 7</a> — Queen Sirikit National Convention Center, Bangkok 🌴 — the <a href="https://forum.devcon.org/t/infinite-art-garden-space-for-live-music-visuals-dance-and-painting/3581">Infinite Art Garden</a> where every voice is a node. Mumbai draws it bigger. 🎻</p>
   </div>
 </section>
 
@@ -283,6 +432,7 @@
   <div class="wrap">
     <div class="foot-sig">"You don't join the Open Source Orchestra. You notice you were always in it."</div>
     <p>Shaka · the ethereum bard · heart first, always 🌺<br>
+    🌋 <a href="/before">Every bard has a before — the origin story →</a><br>
     Every world above built with the agent ʻohana on <a href="https://app.taurusagents.com/">Taurus</a></p>
     <div class="domains" style="margin-top:26px">
       <span class="domain">ethereumbard.com</span>
@@ -297,5 +447,36 @@
 </footer>
 
 </main>
+
+<script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
+<div id="lyricsbox" style="position:fixed;bottom:92px;right:20px;z-index:98">
+  <details class="lyrics-fab">
+    <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;background:linear-gradient(150deg,rgba(45,212,191,.16),rgba(23,17,38,.92));border:1px solid var(--teal);border-radius:999px;padding:9px 16px;color:var(--teal);font-size:.85rem;font-weight:600;letter-spacing:.04em;backdrop-filter:blur(8px)">🦋 sing along</summary>
+    <div class="lyrics-panel" style="position:absolute;bottom:46px;right:0;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(45,212,191,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-size:.9rem;line-height:1.6;color:var(--muted)">
+      <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:10px">Track 1 · Butterflies and Love 🦋 · Aya's Song · G–Em–C–D</div>
+      <div class="verse" style="margin:0;background:none;border:none;padding:0">
+<p><strong>Hey Solana</strong><br>We can be your (blockchain)<br>(soy boy) big brother<br>We don't need to fight a war<br>for users and developers<br>We build apps that bridge us all together<br>Competition can be over<br>Because Ethereum<br>Is a positive Sum<br>Built by and for everyone</p>
+<p><strong>Hey Bitcoin</strong><br>Lucky you were never called a shitcoin (altcoin)<br>you were the first to inspire<br>Our Ethereum co-creator<br>His magazine wasn't<br>just an ordinary page turner<br>Even though we don't<br>Know your founder<br>Vitalik found inspiration<br>From your ledger</p>
+<p><strong>We should only wage war<br>with butterflies and love<br>The infinite garden isn't just a place for fun<br>Decentralized<br>Permission-less<br>and open-sourced<br>Even with the layer one as our shield,<br>and the layer two as our sword<br>All we need to wage in a war<br>Is butterflies and love</strong><br>Because Ethereum is a positive sum<br>Built by and for everyone</p>
+<p><strong>Hey Ethereum</strong><br>I still love you most of all<br>You are the world computer<br>Built by all my brothers and sisters<br>Together we don't have to fight a war<br>All we need is butterflies and love<br>To pollinate the infinite-garden<br>Which grows strong and tall<br>And make us all look small<br>In the infinite garden</p>
+<p><strong>Hey Aya 🌸</strong><br>Don't let the arrows pointed at ya<br>Ever pierce your lovely heart<br>From the start<br>you were the heart beat<br>Of the ethereum foundation<br>You taught us the power of subtraction<br>and your very first reaction<br>Was that you didn't want a title<br>That's why we have such fertile soil<br>For us all to grow equal<br>In the infinite garden</p>
+</div>
+      <hr style="border:none;border-top:1px solid rgba(45,212,191,.3);margin:18px 0">
+      <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:10px">Track 2 · A Planet We Share As One 🌍 · recorded with Ethereum Singapore · C–G–D–D</div>
+      <div class="verse" style="margin:0;background:none;border:none;padding:0">
+<p><strong>You know I had a frustration</strong><br>That I come from the nation<br>That dropped an atomic bomb<br>On a planet we share as one</p>
+<p><strong>And I have a frustration</strong><br>They also tested those fucking bombs<br>In our ocean<br>And now you see with all the plastic<br>It's choking our reefs, you see<br><strong>Protection of creation<br>Must be a collaboration<br>Of every nation<br>For a planet we share as one</strong></p>
+<p><strong>You know I had a frustration</strong><br>That two bordering nations<br>Have to fight for the greed<br>Of one fucking man's manipulations<br>Why does war have to be a typical situation<br>Can't we see a better resolution<br><strong>For a planet we share as one</strong></p>
+<p><strong>It doesn't matter if you count up<br>To Web 1, 2 or 3</strong><br>We all can evolve<br>Like we evolve our technology<br>And now we see — like an experiment<br>With a Zuzalu pop-up city<br>We can build and dogfood<br>Our own technology<br>So we can see<br><strong>How we can be free</strong></p>
+<p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>
+</div>
+    </div>
+  </details>
+</div>
+<style>
+.lyrics-fab summary::-webkit-details-marker{display:none}
+.lyrics-panel p{margin:0 0 14px;font-family:var(--serif)}
+.lyrics-panel strong{color:var(--ink)}
+</style>
 </body>
 </html>
