@@ -4,6 +4,7 @@
    v3: same-tab navigation. v1 (single-track) preserved at bl-player-v1.js. */
 (function(){
 if (document.getElementById('miniplayer')) return;
+if (window !== window.top) return; // v4.1: inside the shaka-shell overlay, the PARENT owns the music — no player here
 const TRACKS = [
   { title: 'Butterflies and Love', sub: 'demo recorded with Ethereum Singapore for Aya Miyaguchi 🦋',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/i-open-sourced-my-whole-universe.mp3',
