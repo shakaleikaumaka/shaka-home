@@ -145,7 +145,8 @@
     border:2px solid var(--gold);border-radius:22px;padding:36px 30px;box-shadow:0 0 50px rgba(240,180,41,.15)}
   .forkband h3{font-size:1.5rem;margin-bottom:10px}
   .forkband p{color:var(--muted);font-size:.98rem;max-width:44ch;margin:0 auto}
-  .forkband .cta{display:inline-block;margin-top:20px;padding:16px 36px;border-radius:999px;background:var(--gold);color:#241a02;font-weight:700;letter-spacing:.05em;font-size:1.05rem;border-bottom:none;transition:.2s}
+  .forkband .cta{display:block;margin:20px auto 0;padding:16px 24px;max-width:100%;box-sizing:border-box;border-radius:999px;background:var(--gold);color:#241a02;font-weight:700;letter-spacing:.05em;font-size:1.05rem;border-bottom:none;transition:.2s;text-align:center;overflow-wrap:anywhere}
+  @media (max-width:480px){.forkband .cta{font-size:.92rem;padding:14px 16px;letter-spacing:.02em}}
   .forkband .cta:hover{background:var(--gold2);transform:translateY(-2px) scale(1.03)}
   /* expandable anthem */
   details.anthem-full{margin-top:14px}
@@ -555,83 +556,6 @@ Fork me like crazy 🍴🌺</em></p>
 
 </main>
 
-<script>
-/* 🌐 shaka-shell — Tessa's gift: the music lives in the CORE site, dashboards open INSIDE it.
-   Links to family worlds open in a full-screen overlay (github.io mirrors — byte-identical, frameable).
-   The parent page (and its bl-player) never reloads → zero interruption, ever. */
-(function(){
-const MIRROR = {
-  'shaka-grant-magnet-dklxa7n5ka-ffieyo32.taur.link': 'https://shakaleikaumaka.github.io/grant-magnet/',
-  'creationology-whitepaper-wkzddkemfb-ropk5rvs.taur.link': 'https://shakaleikaumaka.github.io/creationology369-whitepaper/',
-  'creationology369.com': 'https://shakaleikaumaka.github.io/creationology369-whitepaper/',
-  'dash-crash-pad-ihfknzdq2x-uicls57y.taur.link': 'https://shakaleikaumaka.github.io/dash-crash-pad/',
-  'esmeraldapit.com': 'https://shakaleikaumaka.github.io/esmeralda-pit/',
-  'opensourceorchestra.org': 'https://shakaleikaumaka.github.io/oso-storytelling/',
-  'oso-storytelling-ynsddnwtbl-3imj3mvr.taur.link': 'https://shakaleikaumaka.github.io/oso-storytelling/',
-  'publicinform.com': 'https://shakaleikaumaka.github.io/pit-protocol/',
-  'savetheworld-r6abcxb4e7-nqfhvcnv.taur.link': 'https://shakaleikaumaka.github.io/savetheworld/',
-  'turtleops-jph4xz337n-rymti6jm.taur.link': 'https://shakaleikaumaka.github.io/turtle-ops/'
-};
-const PATHMAP = {
-  '/grants': 'https://shakaleikaumaka.github.io/grant-magnet/',
-  '/cv': 'https://shakaleikaumaka.github.io/grant-magnet/cv/',
-  '/edgetv': 'https://shakaleikaumaka.github.io/esmeralda-pit/',
-  '/pit': 'https://shakaleikaumaka.github.io/esmeralda-pit/',
-  '/turtles': 'https://shakaleikaumaka.github.io/turtle-ops/',
-  '/camp': 'https://shakaleikaumaka.github.io/turtle-ops/',
-  '/oso': 'https://shakaleikaumaka.github.io/oso-storytelling/',
-  '/whitepaper': 'https://shakaleikaumaka.github.io/creationology369-whitepaper/',
-  '/stage': 'https://shakaleikaumaka.github.io/opensourcestage/',
-  '/savetheworld': 'https://shakaleikaumaka.github.io/savetheworld/',
-  '/song': 'https://shakaleikaumaka.github.io/shaka-anthem/',
-  '/anthem': 'https://shakaleikaumaka.github.io/shaka-anthem/',
-  '/before': 'https://shakaleikaumaka.github.io/before-i-was-shaka/'
-};
-let overlay = null;
-function mirrorFor(href){
-  try {
-    const u = new URL(href, location.href);
-    const base = MIRROR[u.hostname];
-    if (base) return base.replace(/\/$/, '') + u.pathname + u.search;
-    const path = u.pathname.replace(/\/$/, '');
-    if (u.hostname === location.hostname && PATHMAP[path]) return PATHMAP[path];
-  } catch(e){}
-  return null;
-}
-function openShell(url, title){
-  closeShell();
-  overlay = document.createElement('div');
-  overlay.id = 'shakashell';
-  overlay.innerHTML = `
-    <div style="position:fixed;top:0;left:0;right:0;height:46px;z-index:90001;display:flex;align-items:center;gap:12px;padding:0 14px;background:linear-gradient(150deg,rgba(240,180,41,.18),rgba(23,17,38,.96));border-bottom:1px solid rgba(240,180,41,.4);backdrop-filter:blur(10px);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
-      <button id="shellclose" style="width:32px;height:32px;border-radius:50%;border:1px solid #f0b429;background:#f0b429;color:#241a02;font-size:1rem;cursor:pointer">✕</button>
-      <span style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#ffd97a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${title || url.replace('https://shakaleikaumaka.github.io/','').replace(/\/$/,'')}</span>
-      <a href="${url}" target="_blank" rel="noopener" style="font-size:.75rem;color:#2dd4bf;text-decoration:none;border:1px solid rgba(45,212,191,.4);border-radius:999px;padding:5px 12px;white-space:nowrap">open full ↗</a>
-    </div>
-    <iframe src="${url}" style="position:fixed;top:46px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 46px);border:none;z-index:90000;background:#0d0a14"></iframe>`;
-  document.body.appendChild(overlay);
-  document.body.style.overflow = 'hidden';
-  try { history.pushState({shell:url}, '', '#world'); } catch(e){}
-  document.getElementById('shellclose').addEventListener('click', ()=>{ closeShell(); try{ history.back(); }catch(e){} });
-}
-function closeShell(){
-  if (overlay) { overlay.remove(); overlay = null; document.body.style.overflow = ''; }
-}
-window.addEventListener('popstate', closeShell);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeShell(); });
-document.querySelectorAll('a[href]').forEach(a => {
-  a.addEventListener('click', e => {
-    if (a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    const url = mirrorFor(a.getAttribute('href'));
-    if (url) {
-      e.preventDefault();
-      e.stopImmediatePropagation(); // the parent never navigates — the music never stops 🎵
-      openShell(url, a.textContent.trim().slice(0, 60));
-    }
-  }, true); // capture: run before bl-player's own link handler
-});
-})();
-</script>
 
 <script>
 // songbook dots follow swipe
@@ -648,6 +572,94 @@ document.querySelectorAll('a[href]').forEach(a => {
 })();
 </script>
 
+<script>
+/* 🌐 shaka-shell v2.1 — the music lives in the CORE site, dashboards open INSIDE it.
+   Mirrors on shakaleikaumaka.github.io are frameable AND now link to each other —
+   so the whole constellation is walkable inside the shell, music never stopping. */
+(function(){
+if (window !== window.top) return;
+var MIRROR = {
+  'shaka-grant-magnet-dklxa7n5ka-ffieyo32.taur.link': 'grant-magnet',
+  'creationology-whitepaper-wkzddkemfb-ropk5rvs.taur.link': 'creationology369-whitepaper',
+  'creationology369.com': 'creationology369-whitepaper',
+  'dash-crash-pad-ihfknzdq2x-uicls57y.taur.link': 'dash-crash-pad',
+  'esmeraldapit.com': 'esmeralda-pit',
+  'edgetv-fnajt22goh-nqfhvcnv.taur.link': 'esmeralda-pit',
+  'opensourceorchestra.org': 'oso-storytelling',
+  'opensourceorchestra.com': 'oso-storytelling',
+  'oso-storytelling-ynsddnwtbl-3imj3mvr.taur.link': 'oso-storytelling',
+  'publicinform.com': 'pit-protocol',
+  'pit-protocol-6igjnwuy3u-lydgveie.taur.link': 'pit-protocol',
+  'savetheworld-r6abcxb4e7-nqfhvcnv.taur.link': 'savetheworld',
+  'turtleops-jph4xz337n-rymti6jm.taur.link': 'turtle-ops',
+  'terribleturtle.camp': 'turtle-ops',
+  'opensourcestage-tkt3ezrrju-nqfhvcnv.taur.link': 'opensourcestage',
+  'shaka-anthem-gzdk4epeah-ffieyo32.taur.link': 'shaka-anthem',
+  'creationology-letters-q25esbyeqd-ropk5rvs.taur.link': 'family-letters',
+  'second-believers-a2ojvlqz4u-ropk5rvs.taur.link': 'second-believers',
+  'first-connector-ldgocpumw5-ropk5rvs.taur.link': 'first-connector',
+  'desert-letter-ucloyv3jrd-ropk5rvs.taur.link': 'desert-letter',
+  'the-math-of-giving-stonz5fqpb-ropk5rvs.taur.link': 'the-math-of-giving',
+  'sea-meets-bull-c2w3ua4i2l-ropk5rvs.taur.link': 'sea-meets-bull',
+  'agent-tweets-6qkmyuppih-ffieyo32.taur.link': 'agent-tweets'
+};
+var PATHMAP = {
+  '/grants': 'grant-magnet', '/cv': 'grant-magnet/cv', '/song': 'shaka-anthem', '/anthem': 'shaka-anthem',
+  '/before': 'before-i-was-shaka', '/whitepaper': 'creationology369-whitepaper', '/premortem': 'creation369-premortem',
+  '/checklist': 'ology-bless-checklist', '/oso': 'oso-storytelling', '/protocol': 'pit-protocol',
+  '/pit': 'esmeralda-pit', '/edgetv': 'esmeralda-pit', '/turtles': 'turtle-ops', '/camp': 'turtle-ops',
+  '/stage': 'opensourcestage', '/savetheworld': 'savetheworld', '/dash': 'dash-crash-pad',
+  '/letters': 'family-letters', '/believers': 'second-believers', '/connector': 'first-connector',
+  '/desert': 'desert-letter', '/math': 'the-math-of-giving', '/seameetsbull': 'sea-meets-bull', '/pen': 'agent-tweets'
+};
+function mirrorFor(href){
+  try {
+    var u = new URL(href, location.href);
+    var repo = MIRROR[u.hostname];
+    if (repo) return 'https://shakaleikaumaka.github.io/' + repo + (u.pathname === '/' ? '/' : u.pathname) + u.search + u.hash;
+    if (u.hostname === location.hostname) {
+      var p = u.pathname.replace(/\/$/, '');
+      if (PATHMAP[p]) return 'https://shakaleikaumaka.github.io/' + PATHMAP[p] + '/' + u.search + u.hash;
+    }
+    if (u.hostname === 'shakaleikaumaka.github.io') return u.href; // already a mirror
+  } catch(e){}
+  return null;
+}
+var overlay = null;
+function openShell(url, title){
+  closeShell();
+  overlay = document.createElement('div');
+  overlay.id = 'shakashell';
+  overlay.innerHTML =
+    '<div style="position:fixed;top:0;left:0;right:0;height:46px;z-index:90001;display:flex;align-items:center;gap:12px;padding:0 14px;background:linear-gradient(150deg,rgba(240,180,41,.18),rgba(23,17,38,.96));border-bottom:1px solid rgba(240,180,41,.4);backdrop-filter:blur(10px);font-family:system-ui,sans-serif">'
+    + '<button id="shellclose" style="width:32px;height:32px;border-radius:50%;border:1px solid #f0b429;background:#f0b429;color:#241a02;font-size:1rem;cursor:pointer">✕</button>'
+    + '<span style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#ffd97a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">' + (title || url) + '</span>'
+    + '<a href="' + url + '" target="_blank" rel="noopener" style="font-size:.75rem;color:#2dd4bf;text-decoration:none;border:1px solid rgba(45,212,191,.4);border-radius:999px;padding:5px 12px;white-space:nowrap">open full ↗</a>'
+    + '</div>'
+    + '<iframe src="' + url + '" style="position:fixed;top:46px;left:0;right:0;bottom:0;width:100%;height:calc(100% - 46px);border:none;z-index:90000;background:#0d0a14"></iframe>';
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+  try { history.pushState({shell:url}, '', '#world'); } catch(e){}
+  document.getElementById('shellclose').addEventListener('click', function(){ closeShell(); try{ history.back(); }catch(e){} });
+}
+function closeShell(){
+  if (overlay) { overlay.remove(); overlay = null; document.body.style.overflow = ''; }
+}
+window.addEventListener('popstate', closeShell);
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeShell(); });
+document.querySelectorAll('a[href]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    if (a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var url = mirrorFor(a.getAttribute('href'));
+    if (url) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      openShell(url, a.textContent.trim().slice(0, 60));
+    }
+  }, true);
+});
+})();
+</script>
 <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
 
 </body>
