@@ -129,6 +129,11 @@ window.addEventListener('load', ()=>{
   song.play().then(()=>setPlaying(true, true)).catch(()=>{});
 });
 window.addEventListener('beforeunload', saveState);
+// v4.2: public API — songbook carousels can play a track directly
+window.blPlay = function(i){
+  if (typeof i === 'number') setTrack(i);
+  song.play().then(()=>setPlaying(true, true)).catch(()=>{});
+};
 // same-tab navigation — position rides the URL
 document.querySelectorAll('a[href]').forEach(a => {
   const href = a.getAttribute('href');

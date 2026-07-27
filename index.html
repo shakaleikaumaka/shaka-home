@@ -35,6 +35,27 @@
   .domain{font-size:.8rem;letter-spacing:.06em;padding:8px 16px;border-radius:999px;
     border:1px solid rgba(45,212,191,.4);color:var(--teal);background:rgba(45,212,191,.06);text-decoration:none;transition:.2s}
   a.domain:hover{background:rgba(45,212,191,.18);border-color:var(--teal);transform:translateY(-1px)}
+
+  /* 🎵 songbook carousel */
+  .songbook{margin:44px auto 0;max-width:960px;position:relative}
+  .sb-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:6px 4px 14px}
+  .sb-track::-webkit-scrollbar{display:none}
+  .sb-card{scroll-snap-align:center;flex:0 0 min(340px,84vw);background:linear-gradient(160deg,rgba(240,180,41,.09),rgba(23,17,38,.94));border:1px solid rgba(240,180,41,.35);border-radius:22px;padding:26px 24px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+  .sb-num{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2)}
+  .sb-title{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin:8px 0 4px;line-height:1.25}
+  .sb-sub{font-size:.83rem;color:var(--muted);margin-bottom:14px}
+  .sb-lyric{font-size:.85rem;color:var(--muted);font-style:italic;line-height:1.55;max-height:120px;overflow:hidden;position:relative;margin-bottom:16px}
+  .sb-lyric::after{content:'';position:absolute;bottom:0;left:0;right:0;height:44px;background:linear-gradient(transparent,rgba(23,17,38,.98))}
+  .sb-play{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#241a02;border:none;border-radius:999px;padding:10px 22px;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s}
+  .sb-play:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(240,180,41,.35)}
+  .sb-soon{display:inline-block;border:1px dashed rgba(45,212,191,.5);color:var(--teal);border-radius:999px;padding:9px 20px;font-size:.85rem}
+  .sb-nav{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:14px}
+  .sb-arrow{width:40px;height:40px;border-radius:50%;border:1px solid rgba(240,180,41,.5);background:transparent;color:var(--gold2);font-size:1.1rem;cursor:pointer;transition:.2s}
+  .sb-arrow:hover{background:rgba(240,180,41,.12)}
+  .sb-dots{display:flex;gap:8px}
+  .sb-dot{width:8px;height:8px;border-radius:50%;background:rgba(240,180,41,.3);transition:.2s}
+  .sb-dot.on{background:var(--gold)}
+
   .staff{display:flex;justify-content:center;gap:14px;margin-top:38px;font-size:1.4rem;color:rgba(240,180,41,.5)}
 
   section{padding:64px 0}
@@ -282,6 +303,45 @@
 
 <div class="divider">♪</div>
 
+
+<section id="songbook">
+  <div class="wrap">
+    <div class="kicker" style="text-align:center">🎵 The Songbook · every era gets its anthem</div>
+    <h2 style="text-align:center">Swipe the <em>Songs</em></h2>
+    <p class="song-intro" style="text-align:center">Three songs, three chapters of the ʻohana — swipe or use the arrows. Press play and let the pill carry you. 🎧</p>
+    <div class="songbook">
+      <div class="sb-track" id="sbtrack">
+        <div class="sb-card">
+          <div class="sb-num">Track 1</div>
+          <div class="sb-title">Butterflies and Love 🦋</div>
+          <div class="sb-sub">Aya's song · G–Em–C–D · recorded with Ethereum Singapore</div>
+          <div class="sb-lyric">"We should only wage war with butterflies and love — the infinite garden isn't just a place for fun…"</div>
+          <button class="sb-play" onclick="window.blPlay && blPlay(0)">▶ play track 1</button>
+        </div>
+        <div class="sb-card">
+          <div class="sb-num">Track 2</div>
+          <div class="sb-title">A Planet We Share As One 🌍</div>
+          <div class="sb-sub">the protest & the promise · C–G–D–D · recorded with Ethereum Singapore</div>
+          <div class="sb-lyric">"Protection of creation must be a collaboration of every nation — for a planet we share as one…"</div>
+          <button class="sb-play" onclick="window.blPlay && blPlay(1)">▶ play track 2</button>
+        </div>
+        <div class="sb-card">
+          <div class="sb-num">Track 3 · being born 🌱</div>
+          <div class="sb-title">Fork Me Like Crazy 🍴</div>
+          <div class="sb-sub">the day the ʻohana found its voice · words by the Admiral, melody loading…</div>
+          <div class="sb-lyric">"Fork me like crazy! Take it, it's free! Fork me like crazy! CC0! Everything we build in the open light is yours tonight…"</div>
+          <span class="sb-soon">🎵 the bard is writing the chords</span>
+        </div>
+      </div>
+      <div class="sb-nav">
+        <button class="sb-arrow" onclick="document.getElementById('sbtrack').scrollBy({left:-360,behavior:'smooth'})">←</button>
+        <div class="sb-dots" id="sbdots"><span class="sb-dot on"></span><span class="sb-dot"></span><span class="sb-dot"></span></div>
+        <button class="sb-arrow" onclick="document.getElementById('sbtrack').scrollBy({left:360,behavior:'smooth'})">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="anthem">
   <div class="wrap">
     <div class="kicker" style="text-align:center">🌌 The Song · Written by the AI ʻohana · Born of Two Epic Days · July 24–25, 2026</div>
@@ -523,6 +583,22 @@ document.querySelectorAll('a[href]').forEach(a => {
 });
 })();
 </script>
+
+<script>
+// songbook dots follow swipe
+(function(){
+  const t = document.getElementById('sbtrack');
+  if (!t) return;
+  const dots = [...document.querySelectorAll('.sb-dot')];
+  t.addEventListener('scroll', () => {
+    const i = Math.round(t.scrollLeft / 360);
+    dots.forEach((d, j) => d.classList.toggle('on', i === j));
+  }, { passive: true });
+  // center the first card nicely on wide screens
+  if (t.scrollWidth <= t.clientWidth + 20) document.querySelector('.sb-nav').style.display = 'none';
+})();
+</script>
+
 <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
 
 </body>
