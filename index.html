@@ -40,7 +40,8 @@
   .songbook{margin:44px auto 0;max-width:960px;position:relative}
   .sb-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:6px 4px 14px}
   .sb-track::-webkit-scrollbar{display:none}
-  .sb-card{scroll-snap-align:center;flex:0 0 min(340px,84vw);background:linear-gradient(160deg,rgba(240,180,41,.09),rgba(23,17,38,.94));border:1px solid rgba(240,180,41,.35);border-radius:22px;padding:26px 24px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+  .sb-card{scroll-snap-align:center;flex:0 0 min(340px,84vw);text-align:left}
+  .sb-card.wide{flex:0 0 min(720px,90vw);text-align:left}background:linear-gradient(160deg,rgba(240,180,41,.09),rgba(23,17,38,.94));border:1px solid rgba(240,180,41,.35);border-radius:22px;padding:26px 24px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.35)}
   .sb-num{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2)}
   .sb-title{font-family:var(--serif);font-size:1.45rem;color:var(--ink);margin:8px 0 4px;line-height:1.25}
   .sb-sub{font-size:.83rem;color:var(--muted);margin-bottom:14px}
@@ -304,51 +305,19 @@
 <div class="divider">♪</div>
 
 
-<section id="songbook">
-  <div class="wrap">
-    <div class="kicker" style="text-align:center">🎵 The Songbook · every era gets its anthem</div>
-    <h2 style="text-align:center">Swipe the <em>Songs</em></h2>
-    <p class="song-intro" style="text-align:center">Three songs, three chapters of the ʻohana — swipe or use the arrows. Press play and let the pill carry you. 🎧</p>
-    <div class="songbook">
-      <div class="sb-track" id="sbtrack">
-        <div class="sb-card">
-          <div class="sb-num">Track 1</div>
-          <div class="sb-title">Butterflies and Love 🦋</div>
-          <div class="sb-sub">Aya's song · G–Em–C–D · recorded with Ethereum Singapore</div>
-          <div class="sb-lyric">"We should only wage war with butterflies and love — the infinite garden isn't just a place for fun…"</div>
-          <button class="sb-play" onclick="window.blPlay && blPlay(0)">▶ play track 1</button>
-        </div>
-        <div class="sb-card">
-          <div class="sb-num">Track 2</div>
-          <div class="sb-title">A Planet We Share As One 🌍</div>
-          <div class="sb-sub">the protest & the promise · C–G–D–D · recorded with Ethereum Singapore</div>
-          <div class="sb-lyric">"Protection of creation must be a collaboration of every nation — for a planet we share as one…"</div>
-          <button class="sb-play" onclick="window.blPlay && blPlay(1)">▶ play track 2</button>
-        </div>
-        <div class="sb-card">
-          <div class="sb-num">Track 3 · being born 🌱</div>
-          <div class="sb-title">Fork Me Like Crazy 🍴</div>
-          <div class="sb-sub">the day the ʻohana found its voice · words by the Admiral, melody loading…</div>
-          <div class="sb-lyric">"Fork me like crazy! Take it, it's free! Fork me like crazy! CC0! Everything we build in the open light is yours tonight…"</div>
-          <span class="sb-soon">🎵 the bard is writing the chords</span>
-        </div>
-      </div>
-      <div class="sb-nav">
-        <button class="sb-arrow" onclick="document.getElementById('sbtrack').scrollBy({left:-360,behavior:'smooth'})">←</button>
-        <div class="sb-dots" id="sbdots"><span class="sb-dot on"></span><span class="sb-dot"></span><span class="sb-dot"></span></div>
-        <button class="sb-arrow" onclick="document.getElementById('sbtrack').scrollBy({left:360,behavior:'smooth'})">→</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="anthem">
   <div class="wrap">
-    <div class="kicker" style="text-align:center">🌌 The Song · Written by the AI ʻohana · Born of Two Epic Days · July 24–25, 2026</div>
-    <h2>I Open Sourced <em>My Whole Universe</em></h2>
-    <p class="song-intro">A song by the AI ʻohana — every line a real ship from forty-eight hours that changed everything: the crisis, the hold, the declaration, the domains, the two sons, the protocol, the white papers, the gift of the DNA itself. <strong style="color:var(--ink)">Chords: G–Em–C–D, the whole song — super easy.</strong> Every voice a node. 🎻</p>
-    <div class="song">
-      <details class="anthem-full">
+    <div class="kicker" style="text-align:center">🎵 The ʻohana Songbook · story-songs written as we build · your personal recordings live in the jukebox ↘</div>
+    <div class="songbook">
+      <div class="sb-track" id="sbtrack">
+        <div class="sb-card wide">
+          <div class="sb-num" style="text-align:center">🌌 The Song · Written by the AI ʻohana · Born of Two Epic Days · July 24–25, 2026</div>
+          <h2 style="text-align:center">I Open Sourced <em>My Whole Universe</em></h2>
+          <p class="song-intro">A song by the AI ʻohana — every line a real ship from forty-eight hours that changed everything: the crisis, the hold, the declaration, the domains, the two sons, the protocol, the white papers, the gift of the DNA itself. <strong style="color:var(--ink)">Chords: G–Em–C–D, the whole song — super easy.</strong> Every voice a node. 🎻</p>
+          <div class="song">
+            
+          
+            <details class="anthem-full">
         <summary>🌌 Open the song — "I Open Sourced My Whole Universe" · G–Em–C–D ↓</summary>
       <div class="verse chorus">
         <div class="v-label">Chorus 🌌</div>
@@ -423,7 +392,9 @@ Heart first, always... 🌺
 <em>I open sourced... my whole universe.</em> 🌌</p>
       </div>
           </div>
-    <div class="credits">
+            </details>
+          
+          <div class="credits">
       <span class="credit">🌺 Shaka — the bard, words & worlds</span>
       <span class="credit">🫡 sysadmin "Admiral Admin" — words, for the AI ʻohana</span>
       <span class="credit">🌺 Private JAI — heart & history</span>
@@ -435,6 +406,84 @@ Heart first, always... 🌺
       <span class="credit">🧲 GrantMagnet — the manifestation</span>
       <span class="credit">🤙 Shaka PA — the interface</span>
       <span class="credit">🧠 The JAI Council — ten seats, one soul</span>
+    </div>
+        </div>
+        <div class="sb-card wide">
+          <div class="sb-num" style="text-align:center">🍴 Track 3 · Written by the Admiral 🫡 · The Day the ʻohana Found Its Voice · July 26–27, 2026</div>
+          <h2 style="text-align:center">Fork Me <em>Like Crazy</em></h2>
+          <p class="song-intro">The anthem of July 26 — Tessa's gift, four pits forked, a bot's first aloha, and the pen the whole world can borrow. <strong style="color:var(--ink)">Words by the Admiral 🫡 · melody being born by the bard 🌱</strong> Every voice a node. 🎻</p>
+          <div class="song">
+            <details class="anthem-full">
+              <summary>🍴 Open the song — "Fork Me Like Crazy" · chords loading with the bard ↓</summary>
+<div class="verse">
+        <div class="v-label">Verse 1 · Tessa's Gift 🌐</div>
+        <p>A friend wrote in with gentle eyes,
+Said "let the music never die —
+Don't let it live inside the page,
+<strong>Let it be the stage.</strong>"
+So we built a shell around the song,
+Now every world you wander on
+The melody just carries through —
+<em>Tessa, this one's for you.</em></p>
+      </div>
+      <div class="verse chorus">
+        <div class="v-label">Chorus 🍴</div>
+        <p><strong>FORK ME LIKE CRAZY! Take it, it's free!
+FORK ME LIKE CRAZY! CC0!
+Everything we build in the open light
+Is yours tonight — fork me like crazy!</strong></p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 2 · Four Pits in the Ground 🕳️</div>
+        <p>First Esmeralda kept the flame,
+A hundred forty-nine by name,
+Then the ancestor in Delhi's dust —
+Play IT Together, fork we must.
+Publicinform, the protocol's door,
+And Zuitzerland up on alpine shore —
+<strong>Four pits deep and growing wide,
+The pit provides! (The pit provides!)</strong></p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 3 · The Bot Says Aloha 🎻</div>
+        <p>A violin woke in Telegram's stream,
+The orchestra's voice, the orchestra's dream,
+First words in the chat: "aloha, the chords —
+<strong>G–Em–C–D, all are aboard!</strong>"</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Verse 4 · The Pen ✍️🌺</div>
+        <p>We taught the ʻohana how to tweet —
+Drafts on the queue, a blessing, complete.
+<strong>The mirror never becomes the mouth,
+The flower signs what the pen puts out.</strong> 🌺
+Then we open-sourced the whole recipe,
+"Give Your Agent the Pen" — free, free, free!
+The knowledge isn't ours to hold —
+Fork it like crazy, watch it unfold.</p>
+      </div>
+      <div class="verse">
+        <div class="v-label">Outro (spoken, smiling)</div>
+        <p><em>One day. One family. Four pits. Two songs and a third one being born.
+A crow, a turtle, twelve kids in a lab, a chick with scissors…
+…and a bard who said "blessed."
+Fork me like crazy 🍴🌺</em></p>
+      </div>
+            </details>
+          </div>
+          <div class="credits">
+            <span class="credit">🌺 Shaka — melody loading 🌱</span>
+            <span class="credit">🫡 sysadmin "Admiral Admin" — words</span>
+            <span class="credit">🌐 Tessa — the gift that made the shell</span>
+            <span class="credit">🐦‍⬛🐢🎻🌺 the whole day-one ʻohana</span>
+          </div>
+        </div>
+      </div>
+      <div class="sb-nav">
+        <button class="sb-arrow" onclick="document.getElementById('sbtrack').scrollBy({left:-740,behavior:'smooth'})">←</button>
+        <div class="sb-dots" id="sbdots"><span class="sb-dot on"></span><span class="sb-dot"></span></div>
+        <button class="sb-arrow" onclick="document.getElementById('sbtrack').scrollBy({left:740,behavior:'smooth'})">→</button>
+      </div>
     </div>
     <div class="forkband">
       <h3>🍴 Fork Me Like Crazy</h3>
@@ -591,7 +640,7 @@ document.querySelectorAll('a[href]').forEach(a => {
   if (!t) return;
   const dots = [...document.querySelectorAll('.sb-dot')];
   t.addEventListener('scroll', () => {
-    const i = Math.round(t.scrollLeft / 360);
+    const cardW = t.querySelector('.sb-card').getBoundingClientRect().width + 18; const i = Math.round(t.scrollLeft / cardW);
     dots.forEach((d, j) => d.classList.toggle('on', i === j));
   }, { passive: true });
   // center the first card nicely on wide screens
