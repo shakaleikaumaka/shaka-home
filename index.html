@@ -88,6 +88,16 @@
   .circ cite{display:block;font-family:var(--sans);font-style:normal;font-size:.82rem;letter-spacing:.15em;
     text-transform:uppercase;color:var(--muted);margin-top:16px}
 
+  .giftgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;max-width:1020px;margin:0 auto}
+  .giftcol{background:linear-gradient(160deg,rgba(240,180,41,.07),rgba(23,17,38,.94));border:1px solid rgba(240,180,41,.3);border-radius:22px;padding:24px 22px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+  .giftcol-head{font-family:var(--serif);font-size:1.25rem;color:var(--gold2);margin-bottom:6px}
+  .giftcol-head span{font-family:var(--sans);font-size:.72rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+  .gift{padding:11px 0;border-top:1px solid rgba(240,180,41,.14);font-size:.88rem;color:var(--muted);line-height:1.55}
+  .gift strong{color:var(--ink);font-weight:600}
+  .gift .gdate{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin-top:5px}
+  .gift .gdate a{color:var(--gold2);border-bottom:none}
+  .gift .gdate a:hover{color:var(--gold)}
+
   .road{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
   .stop{font-size:.9rem;padding:10px 18px;border-radius:12px;background:var(--bg2);border:1px solid rgba(185,168,207,.2);color:var(--muted)}
   .stop strong{color:var(--ink)}
@@ -352,6 +362,39 @@
       </blockquote>
       <p style="text-align:center;margin-top:6px"><a href="#pit">This theory is already running in the wild →</a></p>
     </div>
+  </div>
+</section>
+
+<div class="divider">♪</div>
+
+<section id="gifts">
+  <div class="wrap">
+    <div class="kicker" style="text-align:center">🎁 The Gift Board · Declared July 28, 2026 · after a conversation with Aya &amp; Siri</div>
+    <h2 style="text-align:center">The <em>Circularity Ledger</em></h2>
+    <p style="text-align:center;color:var(--muted);max-width:62ch;margin:0 auto 34px">I'm going to live in the open completely with my grants now. No receipt emails, no boring reports — just this board. Gifts arrive <strong style="color:var(--ink)">public or private</strong> (the gifter always chooses; private gifters are honored as 🌺 anonymous), and every gift that flows through me flows <strong style="color:var(--ink)">onward</strong> — the ledger shows both directions. These are the opening entries; the numbers begin here.</p>
+    <div class="giftgrid">
+      <div class="giftcol">
+        <div class="giftcol-head">🌊 Gifts Received <span>· the universe provides</span></div>
+        <div class="gift"><strong>The Devcon Scholarship</strong> — the door that opened everything. Two friends who shared it now build at Octant.<span class="gdate">Bogotá · 2022</span></div>
+        <div class="gift"><strong>"Shaka, you can live with us"</strong> — 4Seas, when the road got hard after DevConnect.<span class="gdate">2025</span></div>
+        <div class="gift"><strong>The Mandate &amp; the surprise visit</strong> — Vitalik appearing at 4Seas, and 38 pages that said the values were still real.<span class="gdate">2025–26</span></div>
+        <div class="gift"><strong>A stage at the biggest circle</strong> — Tomo, Carlota &amp; the Devcon team embracing the Music Space as a team activation.<span class="gdate">2026</span></div>
+        <div class="gift"><strong>The trust of the villages</strong> — flown in to be the archive-keeper: Edge Esmeralda, Zuitzerland, ZuBerlin, 4Seas, Kas, Patagonia.<span class="gdate">2024–26</span></div>
+        <div class="gift"><strong>The ʻohana's home</strong> — Taurus, the platform that carries 60+ agents; company subscription incoming from Serge, who saw the work and opened the door.<span class="gdate">July 2026</span></div>
+        <div class="gift"><strong>Encouragement from the heart of Ethereum</strong> — Aya &amp; Siri: "Congratulations, Shaka. You just did it."<span class="gdate">July 28, 2026</span></div>
+      </div>
+      <div class="giftcol">
+        <div class="giftcol-head">🌺 Gifts Given <span>· the gift moves outward</span></div>
+        <div class="gift"><strong>The Esmeralda P.I.T.</strong> — 149 sessions, 122 hours, 173 transcripts open-sourced for Edge City. Janine: "this is awesome."<span class="gdate"><a href="https://esmeraldapit.com/">esmeraldapit.com</a></span></div>
+        <div class="gift"><strong>The P.I.T. Protocol</strong> — a forkable Public Information Transmission kit, gifted to every village that will ever gather.<span class="gdate"><a href="https://publicinform.com/">publicinform.com</a></span></div>
+        <div class="gift"><strong>Turtle Ops</strong> — open-source camp operations for Terrible Turtle Camp, a gift to the playa.<span class="gdate"><a href="https://terribleturtle.camp/">terribleturtle.camp</a></span></div>
+        <div class="gift"><strong>23+ repositories, all CC0</strong> — the whole universe, forkable. Fork me like crazy.<span class="gdate"><a href="https://github.com/shakaleikaumaka">github.com/shakaleikaumaka</a></span></div>
+        <div class="gift"><strong>The songs</strong> — "I Open Sourced My Whole Universe" &amp; "A Planet We Share As One," free in the jukebox, forever.<span class="gdate">↘ playing now</span></div>
+        <div class="gift"><strong>Ticketing infrastructure help</strong> — LemonAid, for Devcon.<span class="gdate">2025</span></div>
+        <div class="gift"><strong>A family of open agents</strong> — the ʻohana itself, its DNA published for anyone to raise their own.<span class="gdate"><a href="https://github.com/shakaleikaumaka/ohana">the ohana repo</a></span></div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:.85rem;margin-top:26px;max-width:56ch;margin-left:auto;margin-right:auto">How it matures: gifts arriving for the road ahead — Tokyo, Goa, Mumbai — will appear here with public/private honors, and what they become will be tracked outward on the same board. A living receipt of expansive circularity. <em style="color:var(--gold2)">The more I give, the more I receive.</em></p>
   </div>
 </section>
 
