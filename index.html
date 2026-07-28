@@ -171,13 +171,14 @@
   footer .foot-sig{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--gold2);margin-bottom:14px}
   .divider{text-align:center;color:rgba(240,180,41,.4);font-size:1.25rem;letter-spacing:1.2em;padding:10px 0}
 
-  /* 🖱️ cursor canon (Shaka, 2026-07-27): the family sigil IS the mouse —
-     butterfly at the tip (Butterflies and Love 🦋). desktop cursors only
-     (pointer:fine); links & buttons keep the hand, text fields keep the
-     I-beam, touch devices untouched. hotspot = the left wingtip. */
-  @media (pointer:fine){
-    body{cursor:url('assets/shaka-butterfly-cursor.png') 2 11,auto}
-  }
+@media (max-width:640px){
+  #miniplayer{bottom:14px !important;right:14px !important;left:auto !important;padding:7px 12px 7px 8px !important;gap:8px !important}
+  #miniplayer > div > div:last-child{display:none !important}
+  #songbtn{width:36px !important;height:36px !important;font-size:.95rem !important;flex-shrink:0}
+  #songstatus{font-size:.66rem !important;letter-spacing:.06em !important;white-space:nowrap;max-width:190px;overflow:hidden;text-overflow:ellipsis}
+  #lyricsbox{bottom:64px !important;right:14px !important}
+  .lyrics-panel{width:min(300px,86vw) !important;max-height:46vh !important}
+}
 </style>
 </head>
 <body>
@@ -516,6 +517,8 @@ document.querySelectorAll('a[href]').forEach(function(a){
 })();
 </script>
 <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
+<!-- devcon ticket float: live-page only, NEVER commit to repo (Shaka canon Jul 27 2026: only shaka front page + opensourceorchestra.org carry it) -->
+<script src="https://opensourcestage-tkt3ezrrju-nqfhvcnv.taur.link/assets/devcon-float.js"></script>
 
 </body>
 </html>

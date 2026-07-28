@@ -1,6 +1,8 @@
-/* 🦋 bl-player.js v4 — one window, two tracks, sing-along everywhere. One line: <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
+/* 🦋 bl-player.js v4.5 — one window, two tracks, sing-along everywhere. One line: <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
    Track 1: Butterflies and Love · Track 2: A Planet We Share As One — both recorded with Ethereum Singapore.
-   v4: pop-out jukebox REMOVED (pop-up blockers made it ugly); the third button is now SING-ALONG — lyrics pop up for the song playing.
+   v4.5: perfectionist canon (Shaka, Jul 27 2026) — text column capped with ellipsis so the bar never touches the manifesto paper; sub line drops ≤1100px.
+   v4.4/v4.3: desktop haircuts. v4.2: mobile compact + stack canon.
+   v4.1: iframe guard (shaka-shell parent owns the music). v4: pop-out jukebox REMOVED; third button is SING-ALONG lyrics.
    v3: same-tab navigation. v1 (single-track) preserved at bl-player-v1.js. */
 (function(){
 if (document.getElementById('miniplayer')) return;
@@ -25,21 +27,44 @@ const TRACKS = [
 ];
 const wrap = document.createElement('div');
 wrap.innerHTML = `
-<div id="miniplayer" style="position:fixed;bottom:20px;right:20px;z-index:99999;display:flex;align-items:center;gap:12px;background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));border:1px solid #f0b429;border-radius:999px;padding:10px 20px 10px 12px;backdrop-filter:blur(8px);box-shadow:0 8px 40px rgba(240,180,41,.25);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
-  <button id="songbtn" style="width:44px;height:44px;border-radius:50%;border:none;background:#f0b429;color:#241a02;font-size:1.15rem;cursor:pointer;animation:blpulse 2s infinite">▶</button>
-  <div style="line-height:1.3">
-    <div id="songstatus" style="font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#ffd97a">tap to play — ${TRACKS[0].title}</div>
-    <div id="songsub" style="font-size:.82rem;color:#b9a8cf">${TRACKS[0].sub}</div>
+<div id="miniplayer" style="position:fixed;bottom:14px;right:14px;z-index:99999;display:flex;align-items:center;gap:7px;background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));border:1px solid #f0b429;border-radius:999px;padding:6px 12px 6px 7px;backdrop-filter:blur(8px);box-shadow:0 8px 40px rgba(240,180,41,.25);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
+  <button id="songbtn" style="width:32px;height:32px;border-radius:50%;border:none;background:#f0b429;color:#241a02;font-size:.85rem;cursor:pointer;animation:blpulse 2s infinite">▶</button>
+  <div style="line-height:1.25">
+    <div id="songstatus" style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#ffd97a">tap to play — ${TRACKS[0].title}</div>
+    <div id="songsub" style="font-size:.64rem;color:#b9a8cf">${TRACKS[0].sub}</div>
   </div>
-  <button id="trackbtn" title="switch track" style="width:30px;height:30px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.72rem;cursor:pointer;letter-spacing:.05em">1·2</button>
-  <button id="lyricsbtn" title="sing along — lyrics for the song playing" style="width:30px;height:30px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.85rem;cursor:pointer">🦋</button>
+  <button id="trackbtn" title="switch track" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.56rem;cursor:pointer;letter-spacing:.05em">1·2</button>
+  <button id="lyricsbtn" title="sing along — lyrics for the song playing" style="width:24px;height:24px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.66rem;cursor:pointer">🦋</button>
 </div>
-<div id="blyrics" style="display:none;position:fixed;bottom:92px;right:20px;z-index:99998;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(45,212,191,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
+<div id="blyrics" style="display:none;position:fixed;bottom:68px;right:14px;z-index:99998;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(45,212,191,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
   <div id="blyricshead" style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#2dd4bf;margin-bottom:10px"></div>
   <div id="blyricsbody" style="font-size:.9rem;line-height:1.6;color:#b9a8cf"></div>
 </div>
 <audio id="thesong" preload="auto"></audio>
-<style>@keyframes blpulse{0%,100%{box-shadow:0 0 0 0 rgba(240,180,41,.5)}50%{box-shadow:0 0 0 12px rgba(240,180,41,0)}}@keyframes bleq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}.blbars{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px;margin-right:2px}.blbars i{width:3px;background:#f0b429;border-radius:2px;animation:bleq .9s ease-in-out infinite}.blbars i:nth-child(2){animation-delay:.2s}.blbars i:nth-child(3){animation-delay:.4s}#blyricsbody p{margin:0 0 14px}#blyricsbody strong{color:#f3ead8}</style>`;
+<style>@keyframes blpulse{0%,100%{box-shadow:0 0 0 0 rgba(240,180,41,.5)}50%{box-shadow:0 0 0 12px rgba(240,180,41,0)}}@keyframes bleq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}.blbars{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px;margin-right:2px}.blbars i{width:3px;background:#f0b429;border-radius:2px;animation:bleq .9s ease-in-out infinite}.blbars i:nth-child(2){animation-delay:.2s}.blbars i:nth-child(3){animation-delay:.4s}#blyricsbody p{margin:0 0 14px}#blyricsbody strong{color:#f3ead8}
+/* v4.5 perfectionist canon (Shaka, Jul 27 2026): cap the text column so the bar can NEVER grow wide enough to touch the manifesto paper */
+#miniplayer > div{max-width:200px}
+#songstatus,#songsub{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;max-width:200px}
+@media (max-width:1100px){
+  /* narrower windows: drop the sub line entirely, tighter cap */
+  #miniplayer > div > div:last-child{display:none !important}
+  #miniplayer > div{max-width:160px}
+  #songstatus{max-width:160px !important}
+}
+@media (max-width:640px){
+  /* v4.2 mobile canon (Shaka, Jul 27 2026): shrink so jukebox + Devcon ticket sit side by side */
+  #miniplayer{bottom:12px !important;right:12px !important;left:auto !important;padding:6px 10px 6px 7px !important;gap:7px !important;border-radius:999px !important}
+  #miniplayer > div > div:last-child{display:none !important}
+  #songbtn{width:30px !important;height:30px !important;font-size:.8rem !important;flex-shrink:0}
+  #songstatus{font-size:.58rem !important;letter-spacing:.05em !important;white-space:nowrap;max-width:106px;overflow:hidden;text-overflow:ellipsis}
+  #trackbtn,#lyricsbtn{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
+  #blyrics{bottom:82px !important;right:12px !important}
+}
+@media (max-width:400px){
+  /* very narrow phones: ticket floats ABOVE the jukebox (stacked), so the bar gets a little room back */
+  #songstatus{max-width:140px}
+}
+</style>`;
 document.body.appendChild(wrap);
 const song = document.getElementById('thesong');
 const btn = document.getElementById('songbtn');
