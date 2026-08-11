@@ -54,6 +54,75 @@ const TRACKS = [
     chords: 'lyrics on the way', icon: '🎻',
     lyrics: `<p><strong>Gioia Perfetta — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>"Perfect joy" — the newest gift from the brother who started it all. Lyrics on their way; let the music speak first.</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
+  { title: '3MILY', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--3mily.mp3',
+    chords: 'sing along 🎤', icon: '🎻',
+    lyrics: `<p><strong>3MILY — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Ci incontriamo in volo<br>e in volo ci lasciamo<br>tu alla tua missione<br>ed io all’Uragano<br>che raffredda la mente<br>dopo una calda estate<br>e il pianeta in fiamme</p>
+<p>chissà se troveremo<br>ognuno per sè<br>felicità, era una vasca piena<br>dove potevo guardarti affogare<br>accarezzando una canzone <br>semplice come te</p>
+<p>3mily 3mily<br>cosa fai 3mily</p>
+<p>incontrerai qualcuno<br>o qualcuno ti incontrerà<br>digli di no, tu non ci credi alla slealtà<br>dei corpi sensuali orbitanti<br>travolti dalla gravità<br>di una altra cometa.</p>
+<p>3mily 3mily<br>dove sei 3milydormi qui 3mily</p>` },
+  { title: 'Burnout', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--burnout.mp3',
+    chords: 'sing along 🎤', icon: '🎻',
+    lyrics: `<p><strong>Burnout — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Mi piacciono le farfalle <br>Mi piacciono colorate<br>Mi perdo nelle trame<br>Delle loro traversate</p>
+<p>e questa emozione che graffia il corso del vento<br>Fa scorta di pace prima del riarmamento</p>
+<p>Oggi non posso fare altro che cedere<br>che dare ragione all'irragionevole</p>
+<p>I mantra osceni degli motivatori alla conquista<br>Getto la spugna e vado in spiaggia</p>
+<p>ma sulla sabbia un inatteso batticuore<br>mi spinge sul ciglio un abisso interiore</p>
+<p>Tutti i volti rubati a persone migliori<br>Non mi aiuteranno <br>Mi sento esposto e in preda all'affanno</p>
+<p>Cade ogni tipo di fede <br>Anche quella che avevo in te<br>Non mi resta che cedere, eccedere</p>
+<p>E quando tocco il fondo una convinzione!<br>Un'idea senza soggetto, misura o sapore!</p>
+<p>si fa strada in me<br>e mi porta con sé<br>per aria |  per i sentieri antichi<br>nell’aria | che collegano i pianeti</p>
+<p>Mi piaccion le farfalle, mi piacciono colorate<br>Mi piaccion le farfalle, mi piacciono colorate<br>Mi piaccion le farfalle, mi piacciono colorate</p>` },
+  { title: 'Island', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--island.mp3',
+    chords: 'sing along 🎤', icon: '🎻',
+    lyrics: `<p><strong>Island — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>oh life<br>you got me rowing<br>under the sun<br>no way I can find my island</p>
+<p>fine line<br>between the blue<br>ocean and soul<br>tears won’t let me see my island</p>
+<p>low lives<br>my family<br>the only ones I know<br>go, go with the flow<br>miles and miles away from the skyline</p>
+<p>you rock and rollers<br>take the oars<br>you castaway lovers<br>feel the roar of Life<br>life on an island<br>searching for islands<br>sailing by the stars<br>never be lost</p>
+<p>all mine<br>nothing to lose, under this sun<br>just nowhere to run<br>we’ll never stop chasing our Islands</p>
+<p>you rock and rollers<br>take the oars<br>you exiled looters feel the roar<br>of Life<br>life on an Island<br>searchin for islands<br>sailing by the stars<br>never be lost<br>never grow old</p>` },
+  { title: 'Cioccolato Fondente', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--cioccolato-fondente.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>Cioccolato Fondente — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
+  { title: 'La Canzone del Tuono', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--la-canzone-del-tuono.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>La Canzone del Tuono — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
+  { title: 'Be My Friend', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--be-my-friend.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>Be My Friend — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
+  { title: 'Pharmacist Wife (Mv. 2)', sub: 'Matteo T &amp; Marek K 🎻',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pharmacist-wife-mv2.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>Pharmacist Wife (Mv. 2) — Matteo T &amp; Marek K — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
+  { title: 'Plato (ORCHI Rework)', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--plato-orchi-rework.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>Plato (ORCHI Rework) — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
+  { title: 'Pollo', sub: 'Matteo Tambussi 🎻🇮🇹',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pollo.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>Pollo — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` }
 ];
 const wrap = document.createElement('div');
