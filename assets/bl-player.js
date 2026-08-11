@@ -26,14 +26,14 @@ const TRACKS = [
 <p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>` },
   { title: 'Ginger Game', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--ginger-game.mp3',
-    chords: 'instrumental', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🎻',
     lyrics: `<p><strong>Ginger Game — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Matteo is the great Italian brother who started it all: on 2022-06-17 he submitted the FIRST music DIP in Devcon history — "Music Sessions | Open Mic Stage" for Devcon Bogotá — and co-founded the Open Source Orchestra tradition at ETH Prague 2022.</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>
 <p>Every voice is a node. None of this would be possible without you, brother.</p>` },
   { title: 'Luogoper', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--luogoper.mp3',
-    chords: 'instrumental', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🎻',
     lyrics: `<p><strong>Luogoper — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Musician, linguistics passionate, web3 OG — from the EEA survey days to ethlocal.co and SpaghettETH, Matteo has been weaving music into Ethereum since before it was cool.</p>
 <p><em>"Music as sanctuary. Sounds of consensus. Owned by no one."</em></p>
