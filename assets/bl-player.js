@@ -23,7 +23,21 @@ const TRACKS = [
 <p><strong>And I have a frustration</strong><br>They also tested those fucking bombs<br>In our ocean<br>And now you see with all the plastic<br>It's choking our reefs, you see<br><strong>Protection of creation<br>Must be a collaboration<br>Of every nation<br>For a planet we share as one</strong></p>
 <p><strong>You know I had a frustration</strong><br>That two bordering nations<br>Have to fight for the greed<br>Of one fucking man's manipulations<br>Why does war have to be a typical situation<br>Can't we see a better resolution<br><strong>For a planet we share as one</strong></p>
 <p><strong>It doesn't matter if you count up<br>To Web 1, 2 or 3</strong><br>We all can evolve<br>Like we evolve our technology<br>And now we see — like an experiment<br>With a Zuzalu pop-up city<br>We can build and dogfood<br>Our own technology<br>So we can see<br><strong>How we can be free</strong></p>
-<p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>` }
+<p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>` },
+  { title: 'Ginger Game', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--ginger-game.mp3',
+    chords: 'instrumental', icon: '🎻',
+    lyrics: `<p><strong>Ginger Game — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Matteo is the great Italian brother who started it all: on 2022-06-17 he submitted the FIRST music DIP in Devcon history — "Music Sessions | Open Mic Stage" for Devcon Bogotá — and co-founded the Open Source Orchestra tradition at ETH Prague 2022.</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>
+<p>Every voice is a node. None of this would be possible without you, brother.</p>` },
+  { title: 'Luogoper', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--luogoper.mp3',
+    chords: 'instrumental', icon: '🎻',
+    lyrics: `<p><strong>Luogoper — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Musician, linguistics passionate, web3 OG — from the EEA survey days to ethlocal.co and SpaghettETH, Matteo has been weaving music into Ethereum since before it was cool.</p>
+<p><em>"Music as sanctuary. Sounds of consensus. Owned by no one."</em></p>
+<p>Gifted to the ʻohana with love — every song free to carry home. CC0 🌺</p>` }
 ];
 const wrap = document.createElement('div');
 wrap.innerHTML = `
