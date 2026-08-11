@@ -37,7 +37,7 @@ const TRACKS = [
     lyrics: `<p><strong>Luogoper — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Musician, linguistics passionate, web3 OG — from the EEA survey days to ethlocal.co and SpaghettETH, Matteo has been weaving music into Ethereum since before it was cool.</p>
 <p><em>"Music as sanctuary. Sounds of consensus. Owned by no one."</em></p>
-<p>Gifted to the ʻohana with love — every song free to carry home. CC0 🌺</p>` }
+<p>Gifted to the ʻohana with love — every song free to carry home. CC0 🌺</p>` },
   { title: 'Tanta Paura', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--tanta-paura.mp3',
     chords: 'sing along 🎤', icon: '🎻',
