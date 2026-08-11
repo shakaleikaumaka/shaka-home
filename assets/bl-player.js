@@ -38,6 +38,23 @@ const TRACKS = [
 <p>Musician, linguistics passionate, web3 OG — from the EEA survey days to ethlocal.co and SpaghettETH, Matteo has been weaving music into Ethereum since before it was cool.</p>
 <p><em>"Music as sanctuary. Sounds of consensus. Owned by no one."</em></p>
 <p>Gifted to the ʻohana with love — every song free to carry home. CC0 🌺</p>` }
+  { title: 'Tanta Paura', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--tanta-paura.mp3',
+    chords: 'sing along 🎤', icon: '🎻',
+    lyrics: `<p><strong>Tanta Paura — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>Non è la disumanità che mi spaventa <br>Né l'avverata fantascienza<br>Quanto il dovere rinunciare, fino in fondo<br>A ciò in cui io mi riconosco,fIn cui sono più capace</p>
+<p>Ho così tante paure, <br>Ho sempre nuove paure</p>
+<p>E  Faccio fatica a sbarazzarmi del tuo amore di coniglio<br>Ci han detto che l’integrità si ottiene solo con un figlio <br>Ma un figlio è un atto criminale,<br>è un tradimento della specie<br>Quando a riscrivere l'amore tutti vanno col macete, <br> <br>E con le lame taglieranno tutti i ponti col passato,<br>garantiranno il futuro, un futuro inviolato</p>
+<p>Ho così tanta paura<br>Di essere solo con la mia paura</p>
+<p>E mi sforzo<br>A livello intuitivo<br>Di capire qual è il luogo<br>Qual è il momento conclusivo<br>Dov’è sepolta l’altra metà del mio cuore<br>Dove ho le mie virtù<br>Dimmi ora se ce l’hai tu<br>Dimmi ora se ce l’hai tu</p>
+<p>Sono Pacifico e avverto serenità</p>
+<p>Rit 2<br>e ti penso, come il vento respiro nelle valli<br>sopra i mari, di un desiderio conclusivo<br>a cui sarò per sempre fedele <br>Senza perdermi in tanta paura<br>Senza perdermi in tanta paura</p>` },
+  { title: 'Gioia Perfetta', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
+    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--gioia-perfetta.mp3',
+    chords: 'lyrics on the way', icon: '🎻',
+    lyrics: `<p><strong>Gioia Perfetta — Matteo Tambussi 🎻🇮🇹</strong></p>
+<p>"Perfect joy" — the newest gift from the brother who started it all. Lyrics on their way; let the music speak first.</p>
+<p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` }
 ];
 const wrap = document.createElement('div');
 wrap.innerHTML = `
