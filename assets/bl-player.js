@@ -269,7 +269,7 @@ document.querySelectorAll('a[href]').forEach(a => {
     let url = a.href;
     try {
       const u = new URL(url, location.href);
-      if ((u.hostname.endsWith('taur.link') || u.hostname.endsWith('shakaleikaumaka.com')) && song.currentTime > 1) {
+      if ((u.hostname.endsWith('taur.link') || u.hostname.endsWith('shakaleikaumaka.com') || u.hostname.endsWith('shakafans.com') || u.hostname.endsWith('theshellpit.com') || u.hostname.endsWith('spectoragent.com') || u.hostname.endsWith('blessingpool.com') || u.hostname.endsWith('opensourceorchestra.org')) && song.currentTime > 1) {
         u.searchParams.set('bl_t', song.currentTime.toFixed(1));
         u.searchParams.set('bl_trk', String(ti));
         url = u.toString();
