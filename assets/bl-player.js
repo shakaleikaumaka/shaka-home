@@ -125,6 +125,8 @@ const TRACKS = [
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` }
 ];
+/* v5.2: artist links — Matteo's songs point home to his linktree */
+TRACKS.forEach(t => { if (/Tambussi|Marek/.test(t.sub)) t.artistUrl = 'https://linktr.ee/matteotambussi'; });
 const wrap = document.createElement('div');
 wrap.innerHTML = `
 <div id="miniplayer" style="position:fixed;bottom:14px;right:14px;z-index:99999;display:flex;align-items:center;gap:7px;background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));border:1px solid #f0b429;border-radius:999px;padding:6px 12px 6px 7px;backdrop-filter:blur(8px);box-shadow:0 8px 40px rgba(240,180,41,.25);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
@@ -135,6 +137,12 @@ wrap.innerHTML = `
   </div>
   <button id="trackbtn" title="switch track" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.56rem;cursor:pointer;letter-spacing:.05em">1·2</button>
   <button id="lyricsbtn" title="sing along — lyrics for the song playing" style="width:24px;height:24px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.66rem;cursor:pointer">🦋</button>
+  <button id="dlbtn" title="take the music — free downloads · CC0" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.72rem;cursor:pointer;flex-shrink:0;line-height:1">⬇</button>
+</div>
+<div id="bldownload" style="display:none;position:fixed;bottom:68px;right:14px;z-index:99998;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(240,180,41,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
+  <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#ffd97a;margin-bottom:10px">⬇ take the music · CC0</div>
+  <div id="bldlbody" style="font-size:.86rem;line-height:1.5;color:#b9a8cf"></div>
+  <div style="font-size:.68rem;color:rgba(185,168,207,.7);margin-top:12px;font-style:italic">every song is a public good — free to keep, free to share 🌺</div>
 </div>
 <div id="blyrics" style="display:none;position:fixed;bottom:68px;right:14px;z-index:99998;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(45,212,191,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
   <div id="blyricshead" style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#2dd4bf;margin-bottom:10px"></div>
@@ -157,8 +165,8 @@ wrap.innerHTML = `
   #miniplayer > div > div:last-child{display:none !important}
   #songbtn{width:30px !important;height:30px !important;font-size:.8rem !important;flex-shrink:0}
   #songstatus{font-size:.58rem !important;letter-spacing:.05em !important;white-space:nowrap;max-width:106px;overflow:hidden;text-overflow:ellipsis}
-  #trackbtn,#lyricsbtn{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
-  #blyrics{bottom:82px !important;right:12px !important}
+  #trackbtn,#lyricsbtn,#dlbtn{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
+  #blyrics,#bldownload{bottom:82px !important;right:12px !important}
 }
 @media (max-width:400px){
   /* very narrow phones: ticket floats ABOVE the jukebox (stacked), so the bar gets a little room back */
@@ -172,6 +180,27 @@ const status = document.getElementById('songstatus');
 const sub = document.getElementById('songsub');
 const trackBtn = document.getElementById('trackbtn');
 const lyricsBtn = document.getElementById('lyricsbtn');
+const dlBtn = document.getElementById('dlbtn');
+const dlBox = document.getElementById('bldownload');
+const dlBody = document.getElementById('bldlbody');
+let dlOpen = false;
+function escH(x){ return String(x).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function renderDownloads(){
+  dlBody.innerHTML = TRACKS.map((t,i) =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(240,196,100,.12)">' +
+    '<span style="color:#f3ead8">' + t.icon + ' ' + escH(t.title) + (t.artistUrl ? ' <a href="' + t.artistUrl + '" target="_blank" rel="noopener" style="color:#2dd4bf;text-decoration:none;font-size:.72rem">↗ artist</a>' : '') + '</span>' +
+    '<a href="' + t.src + '" download style="color:#ffd97a;text-decoration:none;font-size:.74rem;border:1px solid rgba(240,180,41,.5);border-radius:999px;padding:.2em .8em;white-space:nowrap">⬇ mp3</a>' +
+    '</div>').join('');
+}
+function toggleDownloads(force){
+  dlOpen = (typeof force === 'boolean') ? force : !dlOpen;
+  if (dlOpen) renderDownloads();
+  dlBox.style.display = dlOpen ? 'block' : 'none';
+  dlBtn.style.background = dlOpen ? '#f0b429' : 'transparent';
+  dlBtn.style.color = dlOpen ? '#241a02' : '#ffd97a';
+  if (dlOpen) toggleLyrics(false);
+}
+dlBtn.addEventListener('click', () => toggleDownloads());
 const lyricsBox = document.getElementById('blyrics');
 const lyricsHead = document.getElementById('blyricshead');
 const lyricsBody = document.getElementById('blyricsbody');
@@ -186,12 +215,13 @@ function saveState(){ try { localStorage.setItem(KEY, JSON.stringify({ track: ti
 function loadState(){ try { const d = JSON.parse(localStorage.getItem(KEY) || 'null'); return d && typeof d.t === 'number' ? d : null; } catch(e){ return null; } }
 function renderLyrics(){
   lyricsHead.textContent = TRACKS[ti].icon + ' ' + TRACKS[ti].title + ' · ' + TRACKS[ti].chords;
-  lyricsBody.innerHTML = TRACKS[ti].lyrics;
+  lyricsBody.innerHTML = TRACKS[ti].lyrics + (TRACKS[ti].artistUrl ? '<p style="margin-top:6px"><a href="' + TRACKS[ti].artistUrl + '" target="_blank" rel="noopener" style="color:#2dd4bf">🎻 more from this artist → linktr.ee</a></p>' : '');
 }
 function toggleLyrics(force){
   lyricsOpen = (typeof force === 'boolean') ? force : !lyricsOpen;
   if (lyricsOpen) renderLyrics();
   lyricsBox.style.display = lyricsOpen ? 'block' : 'none';
+  if (lyricsOpen && typeof dlBox !== 'undefined') { dlOpen = false; dlBox.style.display = 'none'; dlBtn.style.background = 'transparent'; dlBtn.style.color = '#ffd97a'; }
   lyricsBtn.style.background = lyricsOpen ? '#2dd4bf' : 'transparent';
   lyricsBtn.style.color = lyricsOpen ? '#0d0a14' : '#2dd4bf';
 }
