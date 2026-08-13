@@ -1,4 +1,10 @@
-/* 🦋 bl-player.js v5.0 — THE CONTINUUM (Tess's dream, Shaka canon 2026-08-13): the song crosses doors with you.
+/* 📻 bl-player.js v6.0 — OSO FLOW RADIO (THE HYBRID, Shaka canon 2026-08-13): ONE radio jukebox for every door.
+   "lets focus on having only one radio jukebox.. call it OSO Flow Radio and include the hybrid best features of both..
+    with aloha love and color this can keep growing like a garden.. no harm done :)))"
+   Hybrid of THE CONTINUUM (v5.x jukebox: lyrics bubble, download panel, follow-you) + OSO FLOW v1 (per-song emoji,
+   moving words, ✕ close + 🎵 note). Artist names are links home. Download page: shakaleikaumaka.com/radio/
+   v6.0: distinct emoji per song · marquee now-playing · ✕/🎵 close-reopen · artist links in bar · share in download panel.
+   ——— v5.0 — THE CONTINUUM (Tess's dream, Shaka canon 2026-08-13): the song crosses doors with you.
    Carry bl_t/bl_trk across the whole family; first-gesture resume (tap anywhere, the song continues).
    FOCUS DOORS (theshellpit / spectoragent / spectorgadget / esmeraldapit) stay silent by design.
    v4.5 — one window, two tracks, sing-along everywhere. One line: <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
@@ -35,21 +41,21 @@ const TRACKS = [
 <p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>` },
   { title: 'Ginger Game', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--ginger-game.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🫚',
     lyrics: `<p><strong>Ginger Game — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Matteo is the great Italian brother who started it all: on 2022-06-17 he submitted the FIRST music DIP in Devcon history — "Music Sessions | Open Mic Stage" for Devcon Bogotá — and co-founded the Open Source Orchestra tradition at ETH Prague 2022.</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>
 <p>Every voice is a node. None of this would be possible without you, brother.</p>` },
   { title: 'Luogoper', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--luogoper.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '📍',
     lyrics: `<p><strong>Luogoper — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Musician, linguistics passionate, web3 OG — from the EEA survey days to ethlocal.co and SpaghettETH, Matteo has been weaving music into Ethereum since before it was cool.</p>
 <p><em>"Music as sanctuary. Sounds of consensus. Owned by no one."</em></p>
 <p>Gifted to the ʻohana with love — every song free to carry home. CC0 🌺</p>` },
   { title: 'Tanta Paura', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--tanta-paura.mp3',
-    chords: 'sing along 🎤', icon: '🎻',
+    chords: 'sing along 🎤', icon: '🌊',
     lyrics: `<p><strong>Tanta Paura — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Non è la disumanità che mi spaventa <br>Né l'avverata fantascienza<br>Quanto il dovere rinunciare, fino in fondo<br>A ciò in cui io mi riconosco,fIn cui sono più capace</p>
 <p>Ho così tante paure, <br>Ho sempre nuove paure</p>
@@ -60,13 +66,13 @@ const TRACKS = [
 <p>Rit 2<br>e ti penso, come il vento respiro nelle valli<br>sopra i mari, di un desiderio conclusivo<br>a cui sarò per sempre fedele <br>Senza perdermi in tanta paura<br>Senza perdermi in tanta paura</p>` },
   { title: 'Gioia Perfetta', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--gioia-perfetta.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '✨',
     lyrics: `<p><strong>Gioia Perfetta — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>"Perfect joy" — the newest gift from the brother who started it all. Lyrics on their way; let the music speak first.</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: '3MILY', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--3mily.mp3',
-    chords: 'sing along 🎤', icon: '🎻',
+    chords: 'sing along 🎤', icon: '🌷',
     lyrics: `<p><strong>3MILY — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Ci incontriamo in volo<br>e in volo ci lasciamo<br>tu alla tua missione<br>ed io all’Uragano<br>che raffredda la mente<br>dopo una calda estate<br>e il pianeta in fiamme</p>
 <p>chissà se troveremo<br>ognuno per sè<br>felicità, era una vasca piena<br>dove potevo guardarti affogare<br>accarezzando una canzone <br>semplice come te</p>
@@ -75,7 +81,7 @@ const TRACKS = [
 <p>3mily 3mily<br>dove sei 3milydormi qui 3mily</p>` },
   { title: 'Burnout', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--burnout.mp3',
-    chords: 'sing along 🎤', icon: '🎻',
+    chords: 'sing along 🎤', icon: '🔥',
     lyrics: `<p><strong>Burnout — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Mi piacciono le farfalle <br>Mi piacciono colorate<br>Mi perdo nelle trame<br>Delle loro traversate</p>
 <p>e questa emozione che graffia il corso del vento<br>Fa scorta di pace prima del riarmamento</p>
@@ -89,7 +95,7 @@ const TRACKS = [
 <p>Mi piaccion le farfalle, mi piacciono colorate<br>Mi piaccion le farfalle, mi piacciono colorate<br>Mi piaccion le farfalle, mi piacciono colorate</p>` },
   { title: 'Island', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--island.mp3',
-    chords: 'sing along 🎤', icon: '🎻',
+    chords: 'sing along 🎤', icon: '🏝️',
     lyrics: `<p><strong>Island — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>oh life<br>you got me rowing<br>under the sun<br>no way I can find my island</p>
 <p>fine line<br>between the blue<br>ocean and soul<br>tears won’t let me see my island</p>
@@ -99,43 +105,44 @@ const TRACKS = [
 <p>you rock and rollers<br>take the oars<br>you exiled looters feel the roar<br>of Life<br>life on an Island<br>searchin for islands<br>sailing by the stars<br>never be lost<br>never grow old</p>` },
   { title: 'Cioccolato Fondente', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--cioccolato-fondente.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🍫',
     lyrics: `<p><strong>Cioccolato Fondente — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'La Canzone del Tuono', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--la-canzone-del-tuono.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '⛈️',
     lyrics: `<p><strong>La Canzone del Tuono — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Be My Friend', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--be-my-friend.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🤝',
     lyrics: `<p><strong>Be My Friend — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
-  { title: 'Pharmacist Wife (Mv. 2)', sub: 'Matteo T &amp; Marek K 🎻',
+  { title: 'Pharmacist Wife (Mv. 2)', sub: 'Matteo T & Marek K 🎻',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pharmacist-wife-mv2.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '💊',
     lyrics: `<p><strong>Pharmacist Wife (Mv. 2) — Matteo T &amp; Marek K — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Plato (ORCHI Rework)', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--plato-orchi-rework.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🏛️',
     lyrics: `<p><strong>Plato (ORCHI Rework) — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Pollo', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pollo.mp3',
-    chords: 'lyrics on the way', icon: '🎻',
+    chords: 'lyrics on the way', icon: '🐔',
     lyrics: `<p><strong>Pollo — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` }
 ];
 /* v5.2: artist links — Matteo's songs point home to his linktree */
-TRACKS.forEach(t => { if (/Tambussi|Marek/.test(t.sub)) t.artistUrl = 'https://linktr.ee/matteotambussi'; });
+TRACKS.forEach(t => { if (/Tambussi|Marek/.test(t.sub)) t.artistUrl = 'https://linktr.ee/matteotambussi'; else t.artistUrl = 'https://shakaleikaumaka.com'; });
+TRACKS.forEach(t => { t.artistName = /Tambussi|Marek/.test(t.sub) ? 'Matteo Tambussi' : 'Shaka Lei Kaumaka'; });
 const wrap = document.createElement('div');
 wrap.innerHTML = `
 <div id="miniplayer" style="position:fixed;bottom:14px;right:14px;z-index:99999;display:flex;align-items:center;gap:7px;background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));border:1px solid #f0b429;border-radius:999px;padding:6px 12px 6px 7px;backdrop-filter:blur(8px);box-shadow:0 8px 40px rgba(240,180,41,.25);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
@@ -147,9 +154,15 @@ wrap.innerHTML = `
   <button id="trackbtn" title="switch track" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.56rem;cursor:pointer;letter-spacing:.05em">1·2</button>
   <button id="lyricsbtn" title="sing along — lyrics for the song playing" style="width:24px;height:24px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.66rem;cursor:pointer">🦋</button>
   <button id="dlbtn" title="take the music — free downloads · CC0" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.72rem;cursor:pointer;flex-shrink:0;line-height:1">⬇</button>
+  <button id="blclose" title="rest the music — a tiny 🎵 stays to wake it" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,126,156,.6);background:transparent;color:#ff7e9c;font-size:.62rem;cursor:pointer;flex-shrink:0;line-height:1">✕</button>
 </div>
+<button id="blnote" title="wake the music 🎻" style="display:none;position:fixed;right:14px;bottom:14px;z-index:99999;width:34px;height:34px;border-radius:999px;border:1px solid rgba(240,180,41,.5);background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));color:#ffd97a;font-size:15px;cursor:pointer;box-shadow:0 3px 12px rgba(11,9,24,.4);opacity:.85">🎵</button>
 <div id="bldownload" style="display:none;position:fixed;bottom:68px;right:14px;z-index:99998;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(240,180,41,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
-  <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#ffd97a;margin-bottom:10px">⬇ take the music · CC0</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px">
+    <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#ffd97a">⬇ take the music · CC0</div>
+    <button id="blshare" title="share the radio everywhere" style="border:1px solid rgba(240,180,41,.5);background:transparent;color:#ffd97a;border-radius:999px;font-size:.72rem;padding:.2em .7em;cursor:pointer">📣</button>
+  </div>
+  <div style="font-size:.72rem;margin-bottom:8px"><a href="https://shakaleikaumaka.com/radio/" target="_blank" rel="noopener" style="color:#2dd4bf;text-decoration:none">📻 every mp3 on one page — the radio home →</a></div>
   <div id="bldlbody" style="font-size:.86rem;line-height:1.5;color:#b9a8cf"></div>
   <div style="font-size:.68rem;color:rgba(185,168,207,.7);margin-top:12px;font-style:italic">every song is a public good — free to keep, free to share 🌺</div>
 </div>
@@ -158,7 +171,12 @@ wrap.innerHTML = `
   <div id="blyricsbody" style="font-size:.9rem;line-height:1.6;color:#b9a8cf"></div>
 </div>
 <audio id="thesong" preload="auto"></audio>
-<style>@keyframes blpulse{0%,100%{box-shadow:0 0 0 0 rgba(240,180,41,.5)}50%{box-shadow:0 0 0 12px rgba(240,180,41,0)}}@keyframes bleq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}.blbars{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px;margin-right:2px}.blbars i{width:3px;background:#f0b429;border-radius:2px;animation:bleq .9s ease-in-out infinite}.blbars i:nth-child(2){animation-delay:.2s}.blbars i:nth-child(3){animation-delay:.4s}#blyricsbody p{margin:0 0 14px}#blyricsbody strong{color:#f3ead8}
+<style>@keyframes blscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.blmarq{display:inline-flex;white-space:nowrap;animation:blscroll 9s linear infinite}
+#blnote:hover{opacity:1}
+#miniplayer a{color:#b9a8cf;text-decoration:none;border-bottom:1px dotted rgba(45,212,191,.5)}
+#miniplayer a:hover{color:#2dd4bf}
+@keyframes blpulse{0%,100%{box-shadow:0 0 0 0 rgba(240,180,41,.5)}50%{box-shadow:0 0 0 12px rgba(240,180,41,0)}}@keyframes bleq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}.blbars{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px;margin-right:2px}.blbars i{width:3px;background:#f0b429;border-radius:2px;animation:bleq .9s ease-in-out infinite}.blbars i:nth-child(2){animation-delay:.2s}.blbars i:nth-child(3){animation-delay:.4s}#blyricsbody p{margin:0 0 14px}#blyricsbody strong{color:#f3ead8}
 /* v4.5 perfectionist canon (Shaka, Jul 27 2026): cap the text column so the bar can NEVER grow wide enough to touch the manifesto paper */
 #miniplayer > div{max-width:200px}
 #songstatus,#songsub{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;max-width:200px}
@@ -174,7 +192,7 @@ wrap.innerHTML = `
   #miniplayer > div > div:last-child{display:none !important}
   #songbtn{width:30px !important;height:30px !important;font-size:.8rem !important;flex-shrink:0}
   #songstatus{font-size:.58rem !important;letter-spacing:.05em !important;white-space:nowrap;max-width:106px;overflow:hidden;text-overflow:ellipsis}
-  #trackbtn,#lyricsbtn,#dlbtn{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
+  #trackbtn,#lyricsbtn,#dlbtn,#blclose{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
   #blyrics,#bldownload{bottom:82px !important;right:12px !important}
 }
 @media (max-width:400px){
@@ -190,6 +208,21 @@ const sub = document.getElementById('songsub');
 const trackBtn = document.getElementById('trackbtn');
 const lyricsBtn = document.getElementById('lyricsbtn');
 const dlBtn = document.getElementById('dlbtn');
+const closeBtn = document.getElementById('blclose');
+const noteBtn = document.getElementById('blnote');
+const CLOSED_KEY = 'bl_closed';
+function blIsClosed(){ try { return localStorage.getItem(CLOSED_KEY) === '1'; } catch(e){ return false; } }
+function blSetClosed(v){ try { v ? localStorage.setItem(CLOSED_KEY,'1') : localStorage.removeItem(CLOSED_KEY); } catch(e){} }
+function blShowClosed(closed){
+  document.getElementById('miniplayer').style.display = closed ? 'none' : 'flex';
+  noteBtn.style.display = closed ? 'block' : 'none';
+}
+closeBtn.addEventListener('click', ()=>{
+  if (playing) { song.pause(); setPlaying(false, true); }
+  toggleLyrics(false); toggleDownloads(false);
+  blSetClosed(true); blShowClosed(true);
+});
+noteBtn.addEventListener('click', ()=>{ blSetClosed(false); blShowClosed(false); });
 const dlBox = document.getElementById('bldownload');
 const dlBody = document.getElementById('bldlbody');
 let dlOpen = false;
@@ -210,6 +243,13 @@ function toggleDownloads(force){
   if (dlOpen) toggleLyrics(false);
 }
 dlBtn.addEventListener('click', () => toggleDownloads());
+document.getElementById('blshare').addEventListener('click', ()=>{
+  const t = TRACKS[ti];
+  const text = '📻 OSO FLOW RADIO — "' + t.title + '" by ' + t.artistName + ' · CC0 music from Shaka × the AI ʻohana 🌺';
+  const url = 'https://shakaleikaumaka.com/radio/';
+  if (navigator.share) { navigator.share({ title: t.title, text: text, url: url }).catch(()=>{}); return; }
+  window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank', 'noopener');
+});
 const lyricsBox = document.getElementById('blyrics');
 const lyricsHead = document.getElementById('blyricshead');
 const lyricsBody = document.getElementById('blyricsbody');
@@ -238,7 +278,9 @@ lyricsBtn.addEventListener('click', ()=>toggleLyrics());
 function setTrack(i, keepTime){
   ti = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
   song.src = TRACKS[ti].src;
-  sub.textContent = TRACKS[ti].sub;
+  sub.innerHTML = TRACKS[ti].artistUrl
+    ? '<a href="' + TRACKS[ti].artistUrl + '" target="_blank" rel="noopener">' + escH(TRACKS[ti].sub) + '</a>'
+    : escH(TRACKS[ti].sub);
   trackBtn.textContent = (ti + 1) + '·' + TRACKS.length;
   trackBtn.title = 'switch track — next: ' + TRACKS[(ti + 1) % TRACKS.length].title;
   lyricsBtn.textContent = TRACKS[ti].icon;
@@ -253,7 +295,10 @@ function setPlaying(on, broadcast){
   playing = on;
   btn.textContent = on ? '❚❚' : '▶';
   btn.style.animation = on ? 'none' : 'blpulse 2s infinite';
-  status.innerHTML = on ? '<span class="blbars"><i></i><i></i><i></i></span> now playing — ' + TRACKS[ti].title : label();
+  if (on) {
+    const t = TRACKS[ti].icon + ' ' + TRACKS[ti].title + ' · ' + TRACKS[ti].artistName + '   🌺   ';
+    status.innerHTML = '<span class="blbars"><i></i><i></i><i></i></span><span style="display:inline-block;max-width:150px;overflow:hidden;vertical-align:bottom"><span class="blmarq"><span>' + escH(t) + '</span><span>' + escH(t) + '</span></span></span>';
+  } else status.innerHTML = label();
   saveState();
   if (broadcast && bc) bc.postMessage({ type:'state', playing:on, t:song.currentTime, track:ti });
 }
@@ -290,6 +335,7 @@ window.addEventListener('load', ()=>{
   const startT = (!isNaN(urlT) && urlT > 1) ? urlT : (st && st.t > 1 && st.track === ti ? st.t : 0);
   if (startT > 1) { try { song.currentTime = startT; } catch(e){} }
   setPlaying(false, false);
+  if (blIsClosed()) blShowClosed(true);
   // v5.0 continuum: if the song was playing when the visitor left the last door, offer the seamless resume
   const stWasPlaying = (q.get('bl_play') === '1') || (st && st.playing);
   if (stWasPlaying && !blIsFocus(BL_HOST)) {
