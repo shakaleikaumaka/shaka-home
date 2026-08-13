@@ -4,7 +4,7 @@
    Hybrid of THE CONTINUUM (v5.x jukebox: lyrics bubble, download panel, follow-you) + OSO FLOW v1 (per-song emoji,
    moving words, ✕ close + 🎵 note). Artist names are links home. Download page: shakaleikaumaka.com/radio/
    v6.0: distinct emoji per song · marquee now-playing · ✕/🎵 close-reopen · artist links in bar · share in download panel.
-   v7.0 — THE LIGHTHOUSE; v7.1 = AUTO-LIGHTHOUSE: playing + family-door click = the song leaps into the popout BEFORE the hop (desktop pointers) (Tessa's note, Shaka canon 2026-08-13): the 🎧 POPOUT. Browser law: a full page navigation
+   v7.0 — THE LIGHTHOUSE; v7.2 = RANGE PROXY: tracks stream via shakaleikaumaka.com/radio-assets (CF worker oso-flow-range) — taur.link ignores Range headers so seeks/resumes silently restarted at 0:00; v7.1 = AUTO-LIGHTHOUSE: playing + family-door click = the song leaps into the popout BEFORE the hop (desktop pointers) (Tessa's note, Shaka canon 2026-08-13): the 🎧 POPOUT. Browser law: a full page navigation
    always silences the page — so the radio can move OUT of the page into its own little window
    (shakaleikaumaka.com/radio/popout.html) that plays above every door. Surf the whole ʻohana: the song never stops.
    ——— v5.0 — THE CONTINUUM (Tess's dream, Shaka canon 2026-08-13): the song crosses doors with you.
@@ -27,7 +27,7 @@ const blInFamily = h => BL_FAMILY.some(d => h === d || h.endsWith('.'+d));
 const blIsFocus  = h => BL_FOCUS.some(d => h === d || h.endsWith('.'+d));
 const TRACKS = [
   { title: 'Butterflies and Love', sub: 'demo recorded with Ethereum Singapore for Aya Miyaguchi 🦋',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/i-open-sourced-my-whole-universe.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/i-open-sourced-my-whole-universe.mp3',
     chords: 'G–Em–C–D', icon: '🦋',
     lyrics: `<p><strong>Hey Solana</strong><br>We can be your (blockchain)<br>(soy boy) big brother<br>We don't need to fight a war<br>for users and developers<br>We build apps that bridge us all together<br>Competition can be over<br>Because Ethereum<br>Is a positive Sum<br>Built by and for everyone</p>
 <p><strong>Hey Bitcoin</strong><br>Lucky you were never called a shitcoin (altcoin)<br>you were the first to inspire<br>Our Ethereum co-creator<br>His magazine wasn't<br>just an ordinary page turner<br>Even though we don't<br>Know your founder<br>Vitalik found inspiration<br>From your magical ledger</p>
@@ -35,7 +35,7 @@ const TRACKS = [
 <p><strong>Hey Ethereum</strong><br>I still love you most of all<br>You are the world computer<br>Built by all my brothers and sisters<br>Together we don't have to fight a war<br>All we need is butterflies and love<br>To pollinate the infinite-garden<br>Which grows strong and tall<br>And make us all look small<br>In the infinite garden</p>
 <p><strong>Hey Aya 🌸</strong><br>Don't let the arrows pointed at ya<br>Ever pierce your lovely heart<br>From the start<br>you were the heart beat<br>Of the ethereum foundation<br>You taught us the power of subtraction<br>and your very first reaction<br>Was that you didn't want a title<br>That's why we have such fertile soil<br>For us all to grow equal<br>In the infinite garden</p>` },
   { title: 'A Planet We Share As One', sub: 'recorded with Ethereum Singapore 🌍',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/a-planet-we-share-as-one.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/a-planet-we-share-as-one.mp3',
     chords: 'C–G–D–D', icon: '🌍',
     lyrics: `<p><strong>You know I had a frustration</strong><br>That I come from the nation<br>That dropped an atomic bomb<br><strong>On a planet we share as one</strong></p>
 <p><strong>And I have a frustration</strong><br>They also tested those fucking bombs<br>In our ocean<br>And now you see with all the plastic<br>It's choking our reefs, you see<br><strong>Protection of creation<br>Must be a collaboration<br>Of every nation<br>For a planet we share as one</strong></p>
@@ -43,21 +43,21 @@ const TRACKS = [
 <p><strong>It doesn't matter if you count up<br>To Web 1, 2 or 3</strong><br>We all can evolve<br>Like we evolve our technology<br>And now we see — like an experiment<br>With a Zuzalu pop-up city<br>We can build and dogfood<br>Our own technology<br>So we can see<br><strong>How we can be free</strong></p>
 <p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>` },
   { title: 'Ginger Game', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--ginger-game.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--ginger-game.mp3',
     chords: 'lyrics on the way', icon: '🫚',
     lyrics: `<p><strong>Ginger Game — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Matteo is the great Italian brother who started it all: on 2022-06-17 he submitted the FIRST music DIP in Devcon history — "Music Sessions | Open Mic Stage" for Devcon Bogotá — and co-founded the Open Source Orchestra tradition at ETH Prague 2022.</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>
 <p>Every voice is a node. None of this would be possible without you, brother.</p>` },
   { title: 'Luogoper', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--luogoper.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--luogoper.mp3',
     chords: 'lyrics on the way', icon: '📍',
     lyrics: `<p><strong>Luogoper — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Musician, linguistics passionate, web3 OG — from the EEA survey days to ethlocal.co and SpaghettETH, Matteo has been weaving music into Ethereum since before it was cool.</p>
 <p><em>"Music as sanctuary. Sounds of consensus. Owned by no one."</em></p>
 <p>Gifted to the ʻohana with love — every song free to carry home. CC0 🌺</p>` },
   { title: 'Tanta Paura', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--tanta-paura.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--tanta-paura.mp3',
     chords: 'sing along 🎤', icon: '🌊',
     lyrics: `<p><strong>Tanta Paura — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Non è la disumanità che mi spaventa <br>Né l'avverata fantascienza<br>Quanto il dovere rinunciare, fino in fondo<br>A ciò in cui io mi riconosco,fIn cui sono più capace</p>
@@ -68,13 +68,13 @@ const TRACKS = [
 <p>Sono Pacifico e avverto serenità</p>
 <p>Rit 2<br>e ti penso, come il vento respiro nelle valli<br>sopra i mari, di un desiderio conclusivo<br>a cui sarò per sempre fedele <br>Senza perdermi in tanta paura<br>Senza perdermi in tanta paura</p>` },
   { title: 'Gioia Perfetta', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--gioia-perfetta.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--gioia-perfetta.mp3',
     chords: 'lyrics on the way', icon: '✨',
     lyrics: `<p><strong>Gioia Perfetta — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>"Perfect joy" — the newest gift from the brother who started it all. Lyrics on their way; let the music speak first.</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: '3MILY', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--3mily.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--3mily.mp3',
     chords: 'sing along 🎤', icon: '🌷',
     lyrics: `<p><strong>3MILY — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Ci incontriamo in volo<br>e in volo ci lasciamo<br>tu alla tua missione<br>ed io all’Uragano<br>che raffredda la mente<br>dopo una calda estate<br>e il pianeta in fiamme</p>
@@ -83,7 +83,7 @@ const TRACKS = [
 <p>incontrerai qualcuno<br>o qualcuno ti incontrerà<br>digli di no, tu non ci credi alla slealtà<br>dei corpi sensuali orbitanti<br>travolti dalla gravità<br>di una altra cometa.</p>
 <p>3mily 3mily<br>dove sei 3milydormi qui 3mily</p>` },
   { title: 'Burnout', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--burnout.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--burnout.mp3',
     chords: 'sing along 🎤', icon: '🔥',
     lyrics: `<p><strong>Burnout — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Mi piacciono le farfalle <br>Mi piacciono colorate<br>Mi perdo nelle trame<br>Delle loro traversate</p>
@@ -97,7 +97,7 @@ const TRACKS = [
 <p>si fa strada in me<br>e mi porta con sé<br>per aria |  per i sentieri antichi<br>nell’aria | che collegano i pianeti</p>
 <p>Mi piaccion le farfalle, mi piacciono colorate<br>Mi piaccion le farfalle, mi piacciono colorate<br>Mi piaccion le farfalle, mi piacciono colorate</p>` },
   { title: 'Island', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--island.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--island.mp3',
     chords: 'sing along 🎤', icon: '🏝️',
     lyrics: `<p><strong>Island — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>oh life<br>you got me rowing<br>under the sun<br>no way I can find my island</p>
@@ -107,37 +107,37 @@ const TRACKS = [
 <p>all mine<br>nothing to lose, under this sun<br>just nowhere to run<br>we’ll never stop chasing our Islands</p>
 <p>you rock and rollers<br>take the oars<br>you exiled looters feel the roar<br>of Life<br>life on an Island<br>searchin for islands<br>sailing by the stars<br>never be lost<br>never grow old</p>` },
   { title: 'Cioccolato Fondente', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--cioccolato-fondente.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--cioccolato-fondente.mp3',
     chords: 'lyrics on the way', icon: '🍫',
     lyrics: `<p><strong>Cioccolato Fondente — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'La Canzone del Tuono', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--la-canzone-del-tuono.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--la-canzone-del-tuono.mp3',
     chords: 'lyrics on the way', icon: '⛈️',
     lyrics: `<p><strong>La Canzone del Tuono — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Be My Friend', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--be-my-friend.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--be-my-friend.mp3',
     chords: 'lyrics on the way', icon: '🤝',
     lyrics: `<p><strong>Be My Friend — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Pharmacist Wife (Mv. 2)', sub: 'Matteo T & Marek K 🎻',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pharmacist-wife-mv2.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--pharmacist-wife-mv2.mp3',
     chords: 'lyrics on the way', icon: '💊',
     lyrics: `<p><strong>Pharmacist Wife (Mv. 2) — Matteo T &amp; Marek K — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Plato (ORCHI Rework)', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--plato-orchi-rework.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--plato-orchi-rework.mp3',
     chords: 'lyrics on the way', icon: '🏛️',
     lyrics: `<p><strong>Plato (ORCHI Rework) — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>
 <p><em>"You don't join the Open Source Orchestra. You notice you were always in it."</em></p>` },
   { title: 'Pollo', sub: 'Matteo Tambussi 🎻🇮🇹',
-    src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pollo.mp3',
+    src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--pollo.mp3',
     chords: 'lyrics on the way', icon: '🐔',
     lyrics: `<p><strong>Pollo — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Lyrics on their way from Turin — let the music speak first. 🎻</p>

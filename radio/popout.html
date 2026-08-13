@@ -81,21 +81,21 @@
 (function(){
   // ⚠️ mirror of assets/bl-player.js TRACKS (popout needs only title/icon/src/artist) — keep in sync!
   const TRACKS = [
-    { title:'Butterflies and Love',        icon:'🦋', artist:'Shaka Lei Kaumaka', src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/i-open-sourced-my-whole-universe.mp3' },
-    { title:'A Planet We Share As One',    icon:'🌍', artist:'Shaka Lei Kaumaka', src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/a-planet-we-share-as-one.mp3' },
-    { title:'Ginger Game',                 icon:'🫚', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--ginger-game.mp3' },
-    { title:'Luogoper',                    icon:'📍', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--luogoper.mp3' },
-    { title:'Tanta Paura',                 icon:'🌊', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--tanta-paura.mp3' },
-    { title:'Gioia Perfetta',              icon:'✨', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--gioia-perfetta.mp3' },
-    { title:'3MILY',                       icon:'🌷', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--3mily.mp3' },
-    { title:'Burnout',                     icon:'🔥', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--burnout.mp3' },
-    { title:'Island',                      icon:'🏝️', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--island.mp3' },
-    { title:'Cioccolato Fondente',         icon:'🍫', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--cioccolato-fondente.mp3' },
-    { title:'La Canzone del Tuono',        icon:'⛈️', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--la-canzone-del-tuono.mp3' },
-    { title:'Be My Friend',                icon:'🤝', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--be-my-friend.mp3' },
-    { title:'Pharmacist Wife (Mv. 2)',     icon:'💊', artist:'Matteo T & Marek K',src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pharmacist-wife-mv2.mp3' },
-    { title:'Plato (ORCHI Rework)',        icon:'🏛️', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--plato-orchi-rework.mp3' },
-    { title:'Pollo',                       icon:'🐔', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pollo.mp3' }
+    { title:'Butterflies and Love',        icon:'🦋', artist:'Shaka Lei Kaumaka', src:'https://shakaleikaumaka.com/radio-assets/i-open-sourced-my-whole-universe.mp3' },
+    { title:'A Planet We Share As One',    icon:'🌍', artist:'Shaka Lei Kaumaka', src:'https://shakaleikaumaka.com/radio-assets/a-planet-we-share-as-one.mp3' },
+    { title:'Ginger Game',                 icon:'🫚', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--ginger-game.mp3' },
+    { title:'Luogoper',                    icon:'📍', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--luogoper.mp3' },
+    { title:'Tanta Paura',                 icon:'🌊', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--tanta-paura.mp3' },
+    { title:'Gioia Perfetta',              icon:'✨', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--gioia-perfetta.mp3' },
+    { title:'3MILY',                       icon:'🌷', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--3mily.mp3' },
+    { title:'Burnout',                     icon:'🔥', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--burnout.mp3' },
+    { title:'Island',                      icon:'🏝️', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--island.mp3' },
+    { title:'Cioccolato Fondente',         icon:'🍫', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--cioccolato-fondente.mp3' },
+    { title:'La Canzone del Tuono',        icon:'⛈️', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--la-canzone-del-tuono.mp3' },
+    { title:'Be My Friend',                icon:'🤝', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--be-my-friend.mp3' },
+    { title:'Pharmacist Wife (Mv. 2)',     icon:'💊', artist:'Matteo T & Marek K',src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--pharmacist-wife-mv2.mp3' },
+    { title:'Plato (ORCHI Rework)',        icon:'🏛️', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--plato-orchi-rework.mp3' },
+    { title:'Pollo',                       icon:'🐔', artist:'Matteo Tambussi',   src:'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--pollo.mp3' }
   ];
   const song = document.getElementById('song');
   const playBtn = document.getElementById('play');
