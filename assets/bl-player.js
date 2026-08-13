@@ -1,4 +1,7 @@
-/* 🦋 bl-player.js v4.5 — one window, two tracks, sing-along everywhere. One line: <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
+/* 🦋 bl-player.js v5.0 — THE CONTINUUM (Tess's dream, Shaka canon 2026-08-13): the song crosses doors with you.
+   Carry bl_t/bl_trk across the whole family; first-gesture resume (tap anywhere, the song continues).
+   FOCUS DOORS (theshellpit / spectoragent / spectorgadget / esmeraldapit) stay silent by design.
+   v4.5 — one window, two tracks, sing-along everywhere. One line: <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js"></script>
    Track 1: Butterflies and Love · Track 2: A Planet We Share As One — both recorded with Ethereum Singapore.
    v4.5: perfectionist canon (Shaka, Jul 27 2026) — text column capped with ellipsis so the bar never touches the manifesto paper; sub line drops ≤1100px.
    v4.4/v4.3: desktop haircuts. v4.2: mobile compact + stack canon.
@@ -7,6 +10,12 @@
 (function(){
 if (document.getElementById('miniplayer')) return;
 if (window !== window.top) return; // v4.1: inside the shaka-shell overlay, the PARENT owns the music — no player here
+// v5.0 continuum: family suffixes (carry the song) + focus doors (never auto-resume)
+const BL_FAMILY = ['taur.link','shakaleikaumaka.com','shakafans.com','blessingpool.com','opensourceorchestra.org','opensourceorchestra.com','karaokeprotocol.com','teleprompit.com','vlogprompting.com','publicinform.com','publicinform.org','creationology369.com','ology369.com','hamagents.com','affordagents.com','terribleagents.com','zodiacagents.org','zodiacpit.com','agentohana.org','myagentohana.com','myagentfamily.com','agentpartys.com','myagentsparty.com','agentsraving.com','agentscraving.com','agentsreading.com','pitgoa.com','pitfans.com','pitprovides.com','pitprovides.org','pitlip.com','osopit.com','osopit.org','tauruspit.com','tauruspod.com','eefpit.com','eefpod.com','infinitepit.com','ohanapit.com','devconpit.com','zuzaluagents.com','zuzaluagents.org','islpoap.xyz','learnfromagents.com','piscesinstitute.com','piscisinstitute.com','tauroinstitute.com','jordanham.com','kaleikaumaka.org','ethereumbard.com','shakapit.com','shakaverse.com','blessingpool.com','theinfinitegard.org','grantmagnet.org','dashboardpad.app'];
+const BL_FOCUS = ['theshellpit.com','spectoragent.com','spectorgadget.com','esmeraldapit.com','edgecitypit.org','edgepit.org','privatepit.com','privateinform.com','privateinform.org'];
+const BL_HOST = location.hostname.replace(/^www\./,'');
+const blInFamily = h => BL_FAMILY.some(d => h === d || h.endsWith('.'+d));
+const blIsFocus  = h => BL_FOCUS.some(d => h === d || h.endsWith('.'+d));
 const TRACKS = [
   { title: 'Butterflies and Love', sub: 'demo recorded with Ethereum Singapore for Aya Miyaguchi 🦋',
     src: 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/i-open-sourced-my-whole-universe.mp3',
@@ -281,7 +290,17 @@ window.addEventListener('load', ()=>{
   const startT = (!isNaN(urlT) && urlT > 1) ? urlT : (st && st.t > 1 && st.track === ti ? st.t : 0);
   if (startT > 1) { try { song.currentTime = startT; } catch(e){} }
   setPlaying(false, false);
-  song.play().then(()=>setPlaying(true, true)).catch(()=>{});
+  // v5.0 continuum: if the song was playing when the visitor left the last door, offer the seamless resume
+  const stWasPlaying = (q.get('bl_play') === '1') || (st && st.playing);
+  if (stWasPlaying && !blIsFocus(BL_HOST)) {
+    status.innerHTML = '▶ the song follows you — tap anywhere to continue';
+    btn.style.animation = 'blpulse 1.2s infinite';
+    const resumeOnce = () => {
+      document.removeEventListener('pointerdown', resumeOnce);
+      song.play().then(()=>setPlaying(true, true)).catch(()=>setPlaying(false, true));
+    };
+    document.addEventListener('pointerdown', resumeOnce, { once:false });
+  }
 });
 window.addEventListener('beforeunload', saveState);
 // v4.2: public API — songbook carousels can play a track directly
@@ -299,9 +318,10 @@ document.querySelectorAll('a[href]').forEach(a => {
     let url = a.href;
     try {
       const u = new URL(url, location.href);
-      if ((u.hostname.endsWith('taur.link') || u.hostname.endsWith('shakaleikaumaka.com') || u.hostname.endsWith('shakafans.com') || u.hostname.endsWith('theshellpit.com') || u.hostname.endsWith('spectoragent.com') || u.hostname.endsWith('blessingpool.com') || u.hostname.endsWith('opensourceorchestra.org')) && song.currentTime > 1) {
+      if (blInFamily(u.hostname) && song.currentTime > 1) {
         u.searchParams.set('bl_t', song.currentTime.toFixed(1));
         u.searchParams.set('bl_trk', String(ti));
+        if (playing) u.searchParams.set('bl_play', '1');
         url = u.toString();
       }
     } catch(err){}
