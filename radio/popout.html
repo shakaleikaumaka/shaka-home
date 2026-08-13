@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>📻 OSO FLOW RADIO — the popout</title>
+<!--
+  📻 OSO FLOW RADIO · POPOUT v1.0 — "THE LIGHTHOUSE" (Tessa's note, Shaka canon 2026-08-13):
+  "make the music player container live on top of everything else… part of the core website."
+  Browser law says a full page navigation always silences the page — so the radio moves OUT of
+  the page: this little window IS the core website's player. Surf every door; the song never stops.
+  Launched by the 🎧 button in bl-player.js v7.0 (any door). Reads ?bl_trk &bl_t &autoplay=1,
+  saves the same bl_song localStorage schema so shakaleikaumaka.com doors can resume where it left off.
+  ⚠️ TRACKS here mirror assets/bl-player.js — keep in sync when adding songs.
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(160deg, #171126 0%, #241a3a 60%, #2e1f4d 100%);
+    color: #f3ead8; font-family: 'Avenir Next','Segoe UI',system-ui,sans-serif;
+    display: flex; flex-direction: column; justify-content: center; gap: 10px;
+    padding: 16px 18px; overflow: hidden;
+  }
+  .row { display: flex; align-items: center; gap: 12px; }
+  #play {
+    width: 54px; height: 54px; border-radius: 50%; border: none; flex-shrink: 0;
+    background: #f0b429; color: #241a02; font-size: 1.25rem; cursor: pointer;
+    animation: pop-pulse 2s infinite;
+  }
+  @keyframes pop-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(240,180,41,.5)} 50%{box-shadow:0 0 0 14px rgba(240,180,41,0)} }
+  .meta { min-width: 0; flex: 1; }
+  #status { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: #ffd97a;
+            white-space: nowrap; overflow: hidden; }
+  #sub { font-size: .7rem; color: #b9a8cf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .marqwrap { display: inline-block; max-width: 100%; overflow: hidden; vertical-align: bottom; }
+  .marq { display: inline-flex; white-space: nowrap; animation: pop-scroll 9s linear infinite; }
+  @keyframes pop-scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .bars { display: inline-flex; gap: 3px; align-items: flex-end; height: 14px; margin-right: 6px; }
+  .bars i { width: 3px; background: #f0b429; border-radius: 2px; animation: pop-eq .9s ease-in-out infinite; }
+  .bars i:nth-child(2) { animation-delay: .2s; } .bars i:nth-child(3) { animation-delay: .4s; }
+  @keyframes pop-eq { 0%,100%{transform:scaleY(.4)} 50%{transform:scaleY(1)} }
+  button.ghost {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid #f0b429; background: transparent; color: #ffd97a;
+    font-size: .8rem; cursor: pointer;
+  }
+  button.ghost:hover { background: rgba(240,180,41,.15); }
+  #bar { height: 4px; border-radius: 2px; background: rgba(240,180,41,.18); cursor: pointer; }
+  #fill { height: 100%; width: 0%; border-radius: 2px; background: #f0b429; transition: width .5s linear; }
+  .note { font-size: .66rem; color: rgba(185,168,207,.85); line-height: 1.5; }
+  .note a { color: #2dd4bf; text-decoration: none; }
+  #tap {
+    position: fixed; inset: 0; display: none; flex-direction: column; gap: 10px;
+    align-items: center; justify-content: center; text-align: center;
+    background: rgba(23,17,38,.96); z-index: 5; cursor: pointer; padding: 20px;
+  }
+  #tap .big { font-size: 3rem; animation: pop-pulse 1.2s infinite; }
+  #tap .why { font-size: .8rem; color: #b9a8cf; max-width: 300px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="row">
+  <button id="play" title="play / pause">▶</button>
+  <div class="meta">
+    <div id="status">tuning the radio…</div>
+    <div id="sub">OSO FLOW RADIO 📻</div>
+  </div>
+  <button class="ghost" id="prev" title="previous song">⏮</button>
+  <button class="ghost" id="next" title="next song">⏭</button>
+  <a class="ghost" id="home" title="the radio home — every mp3, free to keep 🌺" href="https://shakaleikaumaka.com/radio/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none">⬇</a>
+</div>
+<div id="bar" title="seek"><div id="fill"></div></div>
+<div class="note">🌊 this little window <b>is</b> the radio — surf every door, the song never stops. Close it to rest the music. Every song CC0, free to keep 🌺</div>
+<audio id="song" preload="auto"></audio>
+<div id="tap">
+  <div class="big">▶</div>
+  <div class="why"><b style="color:#ffd97a">one tap and the song never stops</b><br>browsers ask for one touch before music may flow — then this window carries the radio above every door 🌊</div>
+</div>
+<script>
+(function(){
+  // ⚠️ mirror of assets/bl-player.js TRACKS (popout needs only title/icon/src/artist) — keep in sync!
+  const TRACKS = [
+    { title:'Butterflies and Love',        icon:'🦋', artist:'Shaka Lei Kaumaka', src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/i-open-sourced-my-whole-universe.mp3' },
+    { title:'A Planet We Share As One',    icon:'🌍', artist:'Shaka Lei Kaumaka', src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/a-planet-we-share-as-one.mp3' },
+    { title:'Ginger Game',                 icon:'🫚', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--ginger-game.mp3' },
+    { title:'Luogoper',                    icon:'📍', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--luogoper.mp3' },
+    { title:'Tanta Paura',                 icon:'🌊', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--tanta-paura.mp3' },
+    { title:'Gioia Perfetta',              icon:'✨', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--gioia-perfetta.mp3' },
+    { title:'3MILY',                       icon:'🌷', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--3mily.mp3' },
+    { title:'Burnout',                     icon:'🔥', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--burnout.mp3' },
+    { title:'Island',                      icon:'🏝️', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--island.mp3' },
+    { title:'Cioccolato Fondente',         icon:'🍫', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--cioccolato-fondente.mp3' },
+    { title:'La Canzone del Tuono',        icon:'⛈️', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--la-canzone-del-tuono.mp3' },
+    { title:'Be My Friend',                icon:'🤝', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--be-my-friend.mp3' },
+    { title:'Pharmacist Wife (Mv. 2)',     icon:'💊', artist:'Matteo T & Marek K',src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pharmacist-wife-mv2.mp3' },
+    { title:'Plato (ORCHI Rework)',        icon:'🏛️', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--plato-orchi-rework.mp3' },
+    { title:'Pollo',                       icon:'🐔', artist:'Matteo Tambussi',   src:'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/matteo-tambussi--pollo.mp3' }
+  ];
+  const song = document.getElementById('song');
+  const playBtn = document.getElementById('play');
+  const status = document.getElementById('status');
+  const sub = document.getElementById('sub');
+  const fill = document.getElementById('fill');
+  const tap = document.getElementById('tap');
+  const KEY = 'bl_song'; // same schema as bl-player.js — doors can resume where the popout rests
+  const q = new URLSearchParams(location.search);
+  let ti = 0, playing = false;
+  function escH(x){ return String(x).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify({ track: ti, t: song.currentTime || 0, playing: playing, at: Date.now() })); } catch(e){} }
+  function setTrack(i, keepTime){
+    ti = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
+    song.src = TRACKS[ti].src;
+    sub.textContent = TRACKS[ti].artist + ' · song ' + (ti + 1) + ' of ' + TRACKS.length;
+    document.title = TRACKS[ti].icon + ' ' + TRACKS[ti].title + ' — OSO FLOW RADIO';
+    if (!keepTime) { try { song.currentTime = 0; } catch(e){} }
+    if (playing) label(); else idleLabel();
+    save();
+  }
+  function label(){
+    const t = TRACKS[ti].icon + ' ' + TRACKS[ti].title + ' · ' + TRACKS[ti].artist + '   🌺   ';
+    status.innerHTML = '<span class="bars"><i></i><i></i><i></i></span><span class="marqwrap"><span class="marq"><span>' + escH(t) + '</span><span>' + escH(t) + '</span></span></span>';
+  }
+  function idleLabel(){ status.textContent = 'paused — ' + TRACKS[ti].title; }
+  function setPlaying(on){
+    playing = on;
+    playBtn.textContent = on ? '❚❚' : '▶';
+    playBtn.style.animation = on ? 'none' : 'pop-pulse 2s infinite';
+    if (on) label(); else idleLabel();
+    save();
+  }
+  function tryPlay(){
+    song.play().then(()=>{ setPlaying(true); tap.style.display = 'none'; })
+               .catch(()=>{ tap.style.display = 'flex'; }); // browser asks for one touch — then it flows forever
+  }
+  playBtn.addEventListener('click', ()=>{ if (playing) { song.pause(); setPlaying(false); } else tryPlay(); });
+  tap.addEventListener('click', ()=>{ song.play().then(()=>{ setPlaying(true); tap.style.display = 'none'; }).catch(()=>{}); });
+  document.getElementById('next').addEventListener('click', ()=>{ setTrack(ti + 1); if (playing) tryPlay(); });
+  document.getElementById('prev').addEventListener('click', ()=>{ setTrack(ti - 1); if (playing) tryPlay(); });
+  song.addEventListener('ended', ()=>{ setTrack(ti + 1); tryPlay(); });
+  song.addEventListener('timeupdate', ()=>{
+    if (song.duration) fill.style.width = ((song.currentTime / song.duration) * 100).toFixed(1) + '%';
+  });
+  document.getElementById('bar').addEventListener('click', (e)=>{
+    if (!song.duration) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    song.currentTime = ((e.clientX - r.left) / r.width) * song.duration;
+  });
+  setInterval(()=>{ if (playing) save(); }, 2000);
+  window.addEventListener('beforeunload', save);
+  // media keys / lock-screen goodness where supported
+  if ('mediaSession' in navigator) {
+    const setMS = () => { try {
+      navigator.mediaSession.metadata = new MediaMetadata({ title: TRACKS[ti].title, artist: TRACKS[ti].artist, album: 'OSO FLOW RADIO 📻' });
+    } catch(e){} };
+    song.addEventListener('play', setMS);
+    document.getElementById('next').addEventListener('click', setMS);
+    document.getElementById('prev').addEventListener('click', setMS);
+  }
+  // boot: URL params from the door's 🎧 handoff beat localStorage
+  const urlTrk = parseInt(q.get('bl_trk'), 10);
+  const urlT = parseFloat(q.get('bl_t'));
+  let st = null;
+  try { const d = JSON.parse(localStorage.getItem(KEY) || 'null'); st = d && typeof d.t === 'number' ? d : null; } catch(e){}
+  const startTrack = (!isNaN(urlTrk) && urlTrk >= 0 && urlTrk < TRACKS.length) ? urlTrk : (st && typeof st.track === 'number' ? st.track : 0);
+  setTrack(startTrack, true);
+  const startT = (!isNaN(urlT) && urlT > 1) ? urlT : (st && st.t > 1 && st.track === ti ? st.t : 0);
+  if (startT > 1) { try { song.currentTime = startT; } catch(e){} }
+  idleLabel();
+  if (q.get('autoplay') === '1' || (st && st.playing && !q.get('bl_trk'))) tryPlay();
+})();
+</script>
+</body>
+</html>

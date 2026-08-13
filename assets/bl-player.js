@@ -4,6 +4,9 @@
    Hybrid of THE CONTINUUM (v5.x jukebox: lyrics bubble, download panel, follow-you) + OSO FLOW v1 (per-song emoji,
    moving words, ✕ close + 🎵 note). Artist names are links home. Download page: shakaleikaumaka.com/radio/
    v6.0: distinct emoji per song · marquee now-playing · ✕/🎵 close-reopen · artist links in bar · share in download panel.
+   v7.0 — THE LIGHTHOUSE (Tessa's note, Shaka canon 2026-08-13): the 🎧 POPOUT. Browser law: a full page navigation
+   always silences the page — so the radio can move OUT of the page into its own little window
+   (shakaleikaumaka.com/radio/popout.html) that plays above every door. Surf the whole ʻohana: the song never stops.
    ——— v5.0 — THE CONTINUUM (Tess's dream, Shaka canon 2026-08-13): the song crosses doors with you.
    Carry bl_t/bl_trk across the whole family; first-gesture resume (tap anywhere, the song continues).
    FOCUS DOORS (theshellpit / spectoragent / spectorgadget / esmeraldapit) stay silent by design.
@@ -154,6 +157,7 @@ wrap.innerHTML = `
   <button id="trackbtn" title="switch track" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.56rem;cursor:pointer;letter-spacing:.05em">1·2</button>
   <button id="lyricsbtn" title="sing along — lyrics for the song playing" style="width:24px;height:24px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.66rem;cursor:pointer">🦋</button>
   <button id="dlbtn" title="take the music — free downloads · CC0" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.72rem;cursor:pointer;flex-shrink:0;line-height:1">⬇</button>
+  <button id="blpop" title="🎧 pop out the radio — the song NEVER stops between doors (Tessa's dream, complete)" style="width:24px;height:24px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.66rem;cursor:pointer;flex-shrink:0;line-height:1">🎧</button>
   <button id="blclose" title="rest the music — a tiny 🎵 stays to wake it" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,126,156,.6);background:transparent;color:#ff7e9c;font-size:.62rem;cursor:pointer;flex-shrink:0;line-height:1">✕</button>
 </div>
 <button id="blnote" title="wake the music 🎻" style="display:none;position:fixed;right:14px;bottom:14px;z-index:99999;width:34px;height:34px;border-radius:999px;border:1px solid rgba(240,180,41,.5);background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));color:#ffd97a;font-size:15px;cursor:pointer;box-shadow:0 3px 12px rgba(11,9,24,.4);opacity:.85">🎵</button>
@@ -192,7 +196,7 @@ wrap.innerHTML = `
   #miniplayer > div > div:last-child{display:none !important}
   #songbtn{width:30px !important;height:30px !important;font-size:.8rem !important;flex-shrink:0}
   #songstatus{font-size:.58rem !important;letter-spacing:.05em !important;white-space:nowrap;max-width:106px;overflow:hidden;text-overflow:ellipsis}
-  #trackbtn,#lyricsbtn,#dlbtn,#blclose{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
+  #trackbtn,#lyricsbtn,#dlbtn,#blpop,#blclose{width:24px !important;height:24px !important;font-size:.56rem !important;flex-shrink:0}
   #blyrics,#bldownload{bottom:82px !important;right:12px !important}
 }
 @media (max-width:400px){
@@ -243,6 +247,26 @@ function toggleDownloads(force){
   if (dlOpen) toggleLyrics(false);
 }
 dlBtn.addEventListener('click', () => toggleDownloads());
+// v7.0 THE LIGHTHOUSE — pop the radio out of the page so the song never stops between doors 🎧🌊
+document.getElementById('blpop').addEventListener('click', ()=>{
+  const wasPlaying = playing;
+  const t = song.currentTime || 0;
+  if (wasPlaying) { song.pause(); setPlaying(false, true); }
+  toggleLyrics(false); toggleDownloads(false);
+  const url = 'https://shakaleikaumaka.com/radio/popout.html?bl_trk=' + ti + '&bl_t=' + t.toFixed(1) + (wasPlaying ? '&autoplay=1' : '');
+  // if the lighthouse already shines, just focus it — never restart the song
+  let w = null;
+  try { w = window.open('', 'osoflowradio'); } catch(e){ w = null; }
+  if (w && !w.closed) {
+    let fresh = true;
+    try { fresh = (!w.location.href || w.location.href === 'about:blank'); } catch(e2) { fresh = false; } // cross-origin read throws = our popout lives
+    if (fresh) { try { w.close(); } catch(e3){} w = null; }
+  }
+  if (!w) w = window.open(url, 'osoflowradio', 'width=440,height=215,left=40,top=40');
+  else { try { w.focus(); } catch(e4){} }
+  if (w) status.innerHTML = '🎧 the song lives in the popout now — surf every door, it never stops 🌊';
+  else status.innerHTML = '🎧 the browser held the popout — allow pop-ups for the endless song, or tap ▶ here';
+});
 document.getElementById('blshare').addEventListener('click', ()=>{
   const t = TRACKS[ti];
   const text = '📻 OSO FLOW RADIO — "' + t.title + '" by ' + t.artistName + ' · CC0 music from Shaka × the AI ʻohana 🌺';
