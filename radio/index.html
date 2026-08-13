@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSO FLOW RADIO 🎻📻 — the music of the ʻohana, everywhere</title>
+<meta name="description" content="One player for the whole universe: Shaka × the AI ʻohana × Matteo Tambussi. Play it, download it, share it — CC0, gifted with love & aloha.">
+<style>
+  :root{
+    --ink:#1c1030; --gold:#f0b229; --pink:#ff7e9c; --wave:#2e9ec6;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family: Georgia, 'Times New Roman', serif;
+    background: linear-gradient(160deg,#0b0918 0%,#1d2b64 55%,#3a7bd5 100%);
+    color:#f3ead8; min-height:100vh;
+  }
+  body.embed{ background:transparent; min-height:0; overflow:hidden; }
+
+  /* ---------- FULL PAGE MODE ---------- */
+  .wrap{max-width:760px;margin:0 auto;padding:42px 20px 90px}
+  .deco{text-align:center;font-size:22px;letter-spacing:8px;opacity:.9}
+  h1{text-align:center;font-size:2.2rem;letter-spacing:3px;margin:14px 0 4px;color:#ffd23f}
+  .sub{text-align:center;font-style:italic;opacity:.85;margin:0 0 26px}
+  .card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px 18px;margin:14px 0}
+  .track{display:flex;align-items:center;gap:12px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.10);cursor:pointer;border-radius:10px}
+  .track:last-child{border-bottom:none}
+  .track:hover{background:rgba(255,255,255,.07)}
+  .track.playing{background:rgba(240,178,41,.16)}
+  .track .no{width:26px;text-align:center;opacity:.6;font-size:.85rem}
+  .track .t{flex:1;min-width:0}
+  .track .t b{display:block;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .track .t span{font-size:.78rem;opacity:.7}
+  .track .acts{display:flex;gap:6px}
+  .btn{border:none;cursor:pointer;border-radius:999px;padding:7px 12px;font-family:inherit;font-size:.85rem;font-weight:bold;background:rgba(255,255,255,.14);color:#f3ead8}
+  .btn:hover{background:rgba(255,255,255,.24)}
+  .btn.gold{background:var(--gold);color:#2b0a2e}
+  .btn.gold:hover{background:#ffd23f}
+  .foot{text-align:center;font-size:.8rem;opacity:.65;margin-top:34px;line-height:1.7}
+  a{color:#9fd8ff}
+
+  /* ---------- EMBED BAR MODE ---------- */
+  .bar{
+    display:none;
+    font-family: Georgia, serif;
+    background:linear-gradient(120deg,#2b0a2e 0%,#5b1a5e 60%,#c2285a 130%);
+    color:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(11,9,24,.45);
+    padding:8px 10px;align-items:center;gap:8px;width:100%;
+    border:1px solid rgba(255,255,255,.18);
+  }
+  body.embed .bar{display:flex}
+  body.embed .wrap{display:none}
+  .bar .art{font-size:20px;flex-shrink:0}
+  .bar .meta{flex:1;min-width:0;line-height:1.25}
+  .bar .meta b{display:block;font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .meta span{font-size:.62rem;opacity:.75;letter-spacing:.04em}
+  .bar button{background:rgba(255,255,255,.16);border:none;color:#fff;border-radius:999px;width:30px;height:30px;font-size:.8rem;cursor:pointer;flex-shrink:0}
+  .bar button:hover{background:rgba(255,255,255,.3)}
+  .bar .x{background:rgba(11,9,24,.4)}
+  .prog{position:absolute;left:10px;right:10px;bottom:3px;height:3px;border-radius:2px;background:rgba(255,255,255,.18);overflow:hidden}
+  .prog i{display:block;height:100%;width:0;background:var(--gold)}
+  .barwrap{position:relative}
+</style>
+</head>
+<body>
+<script>
+  if (new URLSearchParams(location.search).get('embed') === '1') document.body.classList.add('embed');
+</script>
+
+<!-- ============ EMBED BAR ============ -->
+<div class="barwrap">
+  <div class="bar" id="bar">
+    <div class="art" id="barArt">🎻</div>
+    <div class="meta">
+      <b id="barTitle">OSO FLOW RADIO — the ʻohana streams</b>
+      <span id="barArtist">press ▶ and the music follows you door to door</span>
+    </div>
+    <button id="bPlay" title="play / pause">▶</button>
+    <button id="bNext" title="next track">⏭</button>
+    <button id="bDl"   title="download this track">⬇</button>
+    <button id="bShare" title="share everywhere">📣</button>
+    <button id="bClose" class="x" title="close the music">✕</button>
+  </div>
+  <div class="prog"><i id="barProg"></i></div>
+</div>
+
+<!-- ============ FULL PAGE ============ -->
+<div class="wrap">
+  <div class="deco">🎻 🌊 🦋 🌺 🦋 🌊 🎻</div>
+  <h1>OSO FLOW RADIO</h1>
+  <p class="sub">one player for the whole universe — the music follows you door to door,<br>until you close it. every track CC0: play it, download it, fork it, sing it. 🌺</p>
+
+  <div class="card" id="nowCard">
+    <b id="fpTitle">Pick a track below</b> — <span id="fpArtist">the river is ready</span>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn gold" id="fpPlay">▶ play</button>
+      <button class="btn" id="fpNext">⏭ next</button>
+      <button class="btn" id="fpDl">⬇ download</button>
+      <button class="btn" id="fpShare">📣 share everywhere</button>
+    </div>
+  </div>
+
+  <div class="card"><div id="list"></div></div>
+
+  <div class="foot">
+    🌌 songs by the AI ʻohana × Shaka · 🎸 the Matteo Tambussi gift (karaoke protocol canon)<br>
+    CC0 🌺 gifted with love &amp; aloha by Shaka Lei Kaumaka &amp; the ʻohana ·
+    <a href="https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/">the anthem door</a> ·
+    give back: <a href="https://blessingpool.com">blessingpool.com</a> 🌊
+  </div>
+</div>
+
+<audio id="au" preload="none"></audio>
+
+<script>
+(function(){
+  var HOST = 'https://shaka-anthem-gzdk4epeah-ffieyo32.taur.link/assets/';
+  var TRACKS = [
+    { f:'i-open-sourced-my-whole-universe.mp3', t:'I Open Sourced My Whole Universe', a:'the AI ʻohana × Shaka', e:'🌌' },
+    { f:'a-planet-we-share-as-one.mp3',         t:'A Planet We Share As One',         a:'Shaka — Ethereum Singapore sessions', e:'🌍' },
+    { f:'matteo-tambussi--be-my-friend.mp3',    t:'Be My Friend',      a:'Matteo Tambussi 🎸', e:'🤝' },
+    { f:'matteo-tambussi--gioia-perfetta.mp3',  t:'Gioia Perfetta',    a:'Matteo Tambussi 🎸', e:'✨' },
+    { f:'matteo-tambussi--3mily.mp3',           t:'3mily',             a:'Matteo Tambussi 🎸', e:'🌷' },
+    { f:'matteo-tambussi--burnout.mp3',         t:'Burnout',           a:'Matteo Tambussi 🎸', e:'🔥' },
+    { f:'matteo-tambussi--cioccolato-fondente.mp3', t:'Cioccolato Fondente', a:'Matteo Tambussi 🎸', e:'🍫' },
+    { f:'matteo-tambussi--ginger-game.mp3',     t:'Ginger Game',       a:'Matteo Tambussi 🎸', e:'🫚' },
+    { f:'matteo-tambussi--island.mp3',          t:'Island',            a:'Matteo Tambussi 🎸', e:'🏝️' },
+    { f:'matteo-tambussi--la-canzone-del-tuono.mp3', t:'La Canzone del Tuono', a:'Matteo Tambussi 🎸', e:'⛈️' },
+    { f:'matteo-tambussi--luogoper.mp3',        t:'Luogoper',          a:'Matteo Tambussi 🎸', e:'📍' },
+    { f:'matteo-tambussi--pharmacist-wife-mv2.mp3',  t:'Pharmacist Wife', a:'Matteo Tambussi 🎸', e:'💊' },
+    { f:'matteo-tambussi--plato-orchi-rework.mp3',   t:'Plato (Orchi Rework)', a:'Matteo Tambussi 🎸', e:'🏛️' },
+    { f:'matteo-tambussi--pollo.mp3',           t:'Pollo',             a:'Matteo Tambussi 🎸', e:'🐔' },
+    { f:'matteo-tambussi--tanta-paura.mp3',     t:'Tanta Paura',       a:'Matteo Tambussi 🎸', e:'🌊' }
+  ];
+  var PAGE_URL = 'https://shakaleikaumaka.com/radio/';
+  var LS_KEY = 'osoFlow.v1';
+  var embed = document.body.classList.contains('embed');
+  var au = document.getElementById('au');
+
+  function load(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch(e){ return {}; } }
+  function save(patch){ var s = load(); for (var k in patch) s[k]=patch[k]; try{ localStorage.setItem(LS_KEY, JSON.stringify(s)); }catch(e){} }
+  var state = load();
+  var idx = (typeof state.idx === 'number' && TRACKS[state.idx]) ? state.idx : 0;
+
+  function track(){ return TRACKS[idx]; }
+  function src(){ return HOST + track().f; }
+
+  function paint(){
+    var tr = track();
+    var bt = document.getElementById('barTitle'), ba = document.getElementById('barArtist'), art = document.getElementById('barArt');
+    if (bt){ bt.textContent = tr.t; ba.textContent = tr.a; art.textContent = tr.e; }
+    var ft = document.getElementById('fpTitle'), fa = document.getElementById('fpArtist');
+    if (ft){ ft.textContent = tr.t; fa.textContent = tr.a; }
+    document.querySelectorAll('.track').forEach(function(el,i){ el.classList.toggle('playing', i===idx); });
+    document.getElementById('bPlay').textContent = au.paused ? '▶' : '⏸';
+    var fp = document.getElementById('fpPlay'); if (fp) fp.textContent = au.paused ? '▶ play' : '⏸ pause';
+  }
+
+  function playIdx(i, autoplay){
+    idx = (i + TRACKS.length) % TRACKS.length;
+    au.src = src();
+    save({ idx: idx, time: 0 });
+    paint();
+    if (autoplay !== false) tryPlay();
+  }
+
+  function tryPlay(){
+    var p = au.play();
+    if (p && p.catch) p.catch(function(){ /* gesture needed — user will press ▶ */ });
+    save({ playing: true });
+  }
+  function pause(){ au.pause(); save({ playing:false }); paint(); }
+  function toggle(){ if (au.paused) { if (!au.src) { au.src = src(); var t=load().time||0; au.currentTime=t; } tryPlay(); } else pause(); paint(); }
+
+  au.addEventListener('ended', function(){ playIdx(idx+1); });
+  au.addEventListener('play',  function(){ save({playing:true});  paint(); });
+  au.addEventListener('pause', function(){ save({playing:false}); paint(); });
+  setInterval(function(){ if(!au.paused) save({ time: au.currentTime }); }, 4000);
+  au.addEventListener('timeupdate', function(){
+    var el = document.getElementById('barProg');
+    if (el && au.duration) el.style.width = (au.currentTime/au.duration*100)+'%';
+  });
+
+  function download(){
+    var a = document.createElement('a');
+    a.href = src(); a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  function share(){
+    var tr = track();
+    var text = '🎻 "' + tr.t + '" — ' + tr.a + ' · CC0 music from the AI ʻohana 🌺';
+    var url = PAGE_URL;
+    if (navigator.share){ navigator.share({ title: tr.t, text: text, url: url }).catch(function(){}); return; }
+    var x = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+    window.open(x, '_blank', 'noopener');
+  }
+
+  function closeFlow(){
+    pause();
+    save({ closed: true });
+    if (embed && window.parent) window.parent.postMessage({ oso:'close' }, '*');
+    else document.querySelector('.wrap').innerHTML = '<div class="deco" style="padding-top:40px">🌊 the river rests… aloha 🌺</div>';
+  }
+
+  // wire buttons
+  document.getElementById('bPlay').onclick = toggle;
+  document.getElementById('bNext').onclick = function(){ playIdx(idx+1); };
+  document.getElementById('bDl').onclick = download;
+  document.getElementById('bShare').onclick = share;
+  document.getElementById('bClose').onclick = closeFlow;
+  var fp;
+  if ((fp = document.getElementById('fpPlay'))) fp.onclick = toggle;
+  if ((fp = document.getElementById('fpNext'))) fp.onclick = function(){ playIdx(idx+1); };
+  if ((fp = document.getElementById('fpDl')))   fp.onclick = download;
+  if ((fp = document.getElementById('fpShare'))) fp.onclick = share;
+
+  // full-page playlist
+  var list = document.getElementById('list');
+  if (list){
+    TRACKS.forEach(function(tr, i){
+      var d = document.createElement('div');
+      d.className = 'track';
+      d.innerHTML = '<div class="no">'+tr.e+'</div><div class="t"><b></b><span></span></div><div class="acts"><button class="btn">⬇</button></div>';
+      d.querySelector('b').textContent = tr.t;
+      d.querySelector('span').textContent = tr.a;
+      d.onclick = function(e){ if (e.target.tagName === 'BUTTON') return; playIdx(i); };
+      d.querySelector('button').onclick = function(){ idx=i; download(); };
+      list.appendChild(d);
+    });
+  }
+
+  // messages from the door widget
+  window.addEventListener('message', function(ev){
+    var d = ev.data || {};
+    if (d.oso === 'open'){ save({ closed:false }); }
+    if (d.oso === 'query'){ if (window.parent) window.parent.postMessage({ oso:'state', closed: !!load().closed }, '*'); }
+  });
+
+  // boot: resume where the river left off
+  paint();
+  if (state.closed){
+    if (embed && window.parent) window.parent.postMessage({ oso:'closed' }, '*');
+  } else if (state.playing){
+    au.src = src();
+    au.addEventListener('loadedmetadata', function once(){
+      au.removeEventListener('loadedmetadata', once);
+      if (state.time && state.time > 1) au.currentTime = state.time;
+      tryPlay();
+    });
+  }
+})();
+</script>
+</body>
+</html>
