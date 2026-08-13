@@ -147,7 +147,10 @@
     song.currentTime = ((e.clientX - r.left) / r.width) * song.duration;
   });
   setInterval(()=>{ if (playing) save(); }, 2000);
-  window.addEventListener('beforeunload', save);
+  // v7.3 heartbeat: same-origin doors read 'bl_pop' — while it beats, they never offer their own playback
+  setInterval(()=>{ try { localStorage.setItem('bl_pop', String(Date.now())); } catch(e){} }, 2000);
+  try { localStorage.setItem('bl_pop', String(Date.now())); } catch(e){}
+  window.addEventListener('beforeunload', ()=>{ save(); try { localStorage.setItem('bl_pop', '0'); } catch(e){} });
   // media keys / lock-screen goodness where supported
   if ('mediaSession' in navigator) {
     const setMS = () => { try {

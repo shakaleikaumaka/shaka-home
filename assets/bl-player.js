@@ -4,7 +4,7 @@
    Hybrid of THE CONTINUUM (v5.x jukebox: lyrics bubble, download panel, follow-you) + OSO FLOW v1 (per-song emoji,
    moving words, ✕ close + 🎵 note). Artist names are links home. Download page: shakaleikaumaka.com/radio/
    v6.0: distinct emoji per song · marquee now-playing · ✕/🎵 close-reopen · artist links in bar · share in download panel.
-   v7.0 — THE LIGHTHOUSE; v7.2 = RANGE PROXY: tracks stream via shakaleikaumaka.com/radio-assets (CF worker oso-flow-range) — taur.link ignores Range headers so seeks/resumes silently restarted at 0:00; v7.1 = AUTO-LIGHTHOUSE: playing + family-door click = the song leaps into the popout BEFORE the hop (desktop pointers) (Tessa's note, Shaka canon 2026-08-13): the 🎧 POPOUT. Browser law: a full page navigation
+   v7.0 — THE LIGHTHOUSE; v7.3 = LIGHTHOUSE-FIRST: first ▶ on desktop opens the popout directly (Safari: ONE window.open per gesture, no probe-reopen); bl_pop heartbeat stops double-music on same-origin doors; v7.2 = RANGE PROXY: tracks stream via shakaleikaumaka.com/radio-assets (CF worker oso-flow-range) — taur.link ignores Range headers so seeks/resumes silently restarted at 0:00; v7.1 = AUTO-LIGHTHOUSE: playing + family-door click = the song leaps into the popout BEFORE the hop (desktop pointers) (Tessa's note, Shaka canon 2026-08-13): the 🎧 POPOUT. Browser law: a full page navigation
    always silences the page — so the radio can move OUT of the page into its own little window
    (shakaleikaumaka.com/radio/popout.html) that plays above every door. Surf the whole ʻohana: the song never stops.
    ——— v5.0 — THE CONTINUUM (Tess's dream, Shaka canon 2026-08-13): the song crosses doors with you.
@@ -247,19 +247,25 @@ function toggleDownloads(force){
   if (dlOpen) toggleLyrics(false);
 }
 dlBtn.addEventListener('click', () => toggleDownloads());
-// v7.0/v7.1 THE LIGHTHOUSE — pop the radio out of the page so the song never stops between doors 🎧🌊
+// v7.0→v7.3 THE LIGHTHOUSE — pop the radio out of the page so the song never stops between doors 🎧🌊
+// v7.3 SAFARI LAW (learned live 2026-08-13): ONE window.open per user gesture — never probe-then-reopen.
+let blPopLive = false; // this page opened the lighthouse before → probing is safe
 function blOpenPopout(trk, t, autoplay, quiet){
   const url = 'https://shakaleikaumaka.com/radio/popout.html?bl_trk=' + trk + '&bl_t=' + (t||0).toFixed(1) + (autoplay ? '&autoplay=1' : '');
-  // if the lighthouse already shines, just focus it — never restart the song
-  let w = null;
-  try { w = window.open('', 'osoflowradio'); } catch(e){ w = null; }
-  if (w && !w.closed) {
-    let fresh = true;
-    try { fresh = (!w.location.href || w.location.href === 'about:blank'); } catch(e2) { fresh = false; } // cross-origin read throws = our popout lives
-    if (fresh) { try { w.close(); } catch(e3){} w = null; }
+  if (blPopLive) {
+    let w = null;
+    try { w = window.open('', 'osoflowradio'); } catch(e){ w = null; }
+    if (w && !w.closed) {
+      let fresh = true;
+      try { fresh = (!w.location.href || w.location.href === 'about:blank'); } catch(e2) { fresh = false; } // cross-origin read throws = popout lives
+      if (fresh) { try { w.location.href = url; } catch(e3){} } // steer the blank window — do NOT close+reopen (Safari blocks the 2nd open)
+      else if (!quiet) { try { w.focus(); } catch(e4){} }
+      return w;
+    }
+    blPopLive = false;
   }
-  if (!w) w = window.open(url, 'osoflowradio', 'width=440,height=215,left=40,top=40');
-  else if (!quiet) { try { w.focus(); } catch(e4){} }
+  const w = window.open(url, 'osoflowradio', 'width=440,height=215,left=40,top=40');
+  if (w) blPopLive = true;
   return w;
 }
 document.getElementById('blpop').addEventListener('click', ()=>{
@@ -332,7 +338,16 @@ function setPlaying(on, broadcast){
 }
 function toggleSong(){
   if(playing){ song.pause(); setPlaying(false, true); }
-  else { song.play().then(()=>setPlaying(true, true)).catch(()=>{}); }
+  else {
+    // v7.3 THE LIGHTHOUSE FIRST (Shaka 2026-08-13: "we want the music to never stop between all the doors"):
+    // on desktop the very first ▶ moves the song straight into the popout — after that, NO door hop can ever
+    // silence it. One window.open, inside the click gesture (Safari law). Popup blocked / mobile → play in-page.
+    if (window.matchMedia && matchMedia('(pointer:fine)').matches) {
+      const w = blOpenPopout(ti, song.currentTime || 0, true, false);
+      if (w) { status.innerHTML = '🎧 the song lives in the popout now — surf every door, it never stops 🌊'; return; }
+    }
+    song.play().then(()=>setPlaying(true, true)).catch(()=>{});
+  }
 }
 btn.addEventListener('click', toggleSong);
 trackBtn.addEventListener('click', ()=>{
@@ -364,9 +379,13 @@ window.addEventListener('load', ()=>{
   if (startT > 1) { try { song.currentTime = startT; } catch(e){} }
   setPlaying(false, false);
   if (blIsClosed()) blShowClosed(true);
+  // v7.3: if the lighthouse beats (same-origin popout alive), this door stays a silent launcher — no double music
+  let popAlive = false;
+  try { popAlive = (Date.now() - (parseInt(localStorage.getItem('bl_pop')) || 0)) < 10000; } catch(e){}
+  if (popAlive) { blPopLive = true; status.innerHTML = '🎧 the song is in the popout — tap ▶ to see it 🌊'; }
   // v5.0 continuum: if the song was playing when the visitor left the last door, offer the seamless resume
   const stWasPlaying = (q.get('bl_play') === '1') || (st && st.playing);
-  if (stWasPlaying && !blIsFocus(BL_HOST)) {
+  if (stWasPlaying && !blIsFocus(BL_HOST) && !popAlive) {
     status.innerHTML = '▶ the song follows you — tap anywhere to continue';
     btn.style.animation = 'blpulse 1.2s infinite';
     const resumeOnce = () => {
@@ -390,21 +409,7 @@ document.querySelectorAll('a[href]').forEach(a => {
     if (a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     saveState();
     let url = a.href;
-    // v7.1 AUTO-LIGHTHOUSE (Shaka 2026-08-13: "we want the music to never stop between all the doors"):
-    // if the song is playing and this hop stays in the family, the song leaps into the popout BEFORE
-    // the page dies — zero silence, no tap needed. Desktop pointers only (mobile popups = full tabs).
-    try {
-      const u0 = new URL(url, location.href);
-      if (playing && blInFamily(u0.hostname) && window.matchMedia && matchMedia('(pointer:fine)').matches) {
-        e.preventDefault();
-        const t = song.currentTime || 0;
-        song.pause(); setPlaying(false, true);
-        const w = blOpenPopout(ti, t, true, true);
-        if (w) { location.href = url; return; }
-        // popup blocked → fall through to the classic continuum (tap-anywhere resume)
-        song.play().then(()=>setPlaying(true, true)).catch(()=>{});
-      }
-    } catch(err){}
+    // (v7.1's hop-leap retired in v7.3: the song already lives in the popout from the first ▶ — nothing to leap)
     try {
       const u = new URL(url, location.href);
       if (blInFamily(u.hostname) && song.currentTime > 1) {
