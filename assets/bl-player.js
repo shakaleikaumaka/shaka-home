@@ -48,16 +48,21 @@ const TRACKS = [
 <p><strong>We can build it up like a layer one</strong><br>The world computer called Ethereum<br><strong>For a planet we share as one 🌍</strong></p>` },
   { title: 'Ginger Game', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--ginger-game.mp3',
-    chords: '📝 draft lyrics', icon: '🫚',
+    chords: 'sing along 🎤', icon: '🫚',
     lyrics: `<p><strong>Ginger Game — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>I have got a trick to foil those evil plans I hide it A fun remade is what I need to play, Because we could game against the house of slaves.<br>Flaming locks and driving eyes are my shame, In the thickness, they were even brighter now Ginger game, ginger game<br>Orange crash, honey pain Pull the strings from the chains The devil's got no game against ginger's game<br>Change of thoughts am I a part time?<br>Space me out into the deepest sky Far above the mountains through the stratosphere I will hit the sun and kill your fucking fears<br>Change your game, change your game Orange crush, honey pain I'll kill that queen, Freddy Sam<br>The killing is Jesus' name Oh, you said it all One, two, three, four, five, six, seven, four, five, six, seven, four</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Ain’t no room the Devil runs the world<br>ain’t no secret who snuck him into the Ball<br>ain’t no sunlight that can pierce that long black cloud</p>
+<p>but I got a trick to foil those evil plans</p>
+<p>I fiery mate<br>is what I need to play,<br>this wicked game against the house of snakes.<br>Flaming locks and dragon eyes don’t know no shame,<br>In the deepness, they burn even brighter flames</p>
+<p>Ginger game, ginger game<br>Orange crush, honey pain<br>Pull the strings drop the chains<br>The devil&#x27;s got no game against ginger&#x27;s game</p>
+<p>Ginger thoughts spice up my appetite<br>Space me out into the deep blues sky<br>Far above the mountains through the stratosphere<br>I will hit the sun and kill your fucking fears<br>Ginger game, Ginger game<br>Orange crush, honey pain I&#x27;ll kill<br>Killer queen, Freddy said<br>The devil&#x27;s got no game against ginger&#x27;s game</p>
+<p>One, two, three, four,five, six, seven,<br>all the gingers go to heaven</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Luogoper', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--luogoper.mp3',
-    chords: '📝 draft lyrics', icon: '📍',
+    chords: 'sing along 🎤', icon: '📍',
     lyrics: `<p><strong>Luogoper — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>Ho trovato un luogo be' per tornare a immaginare Muove cure per il nostro amore, questo amore che ci tratta male<br>Per poterci arrivare C'è una sola indicazione Prendi quella strada senza nome Dopo il ponte sul fiume delle tue parole<br>E con il vento in coda superma salita Non farai fatica e la notte ti aspetterà Entra senza esitazione Questa casa ti conosce già<br>Svesti in dubbio ed il rumore Incontrami con curiosità</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Ho trovato un luogo per<br>per tornare a immaginare<br>Nuove cure per il nostro amore, questo amore che ci tratta male<br>Per poterci arrivare c&#x27;è una sola indicazione<br>Prendi quella strada senza nome<br>Dopo il ponte sul fiume delle troppe parole<br>E con il vento in coda super la salita<br>Non farai fatica e la notte ti aspetterà<br>Entra senza esitazione<br>Questa casa ti conosce già<br>Svesti in dubbio ed il rumore Incontrami con curiosità</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Tanta Paura', sub: 'Matteo Tambussi 🎻🇮🇹 — Open Source Orchestra co-founder',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--tanta-paura.mp3',
     chords: 'sing along 🎤', icon: '🌊',
@@ -71,19 +76,20 @@ const TRACKS = [
 <p>Rit 2<br>e ti penso, come il vento respiro nelle valli<br>sopra i mari, di un desiderio conclusivo<br>a cui sarò per sempre fedele <br>Senza perdermi in tanta paura<br>Senza perdermi in tanta paura</p>` },
   { title: 'Gioia Perfetta', sub: 'Matteo Tambussi 🎻🇮🇹 — from Turin with aloha',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--gioia-perfetta.mp3',
-    chords: '📝 draft lyrics', icon: '✨',
+    chords: 'sing along 🎤', icon: '✨',
     lyrics: `<p><strong>Gioia Perfetta — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>Come triste il giorno di maggio, dentro il vicolo povero e solo di tanto sole ne pure un raggio, con tante rondini ne anche un voro<br>pure c'era in quello squallore, in quel luce a greve e amara un profumo di c'è il fiore, un barlume di gioia chiara<br>c'era c'erano tante rose, affacciata una finestra che ridevano come spose, preparate per la festa<br>C'era seduto sui gradini, d'una casa di pezzenti, un bambino piccino piccino, dai grandi occhi risprendenti.<br>C'era in alto una voce di mamma Cos'e calma e cos'e pura Che cantava la ninna nanna Alla propria creatura<br>E poi dopo non c'era più nulla Ma di magia la mia poveretta past un bimbo, un fiore, una kulla<br>per formarsi una gioia perfetta per formarsi Performersi</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Com’è triste il giorno di maggio<br>dentro al vicolo povero e solo!<br>Di tanto sole neppure un raggio;<br>con tante rondini, neanche un volo.<br>Pure c’era in quello squallore,<br>in quell’uggia greve e amara,<br>un profumo di cielo in fiore,<br>un barlume di gioia chiara.<br>C’era… c’erano tante rose<br>affacciate ad una finestra,<br>che ridevano come spose<br>preparate per la festa.<br>C’era seduto sui gradini<br>d’una casa di pezzenti,<br>un bambino piccino, piccino,<br>dai grandi occhi risplendenti.<br>C’era in alto una voce di mamma,<br>così calma, così pura!<br>che cantava la ninna nanna<br>alla propria creatura.<br>E poi dopo non c’era più nulla…<br>Ma, di maggio, alla via poveretta<br>basta un bimbo, un fiore, una culla<br>per formarsi una gioia perfetta.<br>Performarsi.</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: '3MILY', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--3mily.mp3',
     chords: 'sing along 🎤', icon: '🌷',
     lyrics: `<p><strong>3MILY — Matteo Tambussi 🎻🇮🇹</strong></p>
 <p>Ci incontriamo in volo<br>e in volo ci lasciamo<br>tu alla tua missione<br>ed io all’Uragano<br>che raffredda la mente<br>dopo una calda estate<br>e il pianeta in fiamme</p>
-<p>chissà se troveremo<br>ognuno per sè<br>felicità, era una vasca piena<br>dove potevo guardarti affogare<br>accarezzando una canzone <br>semplice come te</p>
+<p>chissà se troveremo<br>ognuno per sè<br>felicità, era una vasca piena<br>dove potevo guardarti affogare<br>accarezzando una canzone<br>semplice come te</p>
 <p>3mily 3mily<br>cosa fai 3mily</p>
 <p>incontrerai qualcuno<br>o qualcuno ti incontrerà<br>digli di no, tu non ci credi alla slealtà<br>dei corpi sensuali orbitanti<br>travolti dalla gravità<br>di una altra cometa.</p>
-<p>3mily 3mily<br>dove sei 3milydormi qui 3mily</p>` },
+<p>3mily 3mily<br>dove sei 3mily<br>dormi qui 3mily</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Burnout', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--burnout.mp3',
     chords: 'sing along 🎤', icon: '🔥',
@@ -107,13 +113,15 @@ const TRACKS = [
 <p>low lives<br>my family<br>the only ones I know<br>go, go with the flow<br>miles and miles away from the skyline</p>
 <p>you rock and rollers<br>take the oars<br>you castaway lovers<br>feel the roar of Life<br>life on an island<br>searching for islands<br>sailing by the stars<br>never be lost</p>
 <p>all mine<br>nothing to lose, under this sun<br>just nowhere to run<br>we’ll never stop chasing our Islands</p>
-<p>you rock and rollers<br>take the oars<br>you exiled looters feel the roar<br>of Life<br>life on an Island<br>searchin for islands<br>sailing by the stars<br>never be lost<br>never grow old</p>` },
+<p>you rock and rollers<br>take the oars<br>you exiled looters feel the roar<br>of Life<br>life on an Island<br>searchin for islands<br>sailing by the stars<br>never be lost<br>never grow old</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Cioccolato Fondente', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--cioccolato-fondente.mp3',
-    chords: '📝 draft lyrics', icon: '🍫',
+    chords: 'sing along 🎤', icon: '🍫',
     lyrics: `<p><strong>Cioccolato Fondente — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>Questa tempesta monta, monta e non scarica mai e quando arriverà la sete allora vedrai berremo da una fontana di sangue<br>vita fresca e nocente come il primo peccato di cola ci ricorderà un po' Cioccolato fondente<br>E mentre il mondo discende, il suo segreto a mezz'aria rimane un tessuto di sogno lo appolge e inibisce prende l'azione<br>sui resti delle loro battaglie, sui simboli del loro potere Ciò colato fondente Uuuh, uuuh, uuuh</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Questa tempesta monta monta<br>E non scarica mai<br>E quando arriverà la sete<br>allora vedrai<br>Berrai da una fontana di sangue<br>Vita fresca e innocente<br>Come il primo peccato di gola<br>ti ricorderà un po il  cioccolato fondente</p>
+<p>E mentre il mondo discende<br>Il suo segreto a mezz’aria rimane<br>Un tessuto di sogno lo avvolge<br>che inibisce l’azione<br>Sui resti delle loro battaglie<br>sui simboli del loro potere<br>cioccolato fondente</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'La Canzone del Tuono', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--la-canzone-del-tuono.mp3',
     chords: '📝 draft lyrics', icon: '⛈️',
@@ -122,28 +130,43 @@ const TRACKS = [
 <p><em>⛈️ the thunder sings in textures — our transcriber heard only fragments. Matteo, send us the true words and we will carve them in. 🎻</em></p><p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
   { title: 'Be My Friend', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--be-my-friend.mp3',
-    chords: '📝 draft lyrics', icon: '🤝',
+    chords: 'sing along 🎤', icon: '🤝',
     lyrics: `<p><strong>Be My Friend — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>Be my friend, don't let me down Oh, be my friend, hold my hand<br>In the dark, we make a bright light In the dark, we give another try<br>Be my friend, oh, don't let me down Don't let me down<br>Be my friend, oh, don't let me down Don't let me down<br>Be my friend, don't let me down<br>Be my friend, hold my hand</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Be my friend, don&#x27;t let me down<br>Oh, be my friend, hold my hand<br>In the dark, we make a brighter light<br>In the dark, we give another try</p>
+<p>Be my friend, oh, don&#x27;t let me down Don&#x27;t let me down<br>Be my friend, oh, don&#x27;t let me down Don&#x27;t let me down<br>Be my friend, don&#x27;t let me down<br>Be my friend, hold my hand</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Pharmacist Wife (Mv. 2)', sub: 'Matteo T & Marek K 🎻',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--pharmacist-wife-mv2.mp3',
-    chords: '📝 draft lyrics', icon: '💊',
+    chords: 'sing along 🎤', icon: '💊',
     lyrics: `<p><strong>Pharmacist Wife (Mv. 2) — Matteo T &amp; Marek K 🎻</strong></p>
-<p>I ain't gotta worry cuz I'm rich baby If you wanna have an easy life Just make sure to marry a pharmacist, why?<br>Ditches great, we're drinkin' it, they're great One after another for screams, then the rest<br>By the time we hit the bronze, we're out of supplies It's time to go my pharmacist, why?<br>Policies, why do you make me believe that happiness grows on gentle trees?<br>African dancers in a hotel suite, 20 horses couldn't make a leap By the time they are gone, I'm more dead than alive<br>Who will call my pharmacist why?<br>Pharmacist why to make me believe That happiness grows on terrarium trees She's a bit of a whore with a flower in her hair<br>Seven husbands watching as she climbs the stairs Seven husbands watching, waiting in line Who will be the next to please their pharmacist wife?<br>Pharmacist wife can make us believe That happiness grows on cherry trees Pharmacist wife can make us believe<br>That happiness grows on cherry trees You</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Whisky in the morning and a 5 o&#x27;clock tea<br>I ain&#x27;t gotta worry cuz I&#x27;m rich baby<br>If you wanna have an easy life<br>Just make sure to marry a pharmacist wife</p>
+<p>Dead Jazz great, we’re drinkin&#x27; at their graves<br>One after another first Satch, then the rest<br>By the time we hit the bronx, we&#x27;re out of supplies<br>It&#x27;s time to call my pharmacist wife</p>
+<p>Pharmacist wife you make me believe<br>that happiness grows on cherry trees</p>
+<p>African dancers in a hotel suite, 20 horses couldn&#x27;t make leave<br>By the time they are gone, I&#x27;m more dead than alive<br>Who will call my pharmacist wife?</p>
+<p>Pharmacist wife you make me believe<br>That happiness grows on cherry trees</p>
+<p>She&#x27;s a bitter lady with a flower in her hair<br>Seven husbands watching as she climbs down the stairs<br>Seven husbands watching, waiting in line<br>Who will be the next to please their pharmacist wife?</p>
+<p>Pharmacist wife you make us believe<br>That happiness grows on cherry trees</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Plato (ORCHI Rework)', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--plato-orchi-rework.mp3',
-    chords: '📝 draft lyrics', icon: '🏛️',
+    chords: 'sing along 🎤', icon: '🏛️',
     lyrics: `<p><strong>Plato (ORCHI Rework) — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>Da i venti celesti We are keepers I have a little bit of a headache but I'll try to get some rest<br>and I'll see you in a bit I'll come back as soon as I can and you'll see me in a bit I'll be back<br>The key to go away from the illusion Where are my friends? Where are the good spies?<br>Noi eravamo felici My soul, my soul Contro gniorki io e te Una cosa sola Contro gniorki io e te<br>Contro Giorchi io e te, una cosa sola, Contro Giorchi io e te, una cosa sola, Contro<br>Sola Contro agli occhi di io e te Una cosa sola</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` },
+<p>Mi rivolgo a Te<br>Nel momento in cui sono più fragile</p>
+<p>Senza nulla temere<br>Chiedo di essere avvolto dai venti celesti</p>
+<p>Che mi aiutino a disfare tutte le simulazioni<br>E i desideri molesti<br>Degli orchi padroni<br>Gli orchi padroni</p>
+<p>sono umili doni<br>chE ti offro per dare alla mia invocazione<br>La risposta finAle,<br>LA chiAve per evadere dall’illusione</p>
+<p>Dove sono i miei amici, dove sono i buoni auspici?<br>Noi Eravamo felici<br>Di essere una cosa sola<br>Contro gli orchi, io e te, una cosa sola<br>Contro gli orchi, io e te, una cosa sola</p>
+<p>Con la compassione<br>E un&#x27;alta soglia di sopportazione</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` },
   { title: 'Pollo', sub: 'Matteo Tambussi 🎻🇮🇹',
     src: 'https://shakaleikaumaka.com/radio-assets/matteo-tambussi--pollo.mp3',
-    chords: '📝 draft lyrics', icon: '🐔',
+    chords: 'sing along 🎤', icon: '🐔',
     lyrics: `<p><strong>Pollo — Matteo Tambussi 🎻🇮🇹</strong></p>
-<p>Nell'Arabia c'è il deserto Non c'è traccia di te stesso<br>Se ti senti incompreso Perché morti se ti tiene chiesto<br>Dove hai messo il dolore L'hai nascosto scambiato per un po' d'amore<br>Che ti piace lo sai bene È una gioia in un mondo da bruciare<br>Che cosa ti è successo Pollo Dici cosa è successo a te<br>Dove che ti sei perso Pollo Dove che perso a me<br>Ti ricordi di una volta Fica il Rammstein in piscina<br>Capitano nuova rota Prendi il largo e tutto il resto che si fotta<br>Che cosa ti è successo Pollo Che cosa è successo a me<br>Dove che ti sei perso Pollo Dove che perso a me<br>Dove che ti sei perso Pollo Dove che perso a me<br>Dove che ti sei perso Pollo Dove che ti sei perso<br>Dove che ti sei perso Pollo Dove che ti sei perso Pollo<br>Pollo</p>
-<p><em>📝 AI transcription draft (faster-whisper) — Matteo is blessing the official words. Sing along, and if a line sounds wrong, it probably is — the final words come from the artist. 🌺</em></p>` }
+<p>Nella rabbia c&#x27;è il deserto<br>Non c&#x27;è traccia di te stesso<br>Se ti senti incompreso<br>Perché mordi se ti tiene chiesto<br>Dove hai messo il dolore<br>L&#x27;hai nascosto o scambiato per un po&#x27; d&#x27;amore<br>Che ti piace lo sai bene<br>È una gioia in un mondo da bruciare</p>
+<p>Che cosa ti è successo Pollo ?<br>Dicci cosa è successo a te?<br>Dove che ti sei perso Pollo ?<br>Dove che hai perso a me?</p>
+<p>I ricordi di una volta<br>Fica e Rammstein in piscina<br>Capitano nuova rotta<br>Prendi il largo e tutto il resto che si fotta</p>
+<p>Che cosa ti è successo Pollo?<br>Che cosa è successo a me?<br>Dove che ti sei perso Pollo?<br>Dove che perso a me?</p>
+<p><em>✓ official words — blessed by Matteo Tambussi himself, Aug 2026 🎻🌺</em></p>` }
 ];
 /* v5.2: artist links — Matteo's songs point home to his linktree */
 TRACKS.forEach(t => { if (/Tambussi|Marek/.test(t.sub)) t.artistUrl = 'https://linktr.ee/matteotambussi'; else t.artistUrl = 'https://shakaleikaumaka.com'; });
