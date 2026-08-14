@@ -1,4 +1,4 @@
-/* 🌊 bl-shell.js v1.0 — THE OPEN ROAD (Shaka 2026-08-13: "todo es posible.. make the radio never stop
+/* 🌊 bl-shell.js v1.2 — THE OPEN ROAD (Shaka 2026-08-13: "todo es posible.. make the radio never stop
    playing and work like a dream as you surf all the doors"). Tessa's note, finally honored in full:
    the player lives in the core page, and the core page NEVER UNLOADS — family links open in a
    full-screen overlay INSIDE this page, so the radio bar (moving lyrics and all) never even blinks.
@@ -30,7 +30,7 @@ function openRoad(url){
         '<a href="' + url.replace(/"/g,'&quot;') + '" target="_blank" rel="noopener" title="open this door in its own tab" style="border:1px solid rgba(45,212,191,.6);color:#2dd4bf;border-radius:999px;font-size:.78rem;padding:.25em .9em;text-decoration:none;white-space:nowrap">↗ own tab</a>' +
       '</div>' +
       '<div id="blroad-loading" style="position:absolute;top:62px;left:0;right:0;text-align:center;color:#b9a8cf;font-size:.85rem;font-family:system-ui">🌊 opening the door…</div>' +
-      '<iframe src="' + url.replace(/"/g,'&quot;') + '" style="flex:1;border:0;width:100%;background:#0b0918" allow="autoplay"></iframe>' +
+      '<iframe src="' + url.replace(/"/g,'&quot;') + '" style="flex:1;border:0;width:100%;background:#0b0918" allow="autoplay; camera; microphone"></iframe>' +
     '</div>';
   document.body.appendChild(ov);
   document.body.style.overflow = 'hidden';
