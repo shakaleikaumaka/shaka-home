@@ -1,4 +1,4 @@
-/* x402-tip.js v1.1 — 🤖💰 agent aloha x402 (Shaka canon 2026-08-15: circle button below the 🧲 magnet, top-right; frees the bottom-left lane so Devcon tickets never overlap on mobile)
+/* x402-tip.js v1.2 — 🤖 agent pennies of aloha x402 (Shaka canon 2026-08-15: FULL label pill below the 🧲 magnet top-right; ✕ shrinks to tiny 🤖💰; bottom-left stays free for Devcon)
    Self-contained x402 tip lane for any ʻohana door (fleet injectable, bl-player style).
    MetaMask → Base (0x2105) → USDC EIP-3009 transferWithAuthorization (gas-free for payer)
    → PayAI facilitator (facilitator.payai.network) verify + settle → agent-launch wallet.
@@ -17,10 +17,10 @@
   var css=document.createElement('style');
   css.textContent=[
   '#x4-wrap{position:fixed;top:calc(74px + env(safe-area-inset-top,0px));right:10px;z-index:9998;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:system-ui,-apple-system,sans-serif}',
-  '#x4-pill{width:44px;height:44px;border-radius:50%;background:rgba(20,18,45,.85);border:1px solid rgba(124,75,168,.55);color:#fff;font-size:15px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);opacity:.65;transition:opacity .3s;display:flex;align-items:center;justify-content:center;padding:0}',
-  '#x4-pill:hover{opacity:1}',
+  '#x4-pill{background:linear-gradient(90deg,#0052ff,#7c4ba8);color:#fff;border:none;border-radius:999px;padding:8px 13px;font-size:12.5px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.45);white-space:nowrap;opacity:.92}',
+  '#x4-pill:hover{opacity:1;filter:brightness(1.1)}',
   '#x4-x{background:rgba(20,14,30,.85);color:#cfc6e8;border:1px solid #7c4ba8;border-radius:50%;width:24px;height:24px;line-height:1;font-size:12px;cursor:pointer;padding:0}',
-  '#x4-mini{position:fixed;top:calc(74px + env(safe-area-inset-top,0px));right:10px;z-index:9998;width:26px;height:26px;border-radius:50%;background:rgba(20,14,30,.9);border:1px solid #7c4ba8;font-size:13px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;opacity:.6}',
+  '#x4-mini{position:fixed;top:calc(74px + env(safe-area-inset-top,0px));right:10px;z-index:9998;height:26px;border-radius:999px;background:rgba(20,14,30,.9);border:1px solid #7c4ba8;font-size:12px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;opacity:.7;padding:0 7px}',
   '#x4-ovl{position:fixed;inset:0;z-index:100002;background:rgba(6,3,10,.72);display:none;align-items:center;justify-content:center;padding:16px;font-family:system-ui,-apple-system,sans-serif}',
   '#x4-card{background:#120a1c;border:1px solid #7c4ba8;border-radius:18px;max-width:420px;width:100%;padding:22px;color:#f5efe6;box-shadow:0 10px 50px rgba(0,0,0,.6);max-height:88vh;overflow:auto}',
   '#x4-card h3{margin:0 0 8px;font-size:18px}',
@@ -38,17 +38,17 @@
   '#x4-copy{background:#1c1230;color:#7fd8a4;border:1px solid #7fd8a4;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;margin-top:8px}',
   '#x4-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#9d97c9;font-size:20px;cursor:pointer}',
   '#x4-cardwrap{position:relative}',
-  '@media (max-width:520px){#x4-pill{width:40px;height:40px;font-size:14px}}'
+  '@media (max-width:520px){#x4-pill{font-size:11.5px;padding:7px 11px}}'
   ].join('\n');
   document.head.appendChild(css);
 
   var wrap=document.createElement('div'); wrap.id='x4-wrap';
-  wrap.innerHTML='<button id="x4-pill" title="agent aloha x402 — pennies of aloha, human or agent" aria-label="agent aloha x402">🤖💰</button><button id="x4-x" title="tuck away">✕</button>';
-  var mini=document.createElement('button'); mini.id='x4-mini'; mini.title='agent aloha x402'; mini.textContent='💰';
+  wrap.innerHTML='<button id="x4-pill" title="agent pennies of aloha x402 — human or agent" aria-label="agent pennies of aloha x402">🤖 agent pennies of aloha x402</button><button id="x4-x" title="tuck away">✕</button>';
+  var mini=document.createElement('button'); mini.id='x4-mini'; mini.title='agent pennies of aloha x402'; mini.textContent='🤖💰';
   var ovl=document.createElement('div'); ovl.id='x4-ovl';
   ovl.innerHTML='<div id="x4-cardwrap"><div id="x4-card">'
     +'<button id="x4-close" title="close">✕</button>'
-    +'<h3>🤖💰 agent aloha x402</h3>'
+    +'<h3>🤖 agent pennies of aloha x402</h3>'
     +'<div class="x4-sub">USDC on <b>Base</b> straight to the ʻohana’s agent-launch wallet — gas-free for you (EIP-3009 signature, the pool settles it via <a href="https://facilitator.payai.network" target="_blank" rel="noopener" style="color:#7fd8a4">PayAI</a>). agents: <a href="/x402-bless.json" style="color:#7fd8a4">/x402-bless.json</a> 🤖</div>'
     +'<div class="x4-amts">'
     +'<button class="x4-amt sel" data-v="0.01">1¢</button>'
