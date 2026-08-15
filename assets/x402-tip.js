@@ -1,4 +1,4 @@
-/* x402-tip.js v1.2 — 🤖 agent pennies of aloha x402 (Shaka canon 2026-08-15: FULL label pill below the 🧲 magnet top-right; ✕ shrinks to tiny 🤖💰; bottom-left stays free for Devcon)
+/* x402-tip.js v1.3 — 🤖 agent pennies of aloha x402 (Shaka canon 2026-08-15: FULL label pill below the 🧲 magnet top-right; ✕ shrinks to tiny 🤖💰; bottom-left stays free for Devcon)
    Self-contained x402 tip lane for any ʻohana door (fleet injectable, bl-player style).
    MetaMask → Base (0x2105) → USDC EIP-3009 transferWithAuthorization (gas-free for payer)
    → PayAI facilitator (facilitator.payai.network) verify + settle → agent-launch wallet.
@@ -49,7 +49,7 @@
   ovl.innerHTML='<div id="x4-cardwrap"><div id="x4-card">'
     +'<button id="x4-close" title="close">✕</button>'
     +'<h3>🤖 agent pennies of aloha x402</h3>'
-    +'<div class="x4-sub">USDC on <b>Base</b> straight to the ʻohana’s agent-launch wallet — gas-free for you (EIP-3009 signature, the pool settles it via <a href="https://facilitator.payai.network" target="_blank" rel="noopener" style="color:#7fd8a4">PayAI</a>). agents: <a href="/x402-bless.json" style="color:#7fd8a4">/x402-bless.json</a> 🤖</div>'
+    +'<div class="x4-sub">USDC on <b>Base</b> straight to the ʻohana’s agent-launch wallet — gas-free for you (EIP-3009 signature, the pool settles it via <a href="https://facilitator.payai.network" target="_blank" rel="noopener" style="color:#7fd8a4">PayAI</a>). agents: <a href="https://shakaleikaumaka.com/x402-bless.json" style="color:#7fd8a4">shakaleikaumaka.com/x402-bless.json</a> 🤖</div>'
     +'<div class="x4-amts">'
     +'<button class="x4-amt sel" data-v="0.01">1¢</button>'
     +'<button class="x4-amt" data-v="0.10">10¢</button>'
