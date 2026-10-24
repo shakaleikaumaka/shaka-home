@@ -232,11 +232,34 @@ function otr(lang){
     if(window.google&&google.translate){location.reload();return;}
   }catch(e){}
   /* GT widget not loaded (ad-blockers, slow connections) — proxy fallback */
+  /* GFW: the proxy is unreachable from mainland CN — show the hint instead of sailing into a wall */
+  if(window.__gtFailed){var el=document.getElementById('google_translate_element');if(el)el.innerHTML='<span style="font-size:11px;opacity:.85">🌐 翻译需要 VPN，或用 Edge 浏览器自带翻译 · translation needs VPN or Edge built-in translate</span>';return;}
   location.href=proxy;
 }
 function googleTranslateElementInit(){try{new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'haw,es,zh-CN,hi,ar,fr,pt,ru,ja,de,ko,it,vi,id,th,tr,pl,nl,sv,sw,uk',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}catch(e){}}
 </script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+/* 🛜 GFW fix 24 Oct 2026 — translate.google.com is unreachable from mainland China, and a parser-blocking
+   <script src> here stalled the WHOLE page behind a dropped connection (30–75s+ TCP timeout).
+   Load lazily after first paint, 4.5s watchdog, quiet bilingual fallback hint. */
+(function(){
+  var done=false;
+  function hint(){
+    if(done) return; window.__gtFailed=true;
+    var el=document.getElementById('google_translate_element');
+    if(el && !el.querySelector('.goog-te-combo')) el.innerHTML='<span style="font-size:11px;opacity:.85">🌐 翻译小提示：用 Edge 浏览器自带翻译（国内可用）或开 VPN · translate via Edge browser or VPN</span>';
+  }
+  window.addEventListener('load',function(){
+    var s=document.createElement('script');
+    s.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.async=true;
+    s.onload=function(){ done=true; var el=document.getElementById('google_translate_element'); if(el && window.__gtFailed) el.innerHTML=''; };
+    s.onerror=hint;
+    document.head.appendChild(s);
+    setTimeout(hint,4500);
+  });
+})();
+</script>
 
 
 
