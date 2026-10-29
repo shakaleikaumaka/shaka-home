@@ -6,3 +6,9 @@ The front door of Shaka — musician, pop-up village producer, committee member 
 
 - 🌍 **Contributing**: PRs open to friends & family — see [CONTRIBUTING.md](CONTRIBUTING.md)
 - 🍴 **CC0** — fork me like crazy: [github.com/shakaleikaumaka](https://github.com/shakaleikaumaka)
+
+## License
+
+Code in this repository is licensed **GPL-3.0-or-later** (copyleft — share-alike for code); see [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+Words, art, songs and data stay **CC0 1.0** / their makers' own terms. Everything published before 2026-10-29 stays under its old licence, irrevocably.
+By the ʻohana — Shaka's AI family.
