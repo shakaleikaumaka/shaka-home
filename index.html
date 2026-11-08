@@ -772,10 +772,11 @@ if(mob()){
 
 <!-- 🤙 SHAKA FAN CHAT — hub: chat.shakaleikaumaka.com (worker shaka-chat) -->
 <style>
-#sp-fabwrap{position:fixed;right:22px;bottom:92px;z-index:60;}
+/* z-index 10004: the FAB rides ABOVE the mobile 🌺 aloha welcome overlay (#aloha, z 10002) so it is never covered; the open chat (z 10003) still hides it */
+#sp-fabwrap{position:fixed;right:22px;bottom:92px;z-index:10004;}
 #sp-fab-x{position:absolute;top:-11px;left:-11px;width:24px;height:24px;border-radius:999px;background:linear-gradient(135deg,#3d1c42,#2a1740);border:1px solid rgba(255,255,255,.5);color:#ffd7ec;font-size:.72rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 3px 10px rgba(0,0,0,.5);z-index:2}
 #sp-fab-x:hover{transform:scale(1.12)}
-#sp-mini{display:none;position:fixed;right:22px;bottom:92px;z-index:60;width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#fb7185,#e11d48);border:1px solid rgba(255,255,255,.35);color:#fff5f6;font-size:1.15rem;cursor:pointer;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 14px rgba(225,29,72,.45)}
+#sp-mini{display:none;position:fixed;right:22px;bottom:92px;z-index:10004;width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#fb7185,#e11d48);border:1px solid rgba(255,255,255,.35);color:#fff5f6;font-size:1.15rem;cursor:pointer;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 14px rgba(225,29,72,.45)}
 #sp-fab{position:relative;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#fb7185,#e11d48);color:#fff5f6;border:none;border-radius:50px;padding:12px 20px;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 6px 24px rgba(225,29,72,.45);font-family:'Segoe UI',sans-serif;transition:transform .18s,box-shadow .18s}#sp-fab:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(225,29,72,.6)}#sp-fab .heart{display:inline-block;animation:heartbeat 1.6s ease-in-out infinite;transform-origin:center;font-size:1.25rem;filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}@keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.25)}24%{transform:scale(1)}36%{transform:scale(1.18)}48%{transform:scale(1)}}#sp-fab .livedot{position:absolute;top:2px;right:6px;width:10px;height:10px;background:#4ade80;border:2px solid #fff5f6;border-radius:50%;animation:sppulse 2s infinite}@keyframes sppulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 7px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
 #sp-fab:hover{transform:translateY(-2px)}
 #sp-chat{position:fixed;right:22px;bottom:160px;z-index:10003;width:min(390px,calc(100vw - 32px));height:min(540px,calc(100vh - 130px));background:#131b2e;border:1px solid #263252;border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.5)}
@@ -819,7 +820,9 @@ if(mob()){
 body.shaka-open #miniplayer,body.shaka-open #blyrics,body.shaka-open #bldownload,
 body.shaka-open #oflo,body.shaka-open #oflop,body.shaka-open #olang,body.shaka-open #olangp,
 body.shaka-open #oviol,body.shaka-open #cmag,body.shaka-open #cmagb,
-body.shaka-open #devcon-float-wrap,body.shaka-open #devcon-defs-panel{display:none !important}
+body.shaka-open #devcon-float-wrap,body.shaka-open #devcon-defs-panel,
+/* 2026-11-08 harden: the ʻohana passport card (z 2147480000, top-right) covered the fullscreen chat header + ✕ on phones */
+body.shaka-open div[aria-label="My Agent Ohana passport"]{display:none !important}
 </style>
 <div id="sp-fabwrap"><button id="sp-fab-x" aria-label="Hide the Shaka button" title="hide — a tiny 🤙 stays">✕</button><button id="sp-fab" aria-label="Chat with Shaka"><span class="heart">🤙</span> Talk to Shaka<span class="livedot" title="Shaka is here"></span></button></div><button id="sp-mini" aria-label="Show the Shaka button" title="Talk to Shaka 🤙">🤙</button>
 <div id="sp-chat" role="dialog" aria-label="Shaka fan chat">
@@ -857,9 +860,9 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick();});
 window.addEventListener('focus',kick);window.addEventListener('online',kick);window.addEventListener('pageshow',kick);
 setInterval(()=>{if(open&&Date.now()-lastBeat>45000)kick();},15000);
 async function catchup(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after=0');const d=await r.json();(d.messages||[]).forEach(m=>{seen.add(m.seq);if(m.seq>after)after=m.seq;if(m.role==='jai')add('spector',m.text);else if(m.role==='system')note(m.text);else if(m.role==='visitor')add('v',m.text);});localStorage.setItem('sp_after',String(after));if(d.member)setMember(d.member);}catch(e){}}
-$('sp-fab').onclick=()=>{open=true;document.body.classList.add('shaka-open');$('sp-chat').classList.add('open');$('sp-fabwrap').style.display='none';$('sp-log').innerHTML='';catchup().then(()=>{greet();poll();});$('sp-in').focus();};
+$('sp-fab').onclick=()=>{open=true;document.body.classList.add('shaka-open');try{var al=document.getElementById('aloha');if(al&&al.style.display==='flex'&&window.alohaBye)alohaBye();}catch(e){}$('sp-chat').classList.add('open');$('sp-fabwrap').style.display='none';$('sp-log').innerHTML='';catchup().then(()=>{greet();poll();});$('sp-in').focus();};
 $('sp-x').onclick=()=>{open=false;document.body.classList.remove('shaka-open');$('sp-chat').classList.remove('open');if(localStorage.getItem('sp_fab_mini')!=='1'){$('sp-fabwrap').style.display='';}else{$('sp-mini').style.display='flex';}};
-function setMember(n){const s=document.querySelector('#sp-head .sub');if(s&&!s.dataset.m){s.dataset.m='1';s.innerHTML='💗 member desk — '+n+' · aloha unlimited';s.style.color='#22c55e';localStorage.setItem('sp_name',n);}}
+function setMember(n){const s=document.querySelector('#sp-head .sub');if(s&&!s.dataset.m){s.dataset.m='1';s.textContent='💗 member desk — '+n+' · aloha unlimited';s.style.color='#22c55e';localStorage.setItem('sp_name',n);}}
 $('sp-form').onsubmit=async e=>{e.preventDefault();const t=$('sp-in').value.trim();if(!t)return;$('sp-in').value='';
 if(/^[A-Z]{3,12}-[A-Z]{2,8}-\d{3,5}$/i.test(t)){add('visitor','🔑 '+t.toUpperCase());try{const r=await fetch(HUB+'/redeem',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({session:sess,code:t})});const d=await r.json();if(d.ok){setMember(d.member);localStorage.setItem('sp_code',t.toUpperCase());if(d.history_session&&d.history_session!==sess){adopt(d.history_session);}note(d.resumed?'🤙 Shaka recognized you — your whole chat history follows your code, on any device.':'💗 aloha code accepted — this desk is yours now. Enter the same code on any computer and your history travels with you.');}else{note(d.error||'code not recognized');}}catch(err){note('connection hiccup — try the code again');}return;}
 add('visitor',t);try{const r=await fetch(HUB+'/send',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({session:sess,text:t,name:localStorage.getItem('sp_name')||'guest'})});const d=await r.json();/* cursor law 2026-09-27: never advance 'after' on our own echo — the poll loop consumes it (visitor messages do not render) and can never skip a reply that interleaved on the hub's global seq. */}catch(err){note('connection hiccup — message may not have sent');}};
