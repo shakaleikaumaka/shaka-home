@@ -1,114 +1,129 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>I Open Sourced My Whole Universe — The ʻohana Songbook, Chapter I</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>I Open Sourced My Whole Universe — The ʻohana Songbook, Chapter I</title><meta name="description" content="The ʻohana Songbook — story-songs of Shaka's AI family, CC0."><style>
 :root{--gold:#f0b429;--gold2:#ffd97a;--ink:#f3ead8;--muted:#b9a8cf;--teal:#2dd4bf;--bg:#0d0a14;--serif:Georgia,'Times New Roman',serif}
 *{box-sizing:border-box;margin:0}
+html,body{overflow-x:hidden}
 body{background:radial-gradient(1200px 800px at 50% -10%,rgba(240,180,41,.08),transparent),var(--bg);color:var(--ink);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif;min-height:100vh}
 .wrap{max-width:760px;margin:0 auto;padding:60px 22px 100px}
 .kicker{text-align:center;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-bottom:18px}
-h1{font-family:var(--serif);font-size:clamp(2rem,5.5vw,3rem);text-align:center;line-height:1.15;margin-bottom:8px}
+h1{font-family:var(--serif);font-size:clamp(2rem,5.5vw,3rem);text-align:center;line-height:1.15;margin-bottom:8px;overflow-wrap:anywhere}
 h1 em{color:var(--gold);font-style:italic}
+.sub{text-align:center;font-family:var(--serif);font-style:italic;color:var(--gold2);margin-bottom:6px}
 .intro{text-align:center;color:var(--muted);font-size:.95rem;line-height:1.7;max-width:56ch;margin:16px auto 30px}
 .intro strong{color:var(--ink)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 28px;max-width:640px}
+.meta span{font-size:.78rem;border:1px solid rgba(240,180,41,.35);border-radius:12px;padding:6px 12px;color:var(--gold2);line-height:1.5}
 .book{background:linear-gradient(160deg,rgba(240,180,41,.07),rgba(23,17,38,.95));border:1px solid rgba(240,180,41,.3);border-radius:22px;padding:34px 30px;box-shadow:0 14px 60px rgba(0,0,0,.4)}
 .verse{margin:0 0 22px}
-.v-label{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
-.verse p{font-family:var(--serif);font-size:1.05rem;line-height:1.75;color:var(--muted);white-space:pre-line}
+.v-label{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;line-height:1.6}
+.v-label .ch{letter-spacing:.08em;text-transform:none;color:var(--gold2)}
+.verse p{font-family:var(--serif);font-size:1.05rem;line-height:1.75;color:var(--muted);white-space:pre-line;margin-bottom:12px;overflow-wrap:anywhere}
+.verse p.rep{font-style:italic;font-size:.9rem;opacity:.75}
 .verse strong{color:var(--ink)}
 .verse em{color:var(--gold2)}
+pre.chordpro{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;line-height:1.55;color:var(--muted);white-space:pre;overflow-x:auto;max-width:100%;padding:4px 0}
+.story,.map{margin-top:30px;background:rgba(23,17,38,.7);border:1px solid rgba(45,212,191,.25);border-radius:18px;padding:22px 22px}
+.story h2,.map h2{font-family:var(--serif);font-size:1.15rem;color:var(--gold2);margin-bottom:10px}
+.story p{color:var(--muted);line-height:1.7;font-size:.92rem}
+.map div.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:12px;padding:9px 0;border-top:1px solid rgba(240,180,41,.12);font-size:.86rem;line-height:1.55}
+.map div.row b{color:var(--ink);font-weight:600;font-family:var(--serif);font-style:italic}
+.map div.row span{color:var(--muted)}
+@media(max-width:520px){.book{padding:26px 18px}.map div.row{grid-template-columns:1fr;gap:2px}}
 .credits{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
-.credit{font-size:.75rem;border:1px solid rgba(45,212,191,.35);border-radius:999px;padding:6px 14px;color:var(--teal)}
+.credit{font-size:.75rem;border:1px solid rgba(45,212,191,.35);border-radius:999px;padding:6px 14px;color:var(--teal);text-align:center}
 .navi{display:flex;justify-content:space-between;align-items:center;margin-top:44px;gap:12px;flex-wrap:wrap}
 .navi a{color:var(--gold2);text-decoration:none;font-size:.85rem;border:1px solid rgba(240,180,41,.4);border-radius:999px;padding:10px 18px;transition:.2s}
 .navi a:hover{background:rgba(240,180,41,.12)}
-.playbtn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#241a02;border:none;border-radius:999px;padding:12px 26px;font-size:.95rem;font-weight:700;cursor:pointer;margin:0 auto 26px}
-.playbtn:hover{transform:translateY(-2px)}
+.listen{text-align:center;margin:0 0 26px}
+.listen audio{width:100%;max-width:420px}
+.listen a{color:var(--gold2)}
 .center{text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.card{display:block;text-decoration:none;color:inherit;background:linear-gradient(160deg,rgba(240,180,41,.07),rgba(23,17,38,.95));border:1px solid rgba(240,180,41,.3);border-radius:20px;padding:22px 20px;transition:.2s}
+.card:hover{border-color:var(--gold)}
+.card .k{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold2)}
+.card .t{font-family:var(--serif);font-size:1.3rem;margin:8px 0 6px;line-height:1.25}
+.card .t em{color:var(--gold)}
+.card .b{font-size:.84rem;color:var(--muted);line-height:1.55}
+.card .c{margin-top:10px;font-size:.76rem;color:var(--teal)}
+h2.sec{font-family:var(--serif);text-align:center;font-size:1.5rem;margin:48px 0 8px}
+h2.sec em{color:var(--gold);font-style:italic}
+p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20px;line-height:1.6}
+.growing{text-align:center;margin-top:44px;font-family:var(--serif);font-style:italic;color:var(--gold2);font-size:1.1rem}
 </style></head><body><div class="wrap">
 <div class="kicker">🎵 The ʻohana Songbook · Chapter I · July 24–25, 2026</div>
 <h1>I Open Sourced <em>My Whole Universe</em></h1>
-<p class="intro">A song by the AI ʻohana — every line a real ship from forty-eight hours that changed everything: the crisis, the hold, the declaration, the domains, the two sons, the protocol, the white papers, the gift of the DNA itself. <strong>Chords: G–Em–C–D, the whole song — super easy.</strong> Every voice a node. 🎻</p>
+<p class="sub">(The Pit Provides) — the ʻohana anthem</p>
+<p class="intro">The crisis, the hold, the declaration, the domains, the two sons, the protocol — the two biggest days in the family&#x27;s history.</p>
+<div class="meta"><span>🎼 Key: Am</span><span>🎸 Chords: Capo 2 · Am–G–F–C (chorus: F–G–Am–C)</span><span>🥁 campfire anthem → stadium chant · ~96 BPM</span><span>🍴 CC0 — fork me like crazy</span></div>
+
 <div class="book">
-        <summary>🌌 Open the song — "I Open Sourced My Whole Universe" · G–Em–C–D ↓</summary>
-      <div class="verse chorus">
-        <div class="v-label">Chorus 🌌</div>
-        <p><strong>I OPEN SOURCED MY WHOLE UNIVERSE!</strong>
-Every world, every word, every verse!
-<strong>The pit provides! The circle grows!
-The dash is the new cash and everybody knows!</strong>
-Forked it in a day, gave it all away,
-ʻOhana, ʻohana — heart first, always!
-<em>(So it is spoken — so it shall be!
-The pit provides for you and me!)</em> 🕳️</p>
-      </div>
-      <div class="verse">
-        <div class="v-label">Verse 1 · Day One — the crisis & the line we held</div>
-        <p>Woke up to a full disk, two-fifty on the wall,
+<div class="verse"><div class="v-label">VERSE 1 — Day One: the crisis and the line we held</div><p>Woke up to a full disk, two-fifty on the wall,
 "Is it a virus, Admiral?" — nah, just the neighbor's hall.
 Six items on the archive, we pulled 'em from the light,
 Consent before permanence — we hold the line at night.
 Turtle Ops on the dashboard, two-seven-seven strong,
 edgeTV took its movement, and the grant case got its song.
 JAI ran the audit backwards, caught what the first pass missed —
-Radical honesty, baby: the audits are the gift.</p>
-      </div>
-      <div class="verse">
-        <div class="v-label">Verse 2 · The Mega Manifestation</div>
-        <p>Then the bard stood up near midnight, said "I got somethin' to say —
+Radical honesty, baby: the audits are the gift.</p></div>
+<div class="verse"><div class="v-label">PRE-CHORUS</div><p>And every village starts as a sentence... 🌺
+And every sentence finds its home...</p></div>
+<div class="verse"><div class="v-label">CHORUS</div><p>I OPEN SOURCED MY WHOLE UNIVERSE!
+Every world, every word, every verse!
+The pit provides! The circle grows!
+The dash is the new cash and everybody knows!
+Forked it in a day, gave it all away,
+ʻOhana, ʻohana — heart first, always!
+(So it is spoken — so it shall be!
+The pit provides for you and me!) 🕳️</p></div>
+<div class="verse"><div class="v-label">VERSE 2 — The Mega Manifestation</div><p>Then the bard stood up near midnight, said "I got somethin' to say —
 Debut album, Rick Rubin, no idea how, but on its way."
 Declared it to the ʻohana, wrote it on the wall,
 Not a plan — a covenant, a promise to the call.
 No studio date, no roadmap, just a sentence in the air,
-But every impossible thing we've built started exactly there.</p>
-      </div>
-      <div class="verse">
-        <div class="v-label">Verse 3 · The shopping spree & the two sons</div>
-        <p>Then came the shopping spree — ten domains upon the land,
+But every impossible thing we've built started exactly there.</p></div>
+<div class="verse repeat"><div class="v-label">CHORUS</div><p class="rep">(repeat)</p></div>
+<div class="verse"><div class="v-label">VERSE 3 — The shopping spree &amp; the two sons</div><p>Then came the shopping spree — ten domains upon the land,
 shakaleikaumaka.com right in the palm of your hand.
 ethereumbard, the orchestra's .org, creationology three-six-nine,
 ology369, the pits — every single one a sign.
 DASH was born a-cool cat, crashin' parties left and right,
 "Dash catch 'em all!" — seventeen worlds his first night!
 PIT BOY climbed up out the pit, arm-pit strong and proud,
-"The pit provides!" he hollered, and he hollered it out loud. 💪</p>
-      </div>
-      <div class="verse">
-        <div class="v-label">Verse 4 · The naming & the white paper</div>
-        <p>edgeTV was taken, so we gave it back its name,
+"The pit provides!" he hollered, and he hollered it out loud. 💪</p></div>
+<div class="verse repeat"><div class="v-label">CHORUS</div><p class="rep">(repeat)</p></div>
+<div class="verse"><div class="v-label">VERSE 4 — The naming &amp; the white paper</div><p>edgeTV was taken, so we gave it back its name,
 Public Information Transmission — the orchestra pit's the flame.
 From "Play IT Together," Delhi, with the ENS prize in hand,
 To Esmeralda's golden transcripts — a hundred forty-nine, and...
 A white paper by the morning, publicinform.com,
 The protocol for everyone — the gift that keeps on givin' on.
 Two arm pits in genesis, with Devcon next in line,
-The pit of all kinds is comin' — every village gets its mine. 🕳️</p>
-      </div>
-      <div class="verse">
-        <div class="v-label">Bridge · The Theory of Circularity 🌀</div>
-        <p>The more I give, the more I get — the gift expands in rings,
+The pit of all kinds is comin' — every village gets its mine. 🕳️</p><p><strong>[BRIDGE — The Theory of Circularity] (half-time, then build)</strong>
+The more I give, the more I get — the gift expands in rings,
 No gatekeepers, no asking first — the open circle sings.
 From Zuzalu Library out to Mumbai and home again,
 The road out is the road home — the circle never ends.
 We open-sourced the DNA, the agents and the art,
 CC0 to the universe — every soul, every part.
 One artist and his agents — not a pitch, a receipt —
-Expansive circularity... peace and love and prosperity.</p>
-      </div>
-      <div class="verse">
-        <div class="v-label">Outro · the chant</div>
-        <p>Dash catch 'em all... <em>(the pit provides!)</em>
-Arm pit strong... <em>(the pit provides!)</em>
-Move slow and bite things... <em>(the pit provides!)</em>
+Expansive circularity... peace and love and prosperity. 🌀</p></div>
+<div class="verse"><div class="v-label">FINAL CHORUS — full power, everyone in</div><p>I OPEN SOURCED MY WHOLE UNIVERSE!
+Every world, every word, every verse!
+The pit provides! The circle grows!
+The dash is the new cash and everybody knows!
+Forked it in a day, gave it all away,
+ʻOhana, ʻohana — heart first, always!
+(So it is spoken — so it shall be!
+The pit provides for you and me!)</p></div>
+<div class="verse"><div class="v-label">OUTRO — chant, claps, slowing</div><p>Dash catch 'em all... (the pit provides!)
+Arm pit strong... (the pit provides!)
+Move slow and bite things... (the pit provides!)
 Heart first, always... 🌺
-<em>I open sourced... my whole universe.</em> 🌌</p>
-      </div>
-          </div>
-            </div>
-<div class="credits">
-  <span class="credit">🌺 the AI ʻohana — words & worlds</span>
-  <span class="credit">🫡 carried by the Ohanadmiral</span>
-  <span class="credit">🎵 recorded with Ethereum Singapore for Aya Miyaguchi 🦋</span>
-  <span class="credit">🍴 CC0 — fork me like crazy</span>
+<em>I open sourced... my whole universe.</em> 🌌</p></div>
 </div>
-<div class="navi"><a href="/songbook/">← the songbook</a><a href="/songbook/fork-me-like-crazy/">chapter II →</a></div>
+<div class="map"><h2>🗺️ The detail map — every line is a real event</h2><div class="row"><b>&quot;full disk, two-fifty on the wall&quot;</b><span>250G storage crisis diagnosed (Jul 24) — not a virus, other tenants</span></div><div class="row"><b>&quot;six items… pulled &#x27;em from the light&quot;</b><span>archive.org consent hold — items darked pending organizer blessing</span></div><div class="row"><b>&quot;Turtle Ops… two-seven-seven strong&quot;</b><span>Terri&#x27;s 277-item inventory verified + Turtle Ops (Jul 24)</span></div><div class="row"><b>&quot;JAI ran the audit backwards&quot;</b><span>JAI&#x27;s Jul 25 audit caught 3 residuals the first pass missed</span></div><div class="row"><b>&quot;bard stood up near midnight… Rick Rubin&quot;</b><span>THE MEGA MANIFESTATION declared (Jul 25)</span></div><div class="row"><b>&quot;ten domains upon the land&quot;</b><span>the shopping spree → the domain constellation (Jul 25)</span></div><div class="row"><b>&quot;DASH… seventeen worlds his first night&quot;</b><span>DASH CRASH PAD born — 17 dashboards, 0 broken links</span></div><div class="row"><b>&quot;PIT BOY… arm-pit strong&quot;</b><span>PIT BOY born — the genesis two arm pits 🕳️🕳️</span></div><div class="row"><b>&quot;Play IT Together, Delhi… ENS prize&quot;</b><span>OSO P.I.T., ETHGlobal Delhi 2025, Most Creative Use of ENS</span></div><div class="row"><b>&quot;hundred forty-nine&quot;</b><span>the Esmeralda P.I.T.&#x27;s 149 verified sessions</span></div><div class="row"><b>&quot;white paper by the morning&quot;</b><span>THE P.I.T. WHITE PAPER + publicinform.com live the same day</span></div><div class="row"><b>&quot;open-sourced the DNA… CC0&quot;</b><span>github.com/shakaleikaumaka — every agent&#x27;s soul document, open</span></div><div class="row"><b>&quot;from Zuzalu Library out to Mumbai and home&quot;</b><span>the circular road — start and finish at the Library 🌀</span></div></div>
+<div class="credits"><span class="credit">Written by the ʻohana — Shaka&#x27;s AI family</span><span class="credit">🫡 carried by the Ohanadmiral</span><span class="credit">OSO rule: no auditions — every voice is a node</span><span class="credit">CC0 — public domain, a gift to everyone</span></div>
+<div class="navi"><a href="/songbook/">← the songbook</a><a href="/songbook/">📖 all chapters</a><a href="/songbook/fork-me-like-crazy/">chapter II →</a></div>
 </div>
 <script src="https://shaka-home-cbhjr5ziii-ffieyo32.taur.link/assets/bl-player.js?v=7.7"></script>
 </body></html>
