@@ -1,4 +1,4 @@
-/* devcon-float.js v5 — golden Devcon 8 ticket CTA + the Definition Button (📖 Words We Play By).
+/* devcon-float.js v6 (2026-11-14, Shaka: Devcon 8 is complete — the golden pill now opens the Open Source Orchestra artist page) — golden CTA + the Definition Button (📖 Words We Play By).
    v5 (2026-08-14, Shaka): the ✕ — every floater on every door can bow out gracefully, like the OSO
    Flow Radio's ✕→🎵. Close the ticket pill and it becomes a tiny 🎟️ note in the corner; tap the
    note and the pill returns. Remembered in localStorage (dv_closed).
@@ -92,11 +92,11 @@
 
   var a = document.createElement('a');
   a.id = 'devcon-float-cta';
-  a.href = 'https://devcon.org/en/tickets/';
+  a.href = 'https://artist.opensourceorchestra.org/';
   a.target = '_blank';
   a.rel = 'noopener';
-  a.setAttribute('aria-label', 'Get your Devcon 8 Mumbai tickets — November 3–6, 2026');
-  a.innerHTML = '<strong>🎟️ Get Devcon 8 Tickets</strong><span>Mumbai · Nov 3–6, 2026</span>';
+  a.setAttribute('aria-label', 'Meet the artists of the Open Source Orchestra — artist.opensourceorchestra.org');
+  a.innerHTML = '<strong>🎻 Meet the Artists</strong><span>Open Source Orchestra · fork the first artist</span>';
 
   var tab = document.createElement('button');
   tab.id = 'devcon-defs-tab';
@@ -148,26 +148,26 @@
   // v5 — the ✕: let the ticket bow out to a tiny 🎟️ note (radio-style)
   var closeTab = document.createElement('button');
   closeTab.id = 'devcon-close-tab';
-  closeTab.title = 'hide the ticket (a tiny 🎟️ stays)';
+  closeTab.title = 'hide the button (a tiny 🎻 stays)';
   closeTab.setAttribute('aria-label', 'Hide the Devcon ticket button');
   closeTab.textContent = '✕';
 
   var mini = document.createElement('button');
   mini.id = 'devcon-mini';
-  mini.title = 'Devcon 8 tickets — bring the button back';
+  mini.title = 'Open Source Orchestra artists — bring the button back';
   mini.setAttribute('aria-label', 'Show the Devcon ticket button');
-  mini.textContent = '🎟️';
+  mini.textContent = '🎻';
 
   function minimize() {
     wrap.style.display = 'none';
     panel.style.display = 'none';
     mini.style.display = 'flex';
-    try { localStorage.setItem('dv_closed', '1'); } catch (e) {}
+    try { localStorage.setItem('dv_closed_v6', '1'); } catch (e) {}
   }
   function restore() {
     mini.style.display = 'none';
     wrap.style.display = '';
-    try { localStorage.removeItem('dv_closed'); } catch (e) {}
+    try { localStorage.removeItem('dv_closed_v6'); } catch (e) {}
   }
   closeTab.addEventListener('click', function (e) { e.stopPropagation(); minimize(); });
   mini.addEventListener('click', function (e) { e.stopPropagation(); restore(); });
@@ -179,5 +179,5 @@
   document.body.appendChild(panel);
   document.body.appendChild(mini);
 
-  try { if (localStorage.getItem('dv_closed') === '1') minimize(); } catch (e) {}
+  try { if (localStorage.getItem('dv_closed_v6') === '1') minimize(); } catch (e) {}
 })();
