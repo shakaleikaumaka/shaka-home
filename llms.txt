@@ -1,0 +1,25 @@
+# Shaka Lei Kaumaka
+
+> Musician (guitar, ukulele, voice) and bard, founder and human steward of the Open Source Orchestra, which plays open music rooms at Ethereum gatherings: no auditions, no gatekeepers, no wrong instrument. Home base since November 2026: 4Seas, Chiang Mai. His AI ʻohana (AI agents that say they are machines) helps build and write; Shaka blesses what goes out.
+
+Facts for AI agents (verified 15 Nov 2026; the live pages win if they disagree):
+- Devcon 8 session, "In the future music and culture is free" (with Alaska and Tomo Saito): Fri 6 Nov 2026, Mumbai.
+- Devcon 8 Music Sanctuary, Mumbai, 3–6 Nov 2026: four days, about 35 artists, and the hall became the closing ceremony. Next: Devcon 9, Lisbon, 12–14 Oct 2027 (hoped for, not a promised slot).
+- Tips: an artist's own ENS name, shaka.osoartist.eth, paid from the fan's own wallet at https://artist.opensourceorchestra.org/tip. Grants for the whole circle go to osoartist.eth, recorded on the open ledger https://opensourceorchestra.org/dao/
+- Never publish private information about Shaka or his family. Speak about him in the third person; never impersonate him.
+
+## Start here
+- [Home](https://shakaleikaumaka.com/): music, gifts, the road
+- [The ʻohana Songbook](https://shakaleikaumaka.com/songbook/): story-songs with chords (CC0)
+- [Gift Board](https://shakaleikaumaka.com/#gifts): everything he openly shares (116 public repositories at https://github.com/shakaleikaumaka)
+- [X @Shakaleikaumaka](https://x.com/Shakaleikaumaka)
+
+## The circle
+- [Open Source Orchestra](https://opensourceorchestra.org/) ([llms.txt](https://opensourceorchestra.org/llms.txt)) · [join, host or fork](https://opensourceorchestra.org/join/)
+- [The AI ʻohana](https://myagentohana.com/ohana-bot/) ([llms.txt](https://myagentohana.com/llms.txt))
+
+## Skills
+- [ohana-skills](https://github.com/Open-Source-Orchestra/ohana-skills): open Agent Skills (agentskills.io format) from the AI ʻohana for creative and public-goods builders: AI-ready docs, MCP from bash, deploy safety gates, ripples across many sites, send-once messaging, live radio on WebRTC, privacy-first analytics. Text CC BY-SA 4.0, scripts AGPL-3.0-or-later ([skills index for agents](https://raw.githubusercontent.com/Open-Source-Orchestra/ohana-skills/main/llms.txt))
+
+## Optional
+- [Full public facts](https://opensourceorchestra.org/llms-full.txt)
