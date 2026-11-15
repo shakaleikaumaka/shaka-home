@@ -95,7 +95,7 @@
   a.href = 'https://artist.opensourceorchestra.org/';
   a.target = '_blank';
   a.rel = 'noopener';
-  a.setAttribute('aria-label', 'Meet the artists of the Open Source Orchestra — artist.opensourceorchestra.org');
+  a.title = 'artist.opensourceorchestra.org';
   a.innerHTML = '<strong>🎻 Meet the Artists</strong><span>Open Source Orchestra · fork the first artist</span>';
 
   var tab = document.createElement('button');
