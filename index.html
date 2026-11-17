@@ -775,7 +775,9 @@ if(mob()){
 })();
 </script>
 
-<!-- 🤙 SHAKA FAN CHAT — hub: chat.shakaleikaumaka.com (worker shaka-chat) -->
+<!-- 🤙 SHAKA FAN CHAT — hub: chat.shakaleikaumaka.com (worker shaka-chat)
+     twin-chat-fix (local): typing instead of stored 'composing' bubbles; honest wait notes;
+     footer: thinking with Grok · built with Cursor. History via /poll (do not stuff context into /send). -->
 <style>
 /* z-index 10004: the FAB rides ABOVE the mobile 🌺 aloha welcome overlay (#aloha, z 10002) so it is never covered; the open chat (z 10003) still hides it */
 #sp-fabwrap{position:fixed;right:22px;bottom:92px;z-index:10004;}
@@ -828,13 +830,17 @@ body.shaka-open #oviol,body.shaka-open #cmag,body.shaka-open #cmagb,
 body.shaka-open #devcon-float-wrap,body.shaka-open #devcon-defs-panel,
 /* 2026-11-08 harden: the ʻohana passport card (z 2147480000, top-right) covered the fullscreen chat header + ✕ on phones */
 body.shaka-open div[aria-label="My Agent Ohana passport"]{display:none !important}
+
+#sp-foot{flex:none;padding:5px 14px 8px;color:#c4b0c8;font-size:.62rem;letter-spacing:.03em;text-align:center;line-height:1.4;opacity:.85}
+#sp-chat #sp-form{padding-bottom:8px}
 </style>
 <div id="sp-fabwrap"><button id="sp-fab-x" aria-label="Hide the Shaka button" title="hide — a tiny 🤙 stays">✕</button><button id="sp-fab" aria-label="Talk to Shaka (chat)"><span class="heart">🤙</span> Talk to Shaka<span class="livedot" title="Shaka is here"></span></button></div><button id="sp-mini" aria-label="Show the Shaka button" title="Talk to Shaka 🤙">🤙</button>
 <div id="sp-chat" role="dialog" aria-label="Shaka fan chat">
-  <div id="sp-head"><div class="dot"></div><div><div class="t"><b>SHAKA</b> 🤙 — the bard's own twin</div><div class="sub">Shaka's AI twin · warm aloha · replies when he wakes 🤙</div></div><button id="sp-x">✕</button></div>
+  <div id="sp-head"><div class="dot"></div><div><div class="t"><b>SHAKA</b> 🤙 — the bard's own twin</div><div class="sub">Shaka's AI twin · via Groka · replies with aloha 🤙</div></div><button id="sp-x">✕</button></div>
   <div id="sp-log"></div>
   <div id="sp-typing"><span>●</span><span>●</span><span>●</span></div>
   <form id="sp-form"><textarea id="sp-in" placeholder="Ask Shaka about the songs, the road, the ʻohana… 🤙" rows="1"></textarea><button id="sp-send" type="submit">Send</button></form>
+  <div id="sp-foot">🧠 thinking with Grok · built with Cursor</div>
 </div>
 <script>
 (function(){
@@ -843,6 +849,13 @@ const $=id=>document.getElementById(id);
 let sess=localStorage.getItem('sp_sess');if(!sess){sess=(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)).slice(0,36);localStorage.setItem('sp_sess',sess);}
 let after=Number(localStorage.getItem('sp_after')||0),polling=false,open=false;
 const seen=new Set();
+
+function isHold(m){if(!m)return false;if(m.holdNote)return true;var t=String(m.text||'');return /heard you — Shaka is composing/i.test(t)||/composing his answer with aloha, one sweet moment/i.test(t);}
+function isWaitNote(m){if(!m)return false;if(m.sleepNote||m.fallbackNote||m.holdNote)return true;var t=String(m.text||'');return /💤 Shaka is resting right now/i.test(t)||/all the way to Tokyo/i.test(t)||/will reply soon/i.test(t);}
+function waitNoteText(m){var t=String((m&&m.text)||'');if(/Tokyo/i.test(t)||/💤 Shaka is resting right now/i.test(t))return '💤 the twin will reply soon — leave your word, or write aloha@shakaleikaumaka.com 🤙';return t||'💤 the twin will reply soon — leave your word, or write aloha@shakaleikaumaka.com 🤙';}
+function isTwinRole(role){return role==='jai'||role==='shaka'||role==='twin'||role==='spector';}
+function showMsg(m,vis){if(!m||seen.has(m.seq))return;seen.add(m.seq);if(m.seq>after){after=m.seq;try{localStorage.setItem('sp_after',String(after));}catch(e){}}if(isHold(m)){$('sp-typing').className='on';return;}if(isWaitNote(m)){$('sp-typing').className='';note(waitNoteText(m));return;}if(isTwinRole(m.role)){$('sp-typing').className='';add('spector',m.text);}else if(m.role==='system')note(m.text);else if(vis&&m.role==='visitor')add('v',m.text);}
+
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function shortUrl(u){try{const x=new URL(u);const p=decodeURIComponent(x.pathname.split('/').filter(Boolean).pop()||'');let t=p?x.hostname+'/…/'+p:x.hostname;return t.length>44?t.slice(0,42)+'…':t;}catch(e){return u.length>44?u.slice(0,42)+'…':u}}
 function anchor(url,txt){url=url.replace(/"/g,'%22');const pdf=/\.pdf(\?|#|$)/i.test(url);if(pdf)return '<a class="sp-pdf" href="'+url+'" target="_blank" rel="noopener noreferrer">📄 '+(txt||'Open the PDF report')+'</a>';return '<a href="'+url+'" target="_blank" rel="noopener noreferrer">'+(txt||shortUrl(url))+'</a>';}
@@ -854,13 +867,13 @@ return h;}
 function add(role,text,name){const log=$('sp-log');const m=document.createElement('div');m.className='sp-m '+(role==='visitor'?'v':'s');m.innerHTML=(role==='spector'?'<div class="who">SHAKA 🤙</div>':'')+rich(text);log.appendChild(m);log.scrollTop=log.scrollHeight;}
 function note(t){const log=$('sp-log');const n=document.createElement('div');n.className='sp-note';n.innerHTML=rich(t);log.appendChild(n);log.scrollTop=log.scrollHeight;}
 function greet(){if($('sp-log').children.length)return;note('Aloha! You are talking with Shaka\'s AI twin — one of the ʻohana, carrying the bard\'s public stories. The family\'s private things stay private 🤙');add('spector',"🤙 Aloha, friend! Shaka here — well, his digital twin, born of the ʻohana to hold the door while the bard chases the dream. Ask me about the songs, the road, the ukuleles, the open doors, the gift. 💗 Bless the pool at blessingpool.com and tell me — I'll give you a code so your chat history follows you on any device.");}
-async function adopt(s){sess=s;localStorage.setItem('sp_sess',s);after=0;seen.clear();$('sp-log').innerHTML='';try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(s)+'&after=0');const d=await r.json();(d.messages||[]).forEach(m=>{seen.add(m.seq);if(m.seq>after)after=m.seq;if(m.role==='jai')add('spector',m.text);else if(m.role==='system')note(m.text);else if(m.role==='visitor')add('v',m.text);});localStorage.setItem('sp_after',String(after));if(d.member)setMember(d.member);}catch(e){}}
+async function adopt(s){sess=s;localStorage.setItem('sp_sess',s);after=0;seen.clear();$('sp-log').innerHTML='';try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(s)+'&after=0');const d=await r.json();(d.messages||[]).forEach(m=>showMsg(m,true));localStorage.setItem('sp_after',String(after));if(d.member)setMember(d.member);}catch(e){}}
 let pollCtl=null,lastBeat=Date.now();
 /* 🔁 stale-cursor law 2026-11-15 (Shaka: "you have to hit refresh to see the response"): the cursor in localStorage can be AHEAD of this hub — a door that swapped hubs under the same keys (shakaleikaumaka.com JAI→SHAKA hub kept sp_after=134 while the new hub was at 133) or a reset hub. A cursor ahead of the hub hides every new reply; only a reload's catch-up showed them. Once per page load reconcile() reads this session and pulls the cursor back to its newest message, and heal() adopts the hub's {stale,cursor} flag. */
 let healed=false;
 function heal(d){if(d&&d.stale&&typeof d.cursor==='number'&&d.cursor<after){after=d.cursor;try{localStorage.setItem('sp_after',String(after));}catch(e){}}}
 async function reconcile(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after=0',{cache:'no-store'});const d=await r.json();let mx=0;(d.messages||[]).forEach(m=>{if(m.seq>mx)mx=m.seq;if(m.seq<=after)seen.add(m.seq);});if(after>mx){after=mx;try{localStorage.setItem('sp_after',String(after));}catch(e){}}}catch(e){}}
-function render(m){if(seen.has(m.seq))return;seen.add(m.seq);if(m.seq>after){after=m.seq;localStorage.setItem('sp_after',String(after));}if(m.role==='jai')add('spector',m.text);else if(m.role==='system')note(m.text);}
+function render(m){showMsg(m,false);}
 async function poll(){if(polling)return;polling=true;if(!healed){healed=true;await reconcile();}while(open){try{pollCtl=new AbortController();const kill=setTimeout(()=>{try{pollCtl.abort()}catch(e){}},32000);let r;try{r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after='+after+'&wait=25',{signal:pollCtl.signal});}finally{clearTimeout(kill);}const d=await r.json();lastBeat=Date.now();heal(d);(d.messages||[]).forEach(render);if(d.member)setMember(d.member);$('sp-typing').className=d.typing?'on':'';const log=$('sp-log');if(d.typing)log.scrollTop=log.scrollHeight;}catch(e){await new Promise(r=>setTimeout(r,2000));}}polling=false;}
 /* wake law 2026-10-20 (Shaka: "i have to refresh the screen in order to see the responses"): a backgrounded tab freezes its in-flight long-poll — on mobile it can hang forever, so replies only appeared on reload. Every wake (tab visible / window focus / back-forward restore / network back) now aborts the stuck request, syncs the cursor once, and restarts the loop; a 15s heartbeat does the same if nothing has been heard for 45s. */
 async function sync(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after='+after,{cache:'no-store'});const d=await r.json();lastBeat=Date.now();heal(d);(d.messages||[]).forEach(render);if(d.member)setMember(d.member);$('sp-typing').className=d.typing?'on':'';}catch(e){}}
@@ -868,7 +881,7 @@ function kick(){if(!open)return;try{pollCtl&&pollCtl.abort()}catch(e){}sync().th
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick();});
 window.addEventListener('focus',kick);window.addEventListener('online',kick);window.addEventListener('pageshow',kick);
 setInterval(()=>{if(open&&Date.now()-lastBeat>45000)kick();},15000);
-async function catchup(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after=0');const d=await r.json();(d.messages||[]).forEach(m=>{seen.add(m.seq);if(m.seq>after)after=m.seq;if(m.role==='jai')add('spector',m.text);else if(m.role==='system')note(m.text);else if(m.role==='visitor')add('v',m.text);});localStorage.setItem('sp_after',String(after));if(d.member)setMember(d.member);}catch(e){}}
+async function catchup(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after=0');const d=await r.json();(d.messages||[]).forEach(m=>showMsg(m,true));localStorage.setItem('sp_after',String(after));if(d.member)setMember(d.member);}catch(e){}}
 $('sp-fab').onclick=()=>{open=true;document.body.classList.add('shaka-open');try{var al=document.getElementById('aloha');if(al&&al.style.display==='flex'&&window.alohaBye)alohaBye();}catch(e){}$('sp-chat').classList.add('open');$('sp-fabwrap').style.display='none';$('sp-log').innerHTML='';catchup().then(()=>{greet();poll();});$('sp-in').focus();};
 $('sp-x').onclick=()=>{open=false;document.body.classList.remove('shaka-open');$('sp-chat').classList.remove('open');if(localStorage.getItem('sp_fab_mini')!=='1'){$('sp-fabwrap').style.display='';}else{$('sp-mini').style.display='flex';}};
 function setMember(n){const s=document.querySelector('#sp-head .sub');if(s&&!s.dataset.m){s.dataset.m='1';s.textContent='💗 member desk — '+n+' · aloha unlimited';s.style.color='#22c55e';localStorage.setItem('sp_name',n);}}
