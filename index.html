@@ -847,7 +847,7 @@ body.shaka-open div[aria-label="My Agent Ohana passport"]{display:none !importan
 const HUB='https://chat.shakaleikaumaka.com';
 const $=id=>document.getElementById(id);
 let sess=localStorage.getItem('sp_sess');if(!sess){sess=(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)).slice(0,36);localStorage.setItem('sp_sess',sess);}
-let after=Number(localStorage.getItem('sp_after')||0),polling=false,open=false;
+let after=Number(localStorage.getItem('sp_after')||0),polling=false,open=false,shownWait='';
 const seen=new Set();
 
 function isHold(m){if(!m)return false;if(m.holdNote)return true;var t=String(m.text||'');return /heard you — Shaka is composing/i.test(t)||/composing his answer with aloha, one sweet moment/i.test(t);}
@@ -874,9 +874,10 @@ let healed=false;
 function heal(d){if(d&&d.stale&&typeof d.cursor==='number'&&d.cursor<after){after=d.cursor;try{localStorage.setItem('sp_after',String(after));}catch(e){}}}
 async function reconcile(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after=0',{cache:'no-store'});const d=await r.json();let mx=0;(d.messages||[]).forEach(m=>{if(m.seq>mx)mx=m.seq;if(m.seq<=after)seen.add(m.seq);});if(after>mx){after=mx;try{localStorage.setItem('sp_after',String(after));}catch(e){}}}catch(e){}}
 function render(m){showMsg(m,false);}
-async function poll(){if(polling)return;polling=true;if(!healed){healed=true;await reconcile();}while(open){try{pollCtl=new AbortController();const kill=setTimeout(()=>{try{pollCtl.abort()}catch(e){}},32000);let r;try{r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after='+after+'&wait=25',{signal:pollCtl.signal});}finally{clearTimeout(kill);}const d=await r.json();lastBeat=Date.now();heal(d);(d.messages||[]).forEach(render);if(d.member)setMember(d.member);$('sp-typing').className=d.typing?'on':'';const log=$('sp-log');if(d.typing)log.scrollTop=log.scrollHeight;}catch(e){await new Promise(r=>setTimeout(r,2000));}}polling=false;}
+async function poll(){if(polling)return;polling=true;if(!healed){healed=true;await reconcile();}while(open){try{pollCtl=new AbortController();const kill=setTimeout(()=>{try{pollCtl.abort()}catch(e){}},32000);let r;try{r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after='+after+'&wait=25',{signal:pollCtl.signal});}finally{clearTimeout(kill);}const d=await r.json();lastBeat=Date.now();heal(d);(d.messages||[]).forEach(render);if(d.member)setMember(d.member);$('sp-typing').className=d.typing?'on':'';if(d.waitNote){if(shownWait!==d.waitNote){shownWait=d.waitNote;note(waitNoteText({text:d.waitNote}));}}else{shownWait='';}const log=$('sp-log');if(d.typing)log.scrollTop=log.scrollHeight;}catch(e){await new Promise(r=>setTimeout(r,2000));}}polling=false;}
 /* wake law 2026-10-20 (Shaka: "i have to refresh the screen in order to see the responses"): a backgrounded tab freezes its in-flight long-poll — on mobile it can hang forever, so replies only appeared on reload. Every wake (tab visible / window focus / back-forward restore / network back) now aborts the stuck request, syncs the cursor once, and restarts the loop; a 15s heartbeat does the same if nothing has been heard for 45s. */
-async function sync(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after='+after,{cache:'no-store'});const d=await r.json();lastBeat=Date.now();heal(d);(d.messages||[]).forEach(render);if(d.member)setMember(d.member);$('sp-typing').className=d.typing?'on':'';}catch(e){}}
+function applyWaitNote(d){if(d&&d.waitNote){if(shownWait!==d.waitNote){shownWait=d.waitNote;note(waitNoteText({text:d.waitNote}));}}else{shownWait='';}}
+async function sync(){try{const r=await fetch(HUB+'/poll?session='+encodeURIComponent(sess)+'&after='+after,{cache:'no-store'});const d=await r.json();lastBeat=Date.now();heal(d);(d.messages||[]).forEach(render);if(d.member)setMember(d.member);$('sp-typing').className=d.typing?'on':'';applyWaitNote(d);}catch(e){}}
 function kick(){if(!open)return;try{pollCtl&&pollCtl.abort()}catch(e){}sync().then(()=>{if(!polling)poll();});}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)kick();});
 window.addEventListener('focus',kick);window.addEventListener('online',kick);window.addEventListener('pageshow',kick);
