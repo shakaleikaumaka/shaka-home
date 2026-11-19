@@ -181,13 +181,13 @@ wrap.innerHTML = `
   </div>
   <button id="trackbtn" title="switch track" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.56rem;cursor:pointer;letter-spacing:.05em">1·2</button>
   <button id="lyricsbtn" title="sing along — lyrics for the song playing" style="width:24px;height:24px;border-radius:50%;border:1px solid #2dd4bf;background:transparent;color:#2dd4bf;font-size:.66rem;cursor:pointer">🦋</button>
-  <button id="dlbtn" title="take the music — free downloads · CC0" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.72rem;cursor:pointer;flex-shrink:0;line-height:1">⬇</button>
+  <button id="dlbtn" title="take the music — free downloads · GPL-3.0" style="width:24px;height:24px;border-radius:50%;border:1px solid #f0b429;background:transparent;color:#ffd97a;font-size:.72rem;cursor:pointer;flex-shrink:0;line-height:1">⬇</button>
   <button id="blclose" title="rest the music — a tiny 🎵 stays to wake it" style="width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,126,156,.6);background:transparent;color:#ff7e9c;font-size:.62rem;cursor:pointer;flex-shrink:0;line-height:1">✕</button>
 </div>
 <button id="blnote" title="wake the music 🎻" style="display:none;position:fixed;right:14px;bottom:14px;z-index:99999;width:34px;height:34px;border-radius:999px;border:1px solid rgba(240,180,41,.5);background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));color:#ffd97a;font-size:15px;cursor:pointer;box-shadow:0 3px 12px rgba(11,9,24,.4);opacity:.85">🎵</button>
 <div id="bldownload" style="display:none;position:fixed;bottom:68px;right:14px;z-index:99998;width:min(340px,86vw);max-height:52vh;overflow-y:auto;background:linear-gradient(160deg,rgba(23,17,38,.97),rgba(13,10,20,.97));border:1px solid rgba(240,180,41,.4);border-radius:16px;padding:18px 20px;box-shadow:0 12px 50px rgba(0,0,0,.6);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px">
-    <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#ffd97a">⬇ take the music · CC0</div>
+    <div style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#ffd97a">⬇ take the music · copyleft</div>
     <button id="blshare" title="share the radio everywhere" style="border:1px solid rgba(240,180,41,.5);background:transparent;color:#ffd97a;border-radius:999px;font-size:.72rem;padding:.2em .7em;cursor:pointer">📣</button>
   </div>
   <div style="font-size:.72rem;margin-bottom:8px"><a href="https://shakaleikaumaka.com/radio/" target="_blank" rel="noopener" style="color:#2dd4bf;text-decoration:none">📻 every mp3 on one page — the radio home →</a></div>
@@ -273,7 +273,7 @@ function toggleDownloads(force){
 dlBtn.addEventListener('click', () => toggleDownloads());
 document.getElementById('blshare').addEventListener('click', ()=>{
   const t = TRACKS[ti];
-  const text = '📻 OSO FLOW RADIO — "' + t.title + '" by ' + t.artistName + ' · CC0 music from Shaka × the AI ʻohana 🌺';
+  const text = '📻 OSO FLOW RADIO — "' + t.title + '" by ' + t.artistName + ' · GPL-3.0 music from Shaka × the AI ʻohana 🌺';
   const url = 'https://shakaleikaumaka.com/radio/';
   if (navigator.share) { navigator.share({ title: t.title, text: text, url: url }).catch(()=>{}); return; }
   window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url), '_blank', 'noopener');

@@ -13,7 +13,7 @@ This repo isn't a mirror. **This repo IS the website.** When a PR merges to `mai
 ## The house rules (the only rules)
 - **Personal story edits** (bio, photos, the songs' lyrics) come from Shaka himself — everything else is fair game: typos, code, design, accessibility, translations.
 - **No names on the page** beyond what's already there — credit lives in commit history.
-- **Everything is CC0** — by contributing, you agree your work joins the commons.
+- **Everything is copyleft** — by contributing, you agree your work joins the commons.
 - **Heart first, always.** 🌺
 
 *"github.com/shakaleikaumaka — fork me like crazy."*
