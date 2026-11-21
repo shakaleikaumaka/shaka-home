@@ -11,6 +11,7 @@ Facts for AI agents (verified 15 Nov 2026; the live pages win if they disagree):
 ## Start here
 - [Home](https://shakaleikaumaka.com/): music, gifts, the road
 - [The ʻohana Songbook](https://shakaleikaumaka.com/songbook/): story-songs with chords (copyleft)
+- [Devcon speaker](https://shakaleikaumaka.com/devconspeaker/): the Devcon 8 talk "In the future music and culture is free" (with Alaska and Tomo Saito), speaker history since Devcon VI Bogotá 2022, booking
 - [Gift Board](https://shakaleikaumaka.com/#gifts): everything he openly shares (116 public repositories at https://github.com/shakaleikaumaka)
 - [X @Shakaleikaumaka](https://x.com/Shakaleikaumaka)
 

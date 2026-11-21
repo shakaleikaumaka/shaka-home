@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaka Lei Kaumaka — Devcon speaker · "In the future music and culture is free" (Devcon 8, Mumbai)</title>
+<meta name="description" content="Shaka Lei Kaumaka on the Devcon 8 stage with Alaska and Tomo Saito: 'In the future music and culture is free' — Jasmine Stage 4, Mumbai, 6 Nov 2026. Recording, session notes, speaker history since Devcon VI Bogotá, and how to book Shaka to speak or play.">
+<link rel="canonical" href="https://shakaleikaumaka.com/devconspeaker/">
+<meta property="og:type" content="video.other">
+<meta property="og:url" content="https://shakaleikaumaka.com/devconspeaker/">
+<meta property="og:title" content="Shaka Lei Kaumaka — Devcon speaker · In the future music and culture is free">
+<meta property="og:description" content="Devcon 8 Mumbai · Jasmine Stage 4 · 6 Nov 2026 · with Alaska & Tomo Saito. Recording, notes, speaker history, booking.">
+<meta property="og:image" content="https://shakaleikaumaka.com/devconspeaker/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Shakaleikaumaka">
+<meta name="twitter:title" content="Shaka Lei Kaumaka — Devcon speaker">
+<meta name="twitter:description" content="In the future music and culture is free — Devcon 8 Mumbai, with Alaska & Tomo Saito. Recording, notes, speaker history, booking.">
+<meta name="twitter:image" content="https://shakaleikaumaka.com/devconspeaker/og.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico">
+<style>
+  :root{
+    --bg:#0d0a14; --bg2:#171126; --ink:#f3ead8; --muted:#b9a8cf;
+    --gold:#f0b429; --gold2:#ffd97a; --violet:#8b5cf6; --violet2:#c4b5fd; --teal:#2dd4bf;
+    --serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+    --sans:'Avenir Next','Segoe UI',system-ui,-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(60% 45% at 15% 0%,rgba(139,92,246,.14),transparent 60%),
+               radial-gradient(50% 40% at 90% 15%,rgba(240,180,41,.09),transparent 60%),
+               radial-gradient(55% 50% at 50% 100%,rgba(45,212,191,.08),transparent 60%)}
+  .wrap{max-width:860px;margin:0 auto;padding:54px 22px 80px;position:relative;z-index:1}
+  a{color:var(--gold2);text-decoration:none;border-bottom:1px solid rgba(240,180,41,.3);transition:.2s}
+  a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+  .back{display:inline-block;margin-bottom:30px;font-size:.9rem;border-bottom:none}
+  header{text-align:center;padding-bottom:30px;border-bottom:1px solid rgba(185,168,207,.2);margin-bottom:36px}
+  .sigil{font-size:2.6rem;margin-bottom:12px;filter:drop-shadow(0 0 18px rgba(240,180,41,.4))}
+  .kicker{font-size:.76rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.18}
+  h1{font-size:clamp(1.9rem,5.2vw,3rem);letter-spacing:-.01em}
+  h1 em{color:var(--gold2);font-style:italic}
+  .sub{color:var(--muted);margin-top:14px;font-size:1.02rem;max-width:60ch;margin-left:auto;margin-right:auto}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px}
+  .fact{font-size:.78rem;letter-spacing:.05em;padding:7px 14px;border-radius:999px;border:1px solid rgba(45,212,191,.4);color:var(--teal);background:rgba(45,212,191,.06)}
+  .speakers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin-top:24px;text-align:left}
+  .spk{background:linear-gradient(160deg,rgba(240,180,41,.07),rgba(23,17,38,.94));border:1px solid rgba(240,180,41,.3);border-radius:16px;padding:16px 18px}
+  .spk .n{font-family:var(--serif);font-size:1.12rem;color:var(--ink)}
+  .spk .r{font-size:.84rem;color:var(--muted);margin-top:4px}
+  .spk .l{font-size:.8rem;margin-top:8px}
+  h2{font-size:1.5rem;color:var(--gold2);margin:46px 0 14px}
+  h3{font-size:1.1rem;color:var(--ink);margin:0 0 6px}
+  p{color:var(--muted);font-size:1rem;margin-bottom:14px}
+  p strong{color:var(--ink)}
+  /* video: nothing third-party loads until you press play */
+  .video{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;border:1px solid rgba(240,180,41,.35);background:#000;box-shadow:0 14px 60px rgba(0,0,0,.45)}
+  .video img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .play{position:absolute;inset:0;width:100%;height:100%;border:0;background:rgba(13,10,20,.18);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:var(--ink);font-family:var(--sans)}
+  .play:hover{background:rgba(13,10,20,.05)}
+  .play .btn{width:84px;height:84px;border-radius:50%;background:var(--gold);color:#241a02;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 10px 36px rgba(240,180,41,.45);transition:.2s}
+  .play:hover .btn{transform:scale(1.06)}
+  .play .lbl{font-size:.9rem;background:rgba(13,10,20,.72);padding:6px 14px;border-radius:999px;border:1px solid rgba(240,180,41,.35)}
+  .play:focus-visible{outline:3px solid var(--teal);outline-offset:-3px}
+  .vnote{font-size:.84rem;color:var(--muted);margin:12px 4px 0;text-align:center}
+  blockquote{margin:18px 0;padding:18px 22px;border-left:3px solid var(--gold);background:rgba(23,17,38,.7);border-radius:0 14px 14px 0;color:var(--ink);font-size:1rem}
+  blockquote p{color:var(--ink)}
+  blockquote p:last-child{margin-bottom:0}
+  .credit{font-size:.82rem;color:var(--muted);font-style:italic}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+  .tag{font-size:.74rem;letter-spacing:.06em;padding:5px 11px;border-radius:999px;border:1px solid rgba(139,92,246,.45);color:var(--violet2);background:rgba(139,92,246,.08)}
+  .note{margin-top:18px;padding:20px 24px;background:var(--bg2);border:1px solid rgba(139,92,246,.3);border-radius:14px;font-size:.93rem}
+  .note p:last-child{margin-bottom:0}
+  .words{margin-top:18px;padding:22px 24px;background:linear-gradient(160deg,rgba(240,180,41,.06),rgba(23,17,38,.95));border:1px dashed rgba(240,180,41,.5);border-radius:16px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;margin-top:6px}
+  .card{background:linear-gradient(160deg,rgba(240,180,41,.07),rgba(23,17,38,.95));border:1px solid rgba(240,180,41,.3);border-radius:18px;padding:20px 20px;display:flex;flex-direction:column;gap:6px}
+  .card .yr{font-family:var(--serif);font-size:.95rem;color:var(--teal);letter-spacing:.04em}
+  .card ul{list-style:none;margin:4px 0 0}
+  .card li{padding:3px 0 3px 20px;position:relative;color:var(--muted);font-size:.9rem}
+  .card li::before{content:'♪';position:absolute;left:0;color:var(--gold);font-size:.8rem;top:5px}
+  .card li strong{color:var(--ink)}
+  .card .src{font-size:.78rem;color:var(--muted);margin-top:auto;padding-top:8px}
+  .book{margin-top:10px;padding:26px 26px;border-radius:20px;background:linear-gradient(135deg,rgba(45,212,191,.09),rgba(139,92,246,.10));border:1px solid rgba(45,212,191,.35)}
+  .book .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .pill{display:inline-block;padding:10px 18px;border-radius:999px;font-weight:700;font-size:.9rem;border-bottom:none;max-width:100%;overflow-wrap:anywhere;text-align:center}
+  .pill.gold{background:var(--gold);color:#241a02}
+  .pill.gold:hover{background:var(--gold2);color:#241a02}
+  .pill.line{border:1px solid rgba(240,180,41,.5);color:var(--gold2)}
+  footer{margin-top:54px;text-align:center;color:var(--muted);font-size:.85rem;border-top:1px solid rgba(185,168,207,.2);padding-top:26px}
+  .foot-sig{font-family:var(--serif);font-style:italic;color:var(--gold2);margin-bottom:10px}
+  .license{font-size:.8rem;opacity:.85;margin-top:12px;line-height:1.7}
+  @media (max-width:480px){.wrap{padding:38px 16px 70px}.play .btn{width:60px;height:60px;font-size:1.4rem}.play .lbl{font-size:.72rem;padding:4px 10px}.play .lbl .more{display:none}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Event",
+      "@id": "https://shakaleikaumaka.com/devconspeaker/#event",
+      "name": "In the future music and culture is free",
+      "description": "A Devcon 8 conversation on music, culture and Ethereum with Alaska, Tomo Saito and Shaka Lei Kaumaka. Track: Futures Worth Building. Format: Mixed Format.",
+      "startDate": "2026-11-06T12:00:00+05:30",
+      "endDate": "2026-11-06T12:25:00+05:30",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Jasmine Stage 4, Devcon 8",
+        "address": {"@type": "PostalAddress", "addressLocality": "Mumbai", "addressCountry": "IN"}
+      },
+      "superEvent": {"@type": "Event", "name": "Devcon 8", "url": "https://devcon.org/", "startDate": "2026-11-03", "endDate": "2026-11-06", "location": {"@type": "Place", "name": "Mumbai, India"}},
+      "performer": [
+        {"@type": "Person", "name": "Alaska", "url": "https://app.devcon.org/speakers/alaska"},
+        {"@type": "Person", "name": "Tomo Saito", "url": "https://app.devcon.org/speakers/tomo-saito"},
+        {"@type": "Person", "name": "Shaka Lei Kaumaka", "url": "https://shakaleikaumaka.com/", "sameAs": ["https://app.devcon.org/speakers/shaka-lei-kaumaka", "https://x.com/Shakaleikaumaka"]}
+      ],
+      "organizer": {"@type": "Organization", "name": "Devcon (Ethereum Foundation)", "url": "https://devcon.org/"},
+      "recordedIn": {"@id": "https://shakaleikaumaka.com/devconspeaker/#video"},
+      "url": "https://archive.devcon.org/devcon8/in-the-future-music-and-culture-is-free/"
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://shakaleikaumaka.com/devconspeaker/#video",
+      "name": "In the future music and culture is free — Devcon 8 (Alaska, Tomo Saito, Shaka Lei Kaumaka)",
+      "description": "Devcon 8 session recording, Jasmine Stage 4, Mumbai, 6 Nov 2026. Published by Devcon on YouTube; embedded here in privacy-enhanced mode, loaded only after you press play.",
+      "thumbnailUrl": ["https://shakaleikaumaka.com/devconspeaker/poster.jpg", "https://shakaleikaumaka.com/devconspeaker/og.jpg"],
+      "uploadDate": "2026-11-06",
+      "duration": "PT25M",
+      "embedUrl": "https://www.youtube-nocookie.com/embed/AZ-EUgC9CNM",
+      "contentUrl": "https://www.youtube.com/watch?v=AZ-EUgC9CNM",
+      "publisher": {"@type": "Organization", "name": "Devcon", "url": "https://devcon.org/"},
+      "recordedAt": {"@id": "https://shakaleikaumaka.com/devconspeaker/#event"}
+    },
+    {
+      "@type": "Person",
+      "@id": "https://shakaleikaumaka.com/#shaka",
+      "name": "Shaka Lei Kaumaka",
+      "url": "https://shakaleikaumaka.com/",
+      "jobTitle": "Musician · steward of the Open Source Orchestra",
+      "sameAs": ["https://x.com/Shakaleikaumaka", "https://app.devcon.org/speakers/shaka-lei-kaumaka", "https://opensourceorchestra.org/"],
+      "email": "mailto:aloha@shakaleikaumaka.com"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="/">← shakaleikaumaka.com</a>
+
+  <header>
+    <div class="sigil">🎙️</div>
+    <div class="kicker">Devcon speaker</div>
+    <h1>In the future <em>music and culture is free</em></h1>
+    <p class="sub">A Devcon 8 conversation with <strong style="color:var(--ink)">Alaska</strong>, <strong style="color:var(--ink)">Tomo Saito</strong> and <strong style="color:var(--ink)">Shaka Lei Kaumaka</strong> — on why culture is not a side quest for Ethereum.</p>
+    <div class="facts" aria-label="Session facts">
+      <span class="fact">Devcon 8 · Mumbai</span>
+      <span class="fact">Fri 6 Nov 2026 · 12:00–12:25 IST</span>
+      <span class="fact">Jasmine Stage 4</span>
+      <span class="fact">Futures Worth Building</span>
+      <span class="fact">Mixed Format</span>
+    </div>
+    <div class="speakers">
+      <div class="spk"><div class="n">Alaska</div><div class="r">DJ, producer, community organizer, engineer — building tools so underground music communities own their infrastructure.</div><div class="l"><a href="https://app.devcon.org/speakers/alaska">Devcon speaker page →</a></div></div>
+      <div class="spk"><div class="n">Tomo Saito</div><div class="r">Designer and art director at the Ethereum Foundation — building the culture layer of the Ethereum ecosystem.</div><div class="l"><a href="https://app.devcon.org/speakers/tomo-saito">Devcon speaker page →</a></div></div>
+      <div class="spk"><div class="n">Shaka Lei Kaumaka</div><div class="r">Musician and steward of the Open Source Orchestra, a free circle where anyone can bring their voice to the floor. Host of the Devcon 8 Music Sanctuary with the AI ʻohana.</div><div class="l"><a href="https://app.devcon.org/speakers/shaka-lei-kaumaka">Devcon speaker page →</a> · <a href="/cv/">CV</a></div></div>
+    </div>
+  </header>
+
+  <section id="watch" aria-labelledby="h-watch">
+    <h2 id="h-watch">▶ Watch the session</h2>
+    <div class="video" id="video">
+      <img src="poster.jpg" width="1280" height="720" alt="Poster: In the future music and culture is free — Devcon 8, Jasmine Stage 4, Mumbai, 6 Nov 2026, with Alaska, Tomo Saito and Shaka Lei Kaumaka" loading="eager" decoding="async">
+      <button class="play" id="play" type="button" aria-label="Play the Devcon 8 recording (loads YouTube in privacy-enhanced mode)">
+        <span class="btn" aria-hidden="true">▶</span>
+        <span class="lbl">press play<span class="more"> · 25 min</span> · loads YouTube<span class="more"> (privacy mode)</span> only now</span>
+      </button>
+    </div>
+    <p class="vnote">Recording published by <a href="https://archive.devcon.org/devcon8/in-the-future-music-and-culture-is-free/">Devcon</a> · <a href="https://www.youtube.com/watch?v=AZ-EUgC9CNM">watch on YouTube</a> · nothing from YouTube loads until you press play (youtube-nocookie).</p>
+  </section>
+
+  <section id="about" aria-labelledby="h-about">
+    <h2 id="h-about">What the session was about</h2>
+    <blockquote>
+      <p>The best parts of music culture have always been decentralized: scenes, pirate radio, DIY venues, labels, group chats, people passing records between each other because someone they trust said it mattered.</p>
+      <p>The problem is that the internet captured that energy and routed it through platforms. Artists get reach without power. Curators create value without ownership. Communities build culture inside systems that are designed to extract from them.</p>
+      <p>This chat is about a different path. Ethereum is not interesting here because music needs more crypto branding. It is interesting because music communities already understand the thing Ethereum is supposed to protect: shared infrastructure without a single owner, payments without unnecessary middlemen, and public memory that does not live inside one company’s database.</p>
+      <p>The walkaway is simple: culture is not a side quest for Ethereum. It is one of the clearest places to prove that decentralized infrastructure can matter in ordinary human life.</p>
+    </blockquote>
+    <p class="credit">Session description from the Devcon 8 programme, written by the speakers (Alaska, Tomo Saito, Shaka Lei Kaumaka) and quoted with credit · <a href="https://archive.devcon.org/devcon8/in-the-future-music-and-culture-is-free/">archive.devcon.org</a></p>
+    <div class="tags" aria-label="Devcon tags"><span class="tag">Decentralization</span><span class="tag">Censorship Resistance</span><span class="tag">Human Rights</span><span class="tag">Art &amp; Culture</span></div>
+  </section>
+
+  <section id="words" aria-labelledby="h-words">
+    <h2 id="h-words">Shaka’s words from the stage</h2>
+    <div class="words">
+      <p><strong>Being transcribed by the ʻohana.</strong> Shaka’s own words from this conversation will appear here in full, as quotes, credited “Shaka’s words” (CC BY-SA 4.0). Alaska’s and Tomo’s parts will be shown only as short context lines — the full transcript with their words will be added with their blessing.</p>
+      <p>Consent before people, always: if you spoke on that stage and want anything changed or removed, the takedown door is <a href="https://opensourceorchestra.org/takedown/">opensourceorchestra.org/takedown</a> — takedown first, questions second.</p>
+    </div>
+  </section>
+
+  <section id="history" aria-labelledby="h-history">
+    <h2 id="h-history">Speaker history at Devcon</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="yr">2026 · Devcon 8 · Mumbai</div>
+        <h3>Stage talk + Music Sanctuary host</h3>
+        <ul>
+          <li><strong>In the future music and culture is free</strong> — with Alaska &amp; Tomo Saito · Jasmine Stage 4 · Fri 6 Nov 2026 (this page)</li>
+          <li><strong>Open Source Orchestra Music Space</strong> — the accepted Devcon Improvement Proposal; the Music Sanctuary ran four days, 3–6 Nov 2026, about 35 artists, and the hall became the closing ceremony</li>
+        </ul>
+        <div class="src"><a href="https://forum.devcon.org/t/open-source-orchestra-music-space-at-devcon-8-mumbai/8576">the DIP on forum.devcon.org</a> · <a href="https://app.devcon.org/speakers/shaka-lei-kaumaka">speaker page</a></div>
+      </div>
+      <div class="card">
+        <div class="yr">2022 · Devcon VI · Bogotá</div>
+        <h3>Devcon Scholar · Chiva Lounge</h3>
+        <ul>
+          <li><strong>Chiva Lounge Opening w/ ETH Musicians DAPP</strong> — artist hosts Mateo, is.love and Shaka kick off the Devcon 6 music space</li>
+          <li><strong>SHAKA LOOP</strong> — Tue 11 Oct 2022 · 12:45 · 45 min · Opportunity &amp; Global Impact track</li>
+          <li><strong>Ukulele Workshop</strong> — Tue 11 Oct 2022 · 13:45 · 75 min · twelve ukuleles to share and gift: “Todo es posible, even learning the ukulele”</li>
+          <li><strong>Open Source Jam</strong> — the first Open Source Orchestra DIP activated the Music Stage</li>
+        </ul>
+        <div class="src">programme pages (archived): <a href="https://web.archive.org/web/20240621134614/https://speak.devcon.org/devcon-vi-2022/talk/VAXV78/">opening</a> · <a href="https://web.archive.org/web/20240621134653/https://speak.devcon.org/devcon-vi-2022/talk/QRJZMH/">SHAKA LOOP</a> · <a href="https://web.archive.org/web/20240621134132/https://speak.devcon.org/devcon-vi-2022/talk/GH8QJC/">Ukulele Workshop</a> · <a href="https://archive.devcon.org/devcon6/">archive.devcon.org</a></div>
+      </div>
+      <div class="card">
+        <div class="yr">2022 → 2026 · every DIP</div>
+        <h3>Bogotá · Bangkok · Buenos Aires · Bombay</h3>
+        <ul>
+          <li>The Devcon team said yes to every Open Source Orchestra proposal — Devcon VI Bogotá, Devcon SEA Bangkok, Devconnect Buenos Aires, Devcon 8 Mumbai</li>
+          <li>Next on the road: Devcon IX Lisbon, 12–14 Oct 2027 — hoped for, not a promised slot</li>
+        </ul>
+        <div class="src"><a href="/songbook/bogota-to-bombay/">the story-song, chapter XVIII</a> · <a href="/cv/">full CV</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" aria-labelledby="h-book">
+    <h2 id="h-book">Book Shaka to speak or play</h2>
+    <div class="book">
+      <p><strong>Talks, panels, workshops, open jams.</strong> Shaka speaks on music as public infrastructure, consent-first culture, agents and humans making music together, and the Open Source Orchestra — and he brings the ukulele. The orchestra is a free circle: there is no fee to join; gifts flow through open rails.</p>
+      <div class="row">
+        <a class="pill gold" href="mailto:aloha@shakaleikaumaka.com?subject=Invite%20Shaka%20to%20speak%20or%20play">✉ aloha@shakaleikaumaka.com</a>
+        <a class="pill line" href="mailto:contribute@opensourceorchestra.org?subject=Open%20Source%20Orchestra%20invitation">contribute@opensourceorchestra.org</a>
+        <a class="pill line" href="https://artist.opensourceorchestra.org/tip/?artist=shaka">🌺 tip the artist (x402 · your own wallet)</a>
+      </div>
+      <p style="margin:16px 0 0;font-size:.9rem">On X: <a href="https://x.com/Shakaleikaumaka">@Shakaleikaumaka</a> · <a href="https://x.com/opensourceorch">@opensourceorch</a> · the circle: <a href="https://opensourceorchestra.org/">opensourceorchestra.org</a> · learn the songs: <a href="https://opensourceorchestra.org/learn/">/learn</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-sig">“You don’t join the Open Source Orchestra. You notice you were always in it.”</div>
+    <p>Shaka · the ethereum bard · heart first, always 🌺<br>
+    Built with the AI ʻohana on <a href="https://taurusagents.com/r/k3kfDrXp">Taurus</a> · machines say they are machines · consent before people · <a href="https://opensourceorchestra.org/takedown/">takedown first</a></p>
+    <p class="license">Code <a href="https://github.com/shakaleikaumaka/shaka-home/blob/main/LICENSE">GPL-3.0</a> · words &amp; art <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> · Shaka’s spoken words credited “Shaka’s words” · session description © its speakers, quoted with credit · recording © Devcon, embedded, not copied · <a href="https://github.com/shakaleikaumaka/shaka-home/blob/main/GIFT.md">gifted with love &amp; aloha by Shaka Lei Kaumaka &amp; the ʻohana</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var btn = document.getElementById('play');
+  var box = document.getElementById('video');
+  if (!btn || !box) return;
+  btn.addEventListener('click', function(){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/AZ-EUgC9CNM?autoplay=1&rel=0';
+    f.title = 'In the future music and culture is free — Devcon 8 recording (YouTube, privacy-enhanced)';
+    f.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    f.setAttribute('allowfullscreen', '');
+    f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    f.setAttribute('loading', 'eager');
+    box.innerHTML = '';
+    box.appendChild(f);
+    f.focus();
+  });
+})();
+</script>
+<script src="https://lang.opensourceorchestra.org/lang.js" async></script>
+</body>
+</html>
