@@ -1,0 +1,10 @@
+// oso-translator — live translation bell for shakaleikaumaka.com/translator (GPL-3.0-or-later)
+{
+  "name": "oso-translator",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-13",
+  "workers_dev": true,
+  "routes": [ { "pattern": "translate.opensourceorchestra.org", "custom_domain": true } ],
+  "ai": { "binding": "AI" },
+  "observability": { "enabled": false }
+}

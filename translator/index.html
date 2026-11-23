@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live translator — big letters for a teaching in any language · Shaka Lei Kaumaka</title>
+<meta name="description" content="A teleprompter for listening: the phone hears the teacher (Thai first, any language after), the ʻohana translates live, and the words appear in big beautiful letters. Keeps a pit — full transcript, lesson card, highlights — and can record audio + a karaoke video of the live translation. Free, open, machine-honest.">
+<meta property="og:title" content="Live translator — big letters for a teaching in any language">
+<meta property="og:description" content="Thai → English live, then every language. Transcript pit, lesson card, highlights, audio + karaoke video. By Shaka Lei Kaumaka & the AI ʻohana.">
+<meta name="theme-color" content="#0b0a14">
+<link rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#0b0a14; --bg2:#15122a; --ink:#f6f1e7; --mut:#a9a3b8; --line:rgba(255,255,255,.12);
+  --g1:#ffb347; --g2:#ffcc33; --g3:#ff6b9d; --glow:rgba(255,179,71,.35);
+  --src:#d9c7ff; --size:1; --panel:rgba(12,10,24,.92);
+}
+[data-theme=lotus]{--g1:#ff9ad5;--g2:#f6c1ff;--g3:#8ec5ff;--glow:rgba(255,154,213,.35);--src:#ffe3f4}
+[data-theme=ocean]{--g1:#6ef2d0;--g2:#9be7ff;--g3:#ffe88a;--glow:rgba(110,242,208,.3);--src:#cdfff3}
+[data-theme=day]{--bg:#fffaf0;--bg2:#fff3d6;--ink:#1b1430;--mut:#6b6480;--line:rgba(0,0,0,.12);--g1:#b4500f;--g2:#d97706;--g3:#9d174d;--glow:rgba(180,80,15,.15);--src:#4c3a7a;--panel:rgba(255,250,240,.96)}
+[data-theme=mono]{--g1:#ffffff;--g2:#ffffff;--g3:#ffffff;--glow:rgba(255,255,255,.2);--src:#cfcfcf}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:radial-gradient(120% 90% at 50% 0%,var(--bg2),var(--bg) 70%);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Noto Sans Thai","Helvetica Neue",Arial,sans-serif;overflow:hidden;-webkit-text-size-adjust:100%}
+body[data-mirror=on] #stage{transform:scaleX(-1)}
+button,select,input{font:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);border-radius:999px;padding:8px 14px;line-height:1.2}
+button:active{transform:scale(.97)}
+button.primary{background:linear-gradient(135deg,var(--g1),var(--g3));color:#160c02;border:0;font-weight:700}
+[data-theme=day] button.primary{color:#fff}
+button.on{box-shadow:0 0 0 2px var(--g2) inset}
+select{background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:7px 10px;max-width:46vw}
+[data-theme=day] select, [data-theme=day] button{background:rgba(0,0,0,.04)}
+select option{color:#111;background:#fff}
+a{color:var(--g2)}
+/* top bar */
+#bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;background:linear-gradient(var(--bg),transparent);transition:opacity .3s,transform .3s}
+#bar.hidden{opacity:0;transform:translateY(-110%);pointer-events:none}
+#bar .grow{flex:1}
+#bar h1{font-size:15px;font-weight:600;margin:0;letter-spacing:.02em;color:var(--mut);white-space:nowrap}
+#bar h1 b{color:var(--ink)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#status{font-size:13px;color:var(--mut);display:flex;gap:6px;align-items:center}
+#dot{width:9px;height:9px;border-radius:50%;background:#666;display:inline-block}
+#dot.live{background:#3ddc84;box-shadow:0 0 10px #3ddc84;animation:pulse 1.2s infinite}
+#dot.rec{background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.45}}
+/* stage */
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:90px 5vw calc(env(safe-area-inset-bottom) + 86px);overflow:hidden}
+#history{display:flex;flex-direction:column;justify-content:flex-end;gap:.35em;overflow:hidden;mask-image:linear-gradient(transparent,#000 45%);-webkit-mask-image:linear-gradient(transparent,#000 45%)}
+#history .line{font-size:calc(var(--size) * clamp(20px,3.6vw,38px));line-height:1.25;color:var(--ink);opacity:.55;font-weight:600;overflow-wrap:anywhere}
+#history .line .s{display:block;font-size:.6em;color:var(--src);opacity:.7;font-weight:400}
+#history .line.star{opacity:.9}
+#history .line.star::before{content:"⭐ ";font-size:.6em;vertical-align:middle}
+#now{margin-top:.4em;font-size:calc(var(--size) * clamp(34px,8.2vw,112px));line-height:1.12;font-weight:800;letter-spacing:-.01em;overflow-wrap:anywhere;min-height:1.2em;text-wrap:balance}
+#now .w{background:linear-gradient(120deg,var(--g1),var(--g2) 45%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px var(--glow));display:inline-block;animation:reveal .35s ease-out both}
+#now .w.wait{animation:none;filter:none;opacity:.5}
+@keyframes reveal{from{opacity:0;transform:translateY(.25em) scale(.98)}to{opacity:1;transform:none}}
+#interim{margin-top:.5em;font-size:calc(var(--size) * clamp(16px,3vw,30px));line-height:1.3;color:var(--src);min-height:1.3em;overflow-wrap:anywhere}
+#interim .hint{color:var(--mut);font-style:italic}
+#interim .pre{color:var(--mut);display:block;font-size:.85em}
+/* bottom bar */
+#bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;padding:10px 12px calc(env(safe-area-inset-bottom) + 12px);background:linear-gradient(transparent,var(--bg) 70%);transition:opacity .3s,transform .3s}
+#bottom.hidden{opacity:0;transform:translateY(110%);pointer-events:none}
+#bottom .big{font-size:17px;padding:12px 18px}
+#bottom .big.primary{padding:12px 24px}
+#typebox{display:none;gap:8px;width:100%;max-width:720px;order:-1;flex-basis:100%}
+#typebox input{flex:1;background:rgba(255,255,255,.08);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:12px 16px;min-width:0}
+#showbars{position:fixed;right:10px;bottom:calc(env(safe-area-inset-bottom) + 10px);z-index:21;width:34px;height:34px;padding:0;border-radius:50%;font-size:16px;opacity:.65;display:none}
+body.bars-hidden #showbars{display:block}
+/* pit panel */
+#pit{position:fixed;top:0;right:0;bottom:0;width:min(560px,100vw);z-index:30;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .3s;overflow:auto;padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 24px);color:var(--ink)}
+#pit.open{transform:none}
+#pit h2{font-size:18px;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+#pit h2 .x{margin-left:auto}
+#pit h3{font-size:14px;color:var(--mut);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.08em}
+#pit .small{font-size:13px;color:var(--mut)}
+#lines{display:flex;flex-direction:column;gap:8px;max-height:38vh;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:10px}
+#lines .l{font-size:14px;line-height:1.35;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.04);display:grid;grid-template-columns:1fr auto;gap:4px 8px}
+#lines .l .t{color:var(--mut);font-size:11px}
+#lines .l .s{color:var(--src);grid-column:1}
+#lines .l .r{grid-column:1;font-weight:600}
+#lines .l button{grid-column:2;grid-row:1/4;padding:4px 8px;font-size:14px;align-self:center}
+#lines .l.star{background:linear-gradient(90deg,rgba(255,179,71,.18),transparent)}
+#card{border:1px solid var(--line);border-radius:16px;padding:16px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));display:none}
+#card.show{display:block}
+#card .ttl{font-size:26px;font-weight:800;line-height:1.15;background:linear-gradient(120deg,var(--g1),var(--g2),var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+#card .ttl2{color:var(--src);margin:2px 0 10px;font-size:15px}
+#card .desc{font-size:16px;line-height:1.5}
+#card .hl{margin:12px 0 0;padding:0;list-style:none}
+#card .hl li{margin:8px 0;padding:10px 12px;border-left:4px solid var(--g1);border-radius:0 10px 10px 0;background:rgba(255,255,255,.04)}
+#card .hl li:nth-child(3n+2){border-color:var(--g2)}
+#card .hl li:nth-child(3n){border-color:var(--g3)}
+#card .hl b{display:block;font-size:17px}
+#card .hl i{display:block;color:var(--src);font-style:normal;font-size:13.5px;margin-top:2px}
+#card .terms{font-size:14px;margin:10px 0 0;padding-left:18px}
+#card .practice{margin:12px 0 0;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.06);font-size:15px}
+#recs .r{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);transform:translateX(-50%);z-index:40;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:10px 16px;border-radius:12px;font-size:14px;max-width:88vw;opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.show{opacity:1}
+#about{display:none}
+footer{position:fixed;left:0;right:0;bottom:0;z-index:5;text-align:center;font-size:11px;color:var(--mut);padding:0 12px calc(env(safe-area-inset-bottom) + 2px);pointer-events:none}
+footer a{pointer-events:auto}
+#karaoke{display:none}
+@media (max-width:600px){#bar h1 span.long{display:none} #now{font-size:calc(var(--size) * clamp(30px,9.5vw,80px))}}
+@media (prefers-reduced-motion:reduce){#now .w{animation:none}}
+</style>
+</head>
+<body data-theme="saffron">
+
+<div id="bar">
+  <h1>🙏 <b>live translator</b> <span class="long">· big letters for a teaching</span></h1>
+  <div class="row">
+    <select id="from" aria-label="speaker's language"></select>
+    <span aria-hidden="true">→</span>
+    <select id="to" aria-label="your language"></select>
+  </div>
+  <div class="grow"></div>
+  <div class="row">
+    <button id="sizedown" title="smaller letters">A−</button><button id="sizeup" title="bigger letters">A+</button>
+    <select id="theme" aria-label="colours"><option value="saffron">🧡 saffron</option><option value="lotus">🌸 lotus</option><option value="ocean">🌊 ocean</option><option value="day">☀️ day (bright hall)</option><option value="mono">⚪ plain</option></select>
+    <button id="mirror" title="mirror for a glass rig">🪞</button>
+    <button id="full" title="full screen">⛶</button>
+    <button id="pitbtn" title="the pit: transcript, lesson card, recordings">📜 pit</button>
+    <button id="hidebars" title="hide the controls (tap the dot to bring them back)">✕</button>
+  </div>
+  <div id="status"><span id="dot"></span><span id="stxt">tap ▶ Listen — the phone hears the teacher, the ʻohana translates</span></div>
+</div>
+
+<main id="stage" aria-live="polite">
+  <div id="history"></div>
+  <div id="now"></div>
+  <div id="interim"><span class="hint">ไทย → English · the teacher's words appear here first, then the big letters</span></div>
+</main>
+
+<div id="bottom">
+  <div id="typebox"><input id="typein" placeholder="type or paste the teacher's words, press Enter" autocomplete="off"><button id="typesend">↵</button></div>
+  <button id="listen" class="primary big">▶ Listen</button>
+  <button id="record" class="big" title="record audio + a karaoke video of the live translation">⏺ Record</button>
+  <button id="star" class="big" title="mark this line as a highlight">⭐</button>
+  <button id="typetoggle" title="no microphone? type instead">⌨</button>
+</div>
+<button id="showbars" title="show controls">⚙</button>
+
+<aside id="pit" aria-label="the pit">
+  <h2>🕳️ the pit <span class="small">· this lesson, kept on this phone</span><button class="x" id="pitclose">✕</button></h2>
+  <p class="small" id="pitmeta"></p>
+  <div class="row">
+    <button id="lesson" class="primary">✨ lesson card</button>
+    <button id="dl-txt">⬇ transcript .txt</button>
+    <button id="dl-srt">⬇ karaoke .srt</button>
+    <button id="dl-vtt">⬇ .vtt</button>
+    <button id="dl-json">⬇ pit .json</button>
+    <button id="newlesson">🌱 new lesson</button>
+  </div>
+  <div id="card"></div>
+  <h3>recordings</h3>
+  <div id="recs"><p class="small">none yet — ⏺ Record captures the teacher's voice (audio) and a karaoke video of the big letters as they appear. Both stay on this phone until you share them.</p></div>
+  <h3>transcript <span id="count"></span></h3>
+  <div id="lines"></div>
+  <h3>consent</h3>
+  <p class="small">Everything here is <b>private</b> — on this device only, nothing is uploaded except the words sent for translation (not stored, zero retention). A teacher's recording goes public only with the teacher's yes. Machine listening + machine translation may mishear: bow to the teacher, not the screen.</p>
+</aside>
+
+<div id="toast"></div>
+<canvas id="karaoke" width="1280" height="720"></canvas>
+<footer>machine listening · machine translation by the ʻohana · may mishear · <a href="https://opensourceorchestra.org">Open Source Orchestra</a> · code GPL-3.0-or-later · words CC BY-SA 4.0 · <a href="https://github.com/shakaleikaumaka/shaka-home/tree/main/translator">fork it</a></footer>
+
+<script>
+(() => {
+'use strict';
+const API_PRIMARY = 'https://translate.opensourceorchestra.org';
+const API_FALLBACK = 'https://oso-translator.shakaverse.workers.dev';
+let API = API_PRIMARY;
+const $ = s => document.querySelector(s);
+const el = { from:$('#from'), to:$('#to'), now:$('#now'), interim:$('#interim'), history:$('#history'), status:$('#stxt'), dot:$('#dot'), listen:$('#listen'), record:$('#record'), lines:$('#lines'), count:$('#count'), card:$('#card'), recs:$('#recs'), pit:$('#pit'), toast:$('#toast'), bar:$('#bar'), bottom:$('#bottom'), typebox:$('#typebox'), typein:$('#typein'), pitmeta:$('#pitmeta') };
+
+// ---- languages: code → [English name, native name, speech tag]
+const LANGS = {
+th:['Thai','ไทย','th-TH'], en:['English','English','en-US'], zh:['Chinese','中文','zh-CN'], ja:['Japanese','日本語','ja-JP'], ko:['Korean','한국어','ko-KR'], hi:['Hindi','हिन्दी','hi-IN'], es:['Spanish','Español','es-ES'], fr:['French','Français','fr-FR'], de:['German','Deutsch','de-DE'], pt:['Portuguese','Português','pt-BR'], ar:['Arabic','العربية','ar-SA'], ru:['Russian','Русский','ru-RU'], it:['Italian','Italiano','it-IT'], vi:['Vietnamese','Tiếng Việt','vi-VN'], id:['Indonesian','Bahasa Indonesia','id-ID'], ms:['Malay','Bahasa Melayu','ms-MY'], km:['Khmer','ខ្មែរ','km-KH'], lo:['Lao','ລາວ','lo-LA'], my:['Burmese','မြန်မာ','my-MM'], ne:['Nepali','नेपाली','ne-NP'], ta:['Tamil','தமிழ்','ta-IN'], bn:['Bengali','বাংলা','bn-IN'], si:['Sinhala','සිංහල','si-LK'], haw:['Hawaiian','ʻŌlelo Hawaiʻi','haw-US'], tr:['Turkish','Türkçe','tr-TR'], nl:['Dutch','Nederlands','nl-NL'], pl:['Polish','Polski','pl-PL'], uk:['Ukrainian','Українська','uk-UA'], he:['Hebrew','עברית','he-IL'], fa:['Persian','فارسی','fa-IR'], sv:['Swedish','Svenska','sv-SE'], fi:['Finnish','Suomi','fi-FI'], da:['Danish','Dansk','da-DK'], no:['Norwegian','Norsk','nb-NO'], el:['Greek','Ελληνικά','el-GR'], cs:['Czech','Čeština','cs-CZ'], hu:['Hungarian','Magyar','hu-HU'], ro:['Romanian','Română','ro-RO'], sk:['Slovak','Slovenčina','sk-SK'], bg:['Bulgarian','Български','bg-BG'], hr:['Croatian','Hrvatski','hr-HR'], sr:['Serbian','Српски','sr-RS'], ca:['Catalan','Català','ca-ES'], gl:['Galician','Galego','gl-ES'], af:['Afrikaans','Afrikaans','af-ZA'], sw:['Swahili','Kiswahili','sw-KE'], zu:['Zulu','isiZulu','zu-ZA'], am:['Amharic','አማርኛ','am-ET'], ur:['Urdu','اردو','ur-PK'], gu:['Gujarati','ગુજરાતી','gu-IN'], kn:['Kannada','ಕನ್ನಡ','kn-IN'], ml:['Malayalam','മലയാളം','ml-IN'], mr:['Marathi','मराठी','mr-IN'], pa:['Punjabi','ਪੰਜਾਬੀ','pa-IN'], jv:['Javanese','Basa Jawa','jv-ID'], su:['Sundanese','Basa Sunda','su-ID'], tl:['Tagalog','Tagalog','fil-PH'], is:['Icelandic','Íslenska','is-IS'], lt:['Lithuanian','Lietuvių','lt-LT'], lv:['Latvian','Latviešu','lv-LV'], et:['Estonian','Eesti','et-EE'], sl:['Slovenian','Slovenščina','sl-SI'], sq:['Albanian','Shqip','sq-AL'], mk:['Macedonian','Македонски','mk-MK'], hy:['Armenian','Հայերեն','hy-AM'], ka:['Georgian','ქართული','ka-GE'], az:['Azerbaijani','Azərbaycan','az-AZ'], kk:['Kazakh','Қазақ','kk-KZ'], uz:['Uzbek','Oʻzbek','uz-UZ'], mn:['Mongolian','Монгол','mn-MN'], ps:['Pashto','پښتو','ps-AF'], be:['Belarusian','Беларуская','be-BY'], bs:['Bosnian','Bosanski','bs-BA'], cy:['Welsh','Cymraeg','cy-GB'], ga:['Irish','Gaeilge','ga-IE'], gd:['Scottish Gaelic','Gàidhlig','gd-GB'], lb:['Luxembourgish','Lëtzebuergesch','lb-LU'], yi:['Yiddish','ייִדיש','yi'], ht:['Haitian Creole','Kreyòl','ht'], ceb:['Cebuano','Cebuano','ceb'], ilo:['Ilocano','Ilokano','ilo'], mg:['Malagasy','Malagasy','mg'], so:['Somali','Soomaali','so-SO'], ha:['Hausa','Hausa','ha'], ig:['Igbo','Igbo','ig'], yo:['Yoruba','Yorùbá','yo'], xh:['Xhosa','isiXhosa','xh-ZA'], tn:['Tswana','Setswana','tn'], ss:['Swati','siSwati','ss'], ns:['Northern Sotho','Sesotho sa Leboa','ns'], ln:['Lingala','Lingála','ln'], lg:['Ganda','Luganda','lg'], wo:['Wolof','Wolof','wo'], ff:['Fulah','Fulfulde','ff'], sd:['Sindhi','سنڌي','sd'], or:['Odia','ଓଡ଼ିଆ','or-IN'], ba:['Bashkir','Башҡорт','ba'], br:['Breton','Brezhoneg','br'], oc:['Occitan','Occitan','oc'], ast:['Asturian','Asturianu','ast'], fy:['Western Frisian','Frysk','fy-NL']
+};
+const order = ['th','en','zh','ja','ko','hi','es','fr','de','pt','ar','ru','it','vi','id','ms','km','lo','my','ne','ta','bn','si','haw'];
+const rest = Object.keys(LANGS).filter(k => !order.includes(k)).sort((a,b)=>LANGS[a][0].localeCompare(LANGS[b][0]));
+for (const sel of [el.from, el.to]) {
+  for (const k of [...order, ...rest]) { const o = document.createElement('option'); o.value = k; o.textContent = `${LANGS[k][1]} · ${LANGS[k][0]}`; sel.appendChild(o); }
+}
+// ---- settings (persisted)
+const S = Object.assign({ from:'th', to:'en', size:1, theme:'saffron', mirror:false }, JSON.parse(localStorage.getItem('oso-translator.settings.v1') || '{}'));
+const saveS = () => localStorage.setItem('oso-translator.settings.v1', JSON.stringify(S));
+const applyS = () => { el.from.value = S.from; el.to.value = S.to; document.documentElement.style.setProperty('--size', S.size); document.body.dataset.theme = S.theme; $('#theme').value = S.theme; document.body.dataset.mirror = S.mirror ? 'on' : 'off'; $('#mirror').classList.toggle('on', S.mirror); el.interim.innerHTML = `<span class="hint">${LANGS[S.from][1]} → ${LANGS[S.to][0]} · the teacher's words appear here first, then the big letters</span>`; };
+applyS();
+el.from.onchange = () => { S.from = el.from.value; saveS(); applyS(); if (rec) restartRec(); };
+el.to.onchange = () => { S.to = el.to.value; saveS(); applyS(); };
+$("#sizeup").onclick = () => { S.size = Math.min(2.2, +(S.size + 0.15).toFixed(2)); saveS(); applyS(); };
+$("#sizedown").onclick = () => { S.size = Math.max(0.5, +(S.size - 0.15).toFixed(2)); saveS(); applyS(); };
+$('#theme').onchange = e => { S.theme = e.target.value; saveS(); applyS(); };
+$('#mirror').onclick = () => { S.mirror = !S.mirror; saveS(); applyS(); };
+$('#full').onclick = () => { const d = document.documentElement; if (document.fullscreenElement) document.exitFullscreen?.(); else (d.requestFullscreen || d.webkitRequestFullscreen)?.call(d); };
+const hideBars = h => { el.bar.classList.toggle('hidden', h); el.bottom.classList.toggle('hidden', h); document.body.classList.toggle('bars-hidden', h); };
+$('#hidebars').onclick = () => hideBars(true);
+$('#showbars').onclick = () => hideBars(false);
+$('#stage').addEventListener('click', e => { if (e.target.closest('button')) return; if (document.body.classList.contains('bars-hidden')) hideBars(false); });
+$('#pitbtn').onclick = () => { el.pit.classList.add('open'); renderPit(); };
+$('#pitclose').onclick = () => el.pit.classList.remove('open');
+$('#typetoggle').onclick = () => { el.typebox.style.display = el.typebox.style.display === 'flex' ? 'none' : 'flex'; el.typein.focus(); };
+const toast = (m, ms = 2600) => { el.toast.textContent = m; el.toast.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.toast.classList.remove('show'), ms); };
+const status = (m, cls) => { el.status.textContent = m; el.dot.className = cls || ''; };
+
+// ---- the pit (session kept on this device)
+let pit = JSON.parse(localStorage.getItem('oso-translator.pit.v1') || 'null') || newPit();
+function newPit(){ return { v:'oso-translator-pit/1', started: new Date().toISOString(), from:S.from, to:S.to, lines:[], card:null, consent:'private', credit:'Built by Open Source Orchestra: Shaka Lei Kaumaka & the AI ʻohana (https://opensourceorchestra.org) · code GPL-3.0-or-later · words CC BY-SA 4.0 · machine translation, may mishear' }; }
+const savePit = () => { try { localStorage.setItem('oso-translator.pit.v1', JSON.stringify(pit)); } catch(e) { toast('storage full — download the pit and start a new lesson'); } };
+const t0 = () => new Date(pit.started).getTime();
+const stamp = ms => { const s = Math.max(0, Math.round(ms/1000)); return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; };
+$('#newlesson').onclick = () => { if (pit.lines.length && !confirm('Start a new lesson? The current one stays downloadable only if you saved it. Download first?')) return; pit = newPit(); savePit(); el.history.innerHTML=''; el.now.innerHTML=''; renderPit(); toast('🌱 new lesson'); };
+
+// ---- translation
+const cache = new Map();
+async function translate(text, { signal } = {}) {
+  const key = `${S.from}|${S.to}|${text}`;
+  if (cache.has(key)) return cache.get(key);
+  const body = JSON.stringify({ text, from:S.from, to:S.to });
+  const call = base => fetch(base + '/', { method:'POST', headers:{'content-type':'application/json'}, body, signal }).then(r => r.json());
+  let j;
+  try { j = await call(API); } catch (e) { if (signal?.aborted) throw e; if (API === API_PRIMARY) { API = API_FALLBACK; j = await call(API); } else throw e; }
+  if (j.error) throw new Error(j.error);
+  cache.set(key, j); return j;
+}
+
+// ---- stage rendering ("color every time": the gradient angle shifts per line)
+let hue = 0;
+function showNow(text, wait=false) {
+  el.now.innerHTML = '';
+  if (!text) return;
+  hue = (hue + 47) % 360;
+  const words = text.split(/(\s+)/);
+  let i = 0;
+  for (const w of words) {
+    if (!w.trim()) { el.now.appendChild(document.createTextNode(' ')); continue; }
+    const s = document.createElement('span'); s.className = 'w' + (wait ? ' wait' : ''); s.textContent = w;
+    s.style.animationDelay = `${Math.min(i*45, 1400)}ms`; s.style.filter = wait ? '' : `drop-shadow(0 0 18px var(--glow)) hue-rotate(${hue}deg)`;
+    el.now.appendChild(s); i++;
+  }
+  karaokeFrame(text);
+}
+function pushHistory(line) {
+  const d = document.createElement('div'); d.className = 'line' + (line.star ? ' star' : ''); d.dataset.id = line.id;
+  d.innerHTML = `<span class="s"></span>`; d.querySelector('.s').textContent = line.src; d.appendChild(document.createTextNode(line.tr));
+  el.history.appendChild(d);
+  while (el.history.children.length > 14) el.history.firstChild.remove();
+}
+function restoreStage(){ el.history.innerHTML=''; for (const l of pit.lines.slice(-6)) pushHistory(l); const last = pit.lines[pit.lines.length-1]; if (last) showNow(last.tr); }
+restoreStage();
+
+// ---- a final segment: translate, show big, keep in the pit
+let queue = Promise.resolve();
+let current = null; // the last line (for ⭐)
+function commit(src) {
+  src = src.trim(); if (!src) return;
+  const line = { id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), t: stamp(Date.now() - t0()), at: new Date().toISOString(), src, tr:'', star:false, engine:'' };
+  pit.lines.push(line); savePit();
+  queue = queue.then(async () => {
+    try {
+      status(`translating…`, 'live');
+      const j = await translate(src);
+      line.tr = j.text; line.engine = j.engine; savePit();
+      if (current) pushHistory(current);
+      current = line; showNow(line.tr); if (el.interim.querySelector('.hint')) el.interim.textContent = '';
+      status(listening ? `listening · ${j.engine} ${j.ms} ms` : `${j.engine} ${j.ms} ms`, listening ? 'live' : '');
+      if (el.pit.classList.contains('open')) renderPit();
+    } catch (e) { line.tr = '(translation failed — ' + (e.message||e) + ')'; savePit(); status('translation failed, retrying on the next line', ''); toast('⚠ ' + (e.message || e)); }
+  });
+}
+$('#star').onclick = () => { if (!current) return toast('nothing to highlight yet'); current.star = !current.star; savePit(); const d = el.history.querySelector(`[data-id="${current.id}"]`); d?.classList.toggle('star', current.star); toast(current.star ? '⭐ highlighted' : 'un-starred'); el.now.style.transition='transform .25s'; el.now.style.transform='scale(1.04)'; setTimeout(()=>el.now.style.transform='',260); };
+el.typein.addEventListener('keydown', e => { if (e.key === 'Enter') { commit(el.typein.value); el.typein.value=''; } });
+$('#typesend').onclick = () => { commit(el.typein.value); el.typein.value=''; };
+
+// ---- live preview of the interim (debounced, abortable)
+let previewCtl = null, previewT = null;
+function preview(text) {
+  clearTimeout(previewT);
+  previewT = setTimeout(async () => {
+    previewCtl?.abort(); previewCtl = new AbortController();
+    try { const j = await translate(text, { signal: previewCtl.signal }); if (!current || current.src !== text) { const p = document.createElement('span'); p.className='pre'; p.textContent = '… ' + j.text; el.interim.querySelector('.pre')?.remove(); el.interim.appendChild(p); } } catch {}
+  }, 900);
+}
+
+// ---- speech (Web Speech API: on-device/Siri on iPhone, Google on Android/Chrome)
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec = null, listening = false, lastInterim = '', silenceT = null;
+function makeRec() {
+  const r = new SR(); r.lang = LANGS[S.from][2]; r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
+  r.onresult = ev => {
+    let interim = '';
+    for (let i = ev.resultIndex; i < ev.results.length; i++) {
+      const res = ev.results[i]; const txt = res[0].transcript;
+      if (res.isFinal) { commit(txt); interim = ''; lastInterim = ''; }
+      else interim += txt;
+    }
+    if (interim) {
+      lastInterim = interim; el.interim.textContent = interim; preview(interim);
+      // some engines never send isFinal while the speaker flows: cut long interims on a pause
+      clearTimeout(silenceT); silenceT = setTimeout(() => { if (lastInterim.length > 40) { commit(lastInterim); lastInterim = ''; el.interim.textContent=''; } }, 1800);
+    }
+  };
+  r.onerror = ev => {
+    if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') { listening = false; status('microphone blocked — allow it in the browser, or type with ⌨', ''); el.listen.textContent = '▶ Listen'; toast('🎙 microphone permission needed'); }
+    else if (ev.error === 'language-not-supported') { listening = false; status(`${LANGS[S.from][0]} speech not supported on this phone — type with ⌨`, ''); el.listen.textContent='▶ Listen'; }
+    else if (ev.error !== 'no-speech' && ev.error !== 'aborted') status('mic hiccup: ' + ev.error + ' — restarting', 'live');
+  };
+  r.onend = () => { if (lastInterim.trim()) { commit(lastInterim); lastInterim=''; el.interim.textContent=''; } if (listening) setTimeout(() => { try { r.start(); } catch {} }, 250); };
+  return r;
+}
+function restartRec(){ try { rec.onend = null; rec.stop(); } catch {} rec = makeRec(); if (listening) try { rec.start(); } catch {} }
+let wake = null;
+async function keepAwake(){ try { wake = await navigator.wakeLock?.request('screen'); } catch {} }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && listening) keepAwake(); });
+el.listen.onclick = async () => {
+  if (!SR) { toast('this browser has no speech recognition — use Safari on iPhone or Chrome, or type with ⌨'); el.typebox.style.display='flex'; return; }
+  if (listening) { listening = false; try { rec.stop(); } catch {} el.listen.textContent = '▶ Listen'; status('paused', ''); wake?.release?.(); window.OSOFrames?.wake?.(); return; }
+  listening = true; rec = rec || makeRec(); rec.lang = LANGS[S.from][2];
+  try { rec.start(); } catch(e) { restartRec(); }
+  el.listen.textContent = '⏸ Pause'; status(`listening in ${LANGS[S.from][0]}…`, 'live'); keepAwake(); window.OSOFrames?.sleep?.('stage');
+  if (!pit.lines.length) { pit.started = new Date().toISOString(); pit.from = S.from; pit.to = S.to; savePit(); }
+};
+
+// ---- the pit panel
+function renderPit() {
+  el.pitmeta.textContent = `${LANGS[pit.from]?.[0]||pit.from} → ${LANGS[pit.to]?.[0]||pit.to} · started ${new Date(pit.started).toLocaleString()} · ${pit.lines.length} lines · ${pit.lines.filter(l=>l.star).length} ⭐`;
+  el.count.textContent = `(${pit.lines.length})`;
+  el.lines.innerHTML = '';
+  for (const l of pit.lines) {
+    const d = document.createElement('div'); d.className = 'l' + (l.star ? ' star' : '');
+    d.innerHTML = `<span class="t"></span><span class="s"></span><span class="r"></span><button title="highlight">${l.star?'⭐':'☆'}</button>`;
+    d.querySelector('.t').textContent = l.t; d.querySelector('.s').textContent = l.src; d.querySelector('.r').textContent = l.tr || '…';
+    d.querySelector('button').onclick = () => { l.star = !l.star; savePit(); renderPit(); el.history.querySelector(`[data-id="${l.id}"]`)?.classList.toggle('star', l.star); };
+    el.lines.appendChild(d);
+  }
+  el.lines.scrollTop = el.lines.scrollHeight;
+  renderCard();
+}
+function renderCard() {
+  const c = pit.card; el.card.classList.toggle('show', !!c); if (!c) return;
+  const esc = s => String(s||'').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  el.card.innerHTML = `<p class="ttl">${esc(c.title)}</p><p class="ttl2">${esc(c.title_src)}</p><p class="desc">${esc(c.description)}</p>
+  <ul class="hl">${(c.highlights||[]).map(h => `<li><b>${esc(h.tr)}</b><i>${esc(h.src)}</i></li>`).join('')}</ul>
+  ${(c.terms||[]).length ? `<ul class="terms">${c.terms.map(t => `<li><b>${esc(t.term)}</b> — ${esc(t.gloss)}</li>`).join('')}</ul>` : ''}
+  ${c.practice ? `<p class="practice">🪷 ${esc(c.practice)}</p>` : ''}
+  <p class="small">lesson card by the ʻohana (machine summary of a machine transcript — check it against what you heard)</p>`;
+}
+$('#lesson').onclick = async () => {
+  if (pit.lines.length < 2) return toast('a few more lines first');
+  $('#lesson').disabled = true; $('#lesson').textContent = '✨ writing…';
+  try {
+    const r = await fetch(API + '/lesson', { method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ from:pit.from, to:pit.to, lines: pit.lines.map(l => ({ t:l.t, src:l.src, tr:l.tr })) }) });
+    const j = await r.json(); if (j.error) throw new Error(j.error);
+    pit.card = j.card; savePit(); renderCard(); toast('✨ lesson card ready');
+    // star the card's highlights in the transcript too
+    for (const h of j.card.highlights || []) { const l = pit.lines.find(x => x.src === h.src); if (l) l.star = true; } savePit(); renderPit();
+  } catch (e) { toast('lesson card failed: ' + (e.message||e)); }
+  $('#lesson').disabled = false; $('#lesson').textContent = '✨ lesson card';
+};
+// downloads
+const dl = (name, text, type='text/plain') => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], {type})); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 5000); };
+const base = () => `lesson-${pit.started.slice(0,16).replace(/[:T]/g,'-')}`;
+const srtTime = (ms, sep=',') => { const s = Math.floor(ms/1000); return `${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor(s/60)%60).padStart(2,'0')}:${String(s%60).padStart(2,'0')}${sep}${String(ms%1000).padStart(3,'0')}`; };
+function cues(){ return pit.lines.map((l, i) => { const a = new Date(l.at).getTime() - t0(); const n = pit.lines[i+1]; const b = n ? new Date(n.at).getTime() - t0() : a + Math.max(2500, l.tr.length*60); return { a, b: Math.max(a+800, b), l }; }); }
+$('#dl-txt').onclick = () => dl(base()+'.txt', `${pit.card?.title || 'Lesson'}\n${pit.card ? pit.card.description + '\n' : ''}\n` + pit.lines.map(l => `[${l.t}] ${l.star?'⭐ ':''}${l.src}\n        ${l.tr}`).join('\n') + `\n\n— ${pit.credit}\n`);
+$('#dl-srt').onclick = () => dl(base()+'.srt', cues().map((c,i) => `${i+1}\n${srtTime(c.a)} --> ${srtTime(c.b)}\n${c.l.tr}\n${c.l.src}\n`).join('\n'));
+$('#dl-vtt').onclick = () => dl(base()+'.vtt', 'WEBVTT\n\n' + cues().map((c,i) => `${i+1}\n${srtTime(c.a,'.')} --> ${srtTime(c.b,'.')}\n${c.l.tr}\n${c.l.src}\n`).join('\n'), 'text/vtt');
+$('#dl-json').onclick = () => dl(base()+'.json', JSON.stringify(pit, null, 2), 'application/json');
+
+// ---- recording: audio (teacher's voice) + karaoke video (the big letters as they appear)
+const cv = $('#karaoke'), cx = cv.getContext('2d');
+let recording = false, audioRec = null, videoRec = null, chunksA = [], chunksV = [], recStart = 0, frameText = '', frameAt = 0, raf = 0;
+const pick = list => list.find(t => MediaRecorder.isTypeSupported?.(t)) || '';
+function karaokeFrame(text){ frameText = text || ''; frameAt = performance.now(); }
+function drawFrame(){
+  const W = cv.width, H = cv.height; const theme = getComputedStyle(document.body);
+  const g = cx.createLinearGradient(0,0,0,H); g.addColorStop(0, theme.getPropertyValue('--bg2').trim()||'#15122a'); g.addColorStop(1, theme.getPropertyValue('--bg').trim()||'#0b0a14');
+  cx.fillStyle = g; cx.fillRect(0,0,W,H);
+  cx.fillStyle = theme.getPropertyValue('--mut').trim(); cx.font = '500 22px system-ui, sans-serif'; cx.textAlign='left'; cx.fillText(`🙏 live translator · ${LANGS[S.from][0]} → ${LANGS[S.to][0]} · ${stamp(Date.now()-recStart)}`, 40, 50);
+  // the big letters, karaoke-highlighted word by word over ~60 ms/char
+  const words = frameText.split(/\s+/).filter(Boolean); if (!words.length) return;
+  let fs = 72; cx.font = `800 ${fs}px system-ui, "Noto Sans Thai", sans-serif`;
+  const lines = []; let cur = '';
+  for (const w of words) { const t = cur ? cur + ' ' + w : w; if (cx.measureText(t).width > W - 120) { lines.push(cur); cur = w; } else cur = t; } if (cur) lines.push(cur);
+  while (lines.length * fs * 1.2 > H - 160 && fs > 30) { fs -= 6; cx.font = `800 ${fs}px system-ui, "Noto Sans Thai", sans-serif`; }
+  const total = words.length, elapsed = performance.now() - frameAt, perWord = Math.max(140, (frameText.length * 60) / total), lit = Math.min(total, Math.floor(elapsed / perWord) + 1);
+  const g1 = theme.getPropertyValue('--g1').trim(), g2 = theme.getPropertyValue('--g2').trim(), g3 = theme.getPropertyValue('--g3').trim(), ink = theme.getPropertyValue('--ink').trim();
+  let y = H/2 - (lines.length-1) * fs * .6 + fs*.35, idx = 0;
+  cx.textAlign = 'left'; cx.shadowColor = theme.getPropertyValue('--glow').trim(); 
+  for (const ln of lines) {
+    const ws = ln.split(' '); const wTotal = cx.measureText(ln).width; let x = (W - wTotal)/2;
+    for (const w of ws) {
+      const on = idx < lit; const grad = cx.createLinearGradient(x, 0, x + cx.measureText(w).width, 0); grad.addColorStop(0, g1); grad.addColorStop(.5, g2); grad.addColorStop(1, g3);
+      cx.fillStyle = on ? grad : ink; cx.globalAlpha = on ? 1 : .28; cx.shadowBlur = on ? 24 : 0; cx.fillText(w, x, y); x += cx.measureText(w + ' ').width; idx++;
+    }
+    y += fs * 1.2;
+  }
+  cx.globalAlpha = 1; cx.shadowBlur = 0;
+  const src = current?.src || ''; if (src) { cx.fillStyle = theme.getPropertyValue('--src').trim(); cx.font = '400 30px system-ui, "Noto Sans Thai", sans-serif'; cx.textAlign = 'center'; cx.fillText(src.slice(0, 90), W/2, H - 60); }
+}
+function loop(){ if (!recording) return; drawFrame(); raf = requestAnimationFrame(loop); }
+el.record.onclick = async () => {
+  if (recording) {
+    recording = false; cancelAnimationFrame(raf); audioRec?.stop(); videoRec?.stop(); el.record.textContent = '⏺ Record'; status(listening ? 'listening…' : 'recording saved to the pit', listening ? 'live' : ''); return;
+  }
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return toast('this browser cannot record — try Safari (iPhone) or Chrome');
+  let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio:{ echoCancellation:false, noiseSuppression:false, autoGainControl:true } }); } catch { return toast('🎙 microphone permission needed to record'); }
+  recording = true; recStart = Date.now(); chunksA = []; chunksV = []; el.record.textContent = '⏹ Stop'; status('● recording audio + karaoke video', 'rec'); keepAwake();
+  const aType = pick(['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm']);
+  audioRec = new MediaRecorder(stream, aType ? { mimeType:aType, audioBitsPerSecond:96000 } : undefined);
+  audioRec.ondataavailable = e => e.data.size && chunksA.push(e.data);
+  audioRec.onstop = () => { const b = new Blob(chunksA, { type: audioRec.mimeType || aType }); addRec('🎧 audio', b, aType.includes('mp4') ? 'm4a' : 'webm'); stream.getTracks().forEach(t => t.stop()); };
+  audioRec.start(1000);
+  try {
+    const vs = cv.captureStream(30); const vt = vs.getVideoTracks()[0]; const as = stream.getAudioTracks()[0];
+    const mixed = new MediaStream([vt, as]);
+    const vType = pick(['video/mp4;codecs=avc1,mp4a.40.2', 'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm']);
+    videoRec = new MediaRecorder(mixed, vType ? { mimeType:vType, videoBitsPerSecond:2500000 } : undefined);
+    videoRec.ondataavailable = e => e.data.size && chunksV.push(e.data);
+    videoRec.onstop = () => { const b = new Blob(chunksV, { type: videoRec.mimeType || vType }); addRec('🎬 karaoke video', b, (videoRec.mimeType||vType).includes('mp4') ? 'mp4' : 'webm'); };
+    videoRec.start(1000); loop();
+  } catch (e) { videoRec = null; toast('audio only on this browser (no canvas video): ' + (e.message||e)); }
+  if (!listening) toast('tip: ▶ Listen too, so the letters appear in the video');
+};
+function addRec(label, blob, ext) {
+  const name = `${base()}-${label.includes('audio') ? 'audio' : 'karaoke'}.${ext}`;
+  const url = URL.createObjectURL(blob);
+  if (el.recs.querySelector('p')) el.recs.innerHTML = '';
+  const d = document.createElement('div'); d.className = 'r';
+  d.innerHTML = `<span>${label} · ${(blob.size/1048576).toFixed(1)} MB · ${stamp(Date.now()-recStart)}</span>`;
+  const a = document.createElement('a'); a.href = url; a.download = name; a.textContent = '⬇ ' + ext; a.className='dlr'; d.appendChild(a);
+  if (ext !== 'mp4' && ext !== 'm4a' && navigator.share) { const sb = document.createElement('button'); sb.textContent = '↗ share'; sb.onclick = () => navigator.share({ files:[new File([blob], name, { type: blob.type })], title: name }).catch(()=>{}); d.appendChild(sb); }
+  if (label.includes('audio')) { const mb = document.createElement('button'); mb.textContent = '🎵 mp3'; mb.onclick = () => toMp3(blob, mb); d.appendChild(mb); }
+  el.recs.appendChild(d); toast(`${label} saved — open 📜 pit to download`);
+}
+async function toMp3(blob, btn) {
+  btn.disabled = true; btn.textContent = '🎵 encoding…';
+  try {
+    if (!window.lamejs) await new Promise((ok, no) => { const s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js'; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+    const ac = new (window.AudioContext || window.webkitAudioContext)(); const buf = await ac.decodeAudioData(await blob.arrayBuffer());
+    const ch = buf.getChannelData(0), n = ch.length, pcm = new Int16Array(n); for (let i = 0; i < n; i++) { const v = Math.max(-1, Math.min(1, ch[i])); pcm[i] = v < 0 ? v * 32768 : v * 32767; }
+    const enc = new lamejs.Mp3Encoder(1, buf.sampleRate, 96); const out = []; const block = 1152;
+    for (let i = 0; i < n; i += block) { const d = enc.encodeBuffer(pcm.subarray(i, i + block)); if (d.length) out.push(d); if ((i / block) % 400 === 0) { btn.textContent = `🎵 ${Math.round(i/n*100)}%`; await new Promise(r => setTimeout(r)); } }
+    const end = enc.flush(); if (end.length) out.push(end);
+    const mp3 = new Blob(out, { type:'audio/mpeg' }); const a = document.createElement('a'); a.href = URL.createObjectURL(mp3); a.download = base() + '-audio.mp3'; a.textContent = '⬇ mp3'; btn.replaceWith(a); a.click();
+  } catch (e) { btn.textContent = '🎵 mp3 failed'; toast('mp3 encoding failed: ' + (e.message||e)); }
+}
+// first-load notes
+if (!SR) status('no speech recognition in this browser — Safari on iPhone or Chrome works; or type with ⌨', '');
+window.addEventListener('beforeunload', () => { if (recording) return 'Recording in progress.'; });
+})();
+</script>
+<script src="https://frames.opensourceorchestra.org/frames.js" data-door="auto" defer></script>
+<script src="https://lang.opensourceorchestra.org/lang.js" async></script>
+</body>
+</html>
