@@ -48,7 +48,7 @@ a{color:var(--g2)}
 #dot.rec{background:#ff3b3b;box-shadow:0 0 10px #ff3b3b;animation:pulse 1.2s infinite}
 @keyframes pulse{50%{opacity:.45}}
 /* stage */
-#stage{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:90px 5vw calc(env(safe-area-inset-bottom) + 86px);overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:240px 5vw calc(env(safe-area-inset-bottom) + 120px);overflow:hidden}
 #history{display:flex;flex-direction:column;justify-content:flex-end;gap:.35em;overflow:hidden;mask-image:linear-gradient(transparent,#000 45%);-webkit-mask-image:linear-gradient(transparent,#000 45%)}
 #history .line{font-size:calc(var(--size) * clamp(20px,3.6vw,38px));line-height:1.25;color:var(--ink);opacity:.55;font-weight:600;overflow-wrap:anywhere}
 #history .line .s{display:block;font-size:.6em;color:var(--src);opacity:.7;font-weight:400}
@@ -70,6 +70,7 @@ a{color:var(--g2)}
 #typebox input{flex:1;background:rgba(255,255,255,.08);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:12px 16px;min-width:0}
 #showbars{position:fixed;right:10px;bottom:calc(env(safe-area-inset-bottom) + 10px);z-index:21;width:34px;height:34px;padding:0;border-radius:50%;font-size:16px;opacity:.65;display:none}
 body.bars-hidden #showbars{display:block}
+body.bars-hidden footer{display:block}
 /* pit panel */
 #pit{position:fixed;top:0;right:0;bottom:0;width:min(560px,100vw);z-index:30;background:var(--panel);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .3s;overflow:auto;padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 24px);color:var(--ink)}
 #pit.open{transform:none}
@@ -101,7 +102,7 @@ body.bars-hidden #showbars{display:block}
 #toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 96px);transform:translateX(-50%);z-index:40;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:10px 16px;border-radius:12px;font-size:14px;max-width:88vw;opacity:0;transition:opacity .3s;pointer-events:none}
 #toast.show{opacity:1}
 #about{display:none}
-footer{position:fixed;left:0;right:0;bottom:0;z-index:5;text-align:center;font-size:11px;color:var(--mut);padding:0 12px calc(env(safe-area-inset-bottom) + 2px);pointer-events:none}
+footer{display:none;position:fixed;left:0;right:0;bottom:0;z-index:5;text-align:center;font-size:11px;color:var(--mut);padding:0 12px calc(env(safe-area-inset-bottom) + 2px);pointer-events:none}
 footer a{pointer-events:auto}
 #karaoke{display:none}
 @media (max-width:600px){#bar h1 span.long{display:none} #now{font-size:calc(var(--size) * clamp(30px,9.5vw,80px))}}
@@ -198,7 +199,10 @@ $("#sizedown").onclick = () => { S.size = Math.max(0.5, +(S.size - 0.15).toFixed
 $('#theme').onchange = e => { S.theme = e.target.value; saveS(); applyS(); };
 $('#mirror').onclick = () => { S.mirror = !S.mirror; saveS(); applyS(); };
 $('#full').onclick = () => { const d = document.documentElement; if (document.fullscreenElement) document.exitFullscreen?.(); else (d.requestFullscreen || d.webkitRequestFullscreen)?.call(d); };
-const hideBars = h => { el.bar.classList.toggle('hidden', h); el.bottom.classList.toggle('hidden', h); document.body.classList.toggle('bars-hidden', h); };
+const fitStage = () => { const h = el.bar.classList.contains('hidden') ? 16 : el.bar.offsetHeight + 8; $('#stage').style.paddingTop = h + 'px'; const b = el.bottom.classList.contains('hidden') ? 28 : el.bottom.offsetHeight + 6; $('#stage').style.paddingBottom = b + 'px'; };
+const hideBars = h => { el.bar.classList.toggle('hidden', h); el.bottom.classList.toggle('hidden', h); document.body.classList.toggle('bars-hidden', h); setTimeout(fitStage, 320); };
+new ResizeObserver(fitStage).observe(el.bar); new ResizeObserver(fitStage).observe(el.bottom); window.addEventListener('resize', fitStage); fitStage();
+let autoHideT = null;
 $('#hidebars').onclick = () => hideBars(true);
 $('#showbars').onclick = () => hideBars(false);
 $('#stage').addEventListener('click', e => { if (e.target.closest('button')) return; if (document.body.classList.contains('bars-hidden')) hideBars(false); });
@@ -251,12 +255,12 @@ function pushHistory(line) {
   el.history.appendChild(d);
   while (el.history.children.length > 14) el.history.firstChild.remove();
 }
-function restoreStage(){ el.history.innerHTML=''; for (const l of pit.lines.slice(-6)) pushHistory(l); const last = pit.lines[pit.lines.length-1]; if (last) showNow(last.tr); }
-restoreStage();
+function restoreStage(){ el.history.innerHTML=''; for (const l of pit.lines.slice(-7,-1)) pushHistory(l); const last = pit.lines[pit.lines.length-1]; if (last) { current = last; showNow(last.tr); el.interim.textContent=''; } }
 
 // ---- a final segment: translate, show big, keep in the pit
 let queue = Promise.resolve();
 let current = null; // the last line (for ⭐)
+restoreStage();
 function commit(src) {
   src = src.trim(); if (!src) return;
   const line = { id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), t: stamp(Date.now() - t0()), at: new Date().toISOString(), src, tr:'', star:false, engine:'' };
@@ -323,6 +327,7 @@ el.listen.onclick = async () => {
   listening = true; rec = rec || makeRec(); rec.lang = LANGS[S.from][2];
   try { rec.start(); } catch(e) { restartRec(); }
   el.listen.textContent = '⏸ Pause'; status(`listening in ${LANGS[S.from][0]}…`, 'live'); keepAwake(); window.OSOFrames?.sleep?.('stage');
+  clearTimeout(autoHideT); autoHideT = setTimeout(() => { if (listening && !el.pit.classList.contains('open')) { hideBars(true); toast('big letters only — tap the screen for the controls', 3200); } }, 6000);
   if (!pit.lines.length) { pit.started = new Date().toISOString(); pit.from = S.from; pit.to = S.to; savePit(); }
 };
 
