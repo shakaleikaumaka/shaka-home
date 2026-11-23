@@ -1,19 +1,40 @@
-/* 🌊 bl-shell.js v1.3 — THE OPEN ROAD (Shaka 2026-08-13: "todo es posible.. make the radio never stop
+/* 🌊 bl-shell.js v1.4 — THE OPEN ROAD (Shaka 2026-08-13: "todo es posible.. make the radio never stop
    playing and work like a dream as you surf all the doors"). Tessa's note, finally honored in full:
    the player lives in the core page, and the core page NEVER UNLOADS — family links open in a
    full-screen overlay INSIDE this page, so the radio bar (moving lyrics and all) never even blinks.
    ✕ · Esc · browser-back = return to the door you came from. ↗ = open the door in its own tab.
    The v4.1 player guard means shelled doors never spawn a second player — the parent owns the music.
-   v1.3 (23 Nov 2026, Shaka's phone: two frames on one screen): while a door is open on the road, this page's
-   Open Source Orchestra frame + ʻŌlelo globe step aside (OSOFrames.sleep/wake, nothing remembered) — the door
-   inside wears nothing either (frames.js EMBED LAW), so one page, one frame, no button over another's words. */
+   v1.3–1.4 (23 Nov 2026, Shaka's phone: two frames on one screen): while a door is open on the road, this page's
+   Open Source Orchestra frame + ʻŌlelo globe + anything floating above the road (passport card …) step aside
+   (OSOFrames.sleep/wake, nothing remembered) — the door inside wears nothing either (frames.js EMBED LAW), so one
+   page, one frame, no button over another's words; the radio bar gets its own band under the door (NO COVERED TEXT). */
 (function(){
 if (window !== window.top || window.__blShellLoaded) return;
 window.__blShellLoaded = true;
+const OVZ = 99990;
+let parked = [];
 function frameAside(on){
   try { const F = window.OSOFrames; if (F && F.sleep && F.wake) { on ? F.sleep('road') : F.wake(); } } catch(e){}
-  const g = document.getElementById('olelo'); if (g) g.style.display = on ? 'none' : '';
+  const g = document.getElementById('olelo') || document.getElementById('olang'); if (g) g.style.display = on ? 'none' : '';
+  // anything of this page that floats ABOVE the road (the passport card, a hug button, …) would sit on the door's words or
+  // on the "↗ own tab" control: it steps aside for the same moment. The radio bar stays — that is the whole point of the road.
+  if (on) {
+    parked = [];
+    for (const e of document.querySelectorAll('body *')) {
+      if (e === ov || (ov && ov.contains(e)) || e.id === 'miniplayer' || e.closest('#miniplayer')) continue;
+      const cs = getComputedStyle(e);
+      if (cs.position !== 'fixed' || cs.display === 'none' || cs.visibility === 'hidden' || !(+cs.zIndex >= OVZ)) continue;
+      parked.push([e, e.style.display]); e.style.display = 'none';
+    }
+  } else { for (const [e, d] of parked) e.style.display = d; parked = []; }
 }
+// the radio bar (#miniplayer) never leaves: the door inside gets a bottom inset of its height so the bar covers none of its words
+function roadInset(){
+  const fr = ov && ov.querySelector('iframe'); if (!fr) return;
+  const mp = document.getElementById('miniplayer'); const r = mp && mp.getBoundingClientRect();
+  fr.style.marginBottom = (r && r.height > 0 && r.bottom > 0) ? Math.max(0, Math.round(innerHeight - r.top + 4)) + 'px' : '';
+}
+window.addEventListener('resize', ()=>{ if (ov) roadInset(); });
 // ⚠️ mirror of bl-player.js BL_FAMILY — keep in sync when doors join the family
 const FAMILY = ['taur.link','theshellpit.com','shakaleikaumaka.com','shakafans.com','blessingpool.com','opensourceorchestra.org','opensourceorchestra.com','karaokeprotocol.com','teleprompit.com','vlogprompting.com','publicinform.com','publicinform.org','creationology369.com','ology369.com','affordagents.com','terribleagents.com','zodiacagents.org','zodiacpit.com','agentohana.org','myagentohana.com','myagentfamily.com','agentpartys.com','myagentsparty.com','agentsraving.com','agentscraving.com','agentsreading.com','pitgoa.com','pitfans.com','pitprovides.com','pitprovides.org','pitlip.com','osopit.com','osopit.org','tauruspit.com','tauruspod.com','eefpit.com','eefpod.com','infinitepit.com','ohanapit.com','devconpit.com','zuzaluagents.com','zuzaluagents.org','islpoap.xyz','learnfromagents.com','piscesinstitute.com','piscisinstitute.com','tauroinstitute.com','jordanham.com','kaleikaumaka.org','ethereumbard.com','shakapit.com','shakaverse.com','theinfinitegard.org','grantmagnet.org','dashboardpad.app'];
 const inFamily = h => FAMILY.some(d => h === d || h.endsWith('.' + d));
@@ -42,7 +63,7 @@ function openRoad(url){
     '</div>';
   document.body.appendChild(ov);
   document.body.style.overflow = 'hidden';
-  frameAside(true);
+  frameAside(true); roadInset(); setTimeout(roadInset, 800);
   ov.querySelector('#blroad-back').addEventListener('click', closeRoad);
   ov.querySelector('iframe').addEventListener('load', ()=>{
     const l = ov && ov.querySelector('#blroad-loading'); if (l) l.style.display = 'none';
