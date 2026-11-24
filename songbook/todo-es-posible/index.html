@@ -51,9 +51,10 @@ p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20
 .growing{text-align:center;margin-top:44px;font-family:var(--serif);font-style:italic;color:var(--gold2);font-size:1.1rem}
 
 /* chords above the words (chart-tools) */
-.verse p.chorded{line-height:3}
+.verse p.chorded{line-height:3.6;padding-top:.35em}
+.cw{white-space:nowrap}
 .cd{position:relative;display:inline-block;width:0;height:0;font-style:normal;user-select:none;-webkit-user-select:none}
-.cd b{position:absolute;left:0;bottom:.92em;font:700 .78em/1.3 ui-monospace,Menlo,Consolas,monospace;color:var(--gold);white-space:nowrap;letter-spacing:0;padding:0 .3em;border-radius:.45em}
+.cd b{position:absolute;left:0;bottom:.62em;font:700 1.25em/1.2 ui-monospace,Menlo,Consolas,monospace;color:var(--gold);white-space:nowrap;letter-spacing:0;padding:0 .3em;border-radius:.45em}
 .chordnote{text-align:center;color:var(--muted);font-size:.8rem;line-height:1.6;max-width:60ch;margin:-12px auto 18px}
 .chordnote a{color:var(--gold2)}
 </style></head><body><div class="wrap">
@@ -65,12 +66,12 @@ p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20
 <p class="chordnote">🎸 Chords sit above the words · the loop is the bard's canon; where each change lands is the ʻohana's guide — follow the singer. · <a href="https://orchestrator.opensourceorchestra.org/">open the chart in the Orchestrator</a></p>
 
 <div class="book">
-<div class="verse"><div class="v-label">The song · Spanish (sung) — with the video&#x27;s own English</div><p class="chorded"><i class="cd" translate="no"><b>C</b></i>Todo es <i class="cd" translate="no"><b>Cmaj7</b></i>posible — <em>Everything is possible</em>
-<i class="cd" translate="no"><b>F</b></i>Todos los días <i class="cd" translate="no"><b>F</b></i>son días de luz — <em>Every day is a day of light</em>
-<i class="cd" translate="no"><b>C</b></i>Hoy es un <i class="cd" translate="no"><b>Cmaj7</b></i>día en el paraíso — <em>Today is a day in paradise</em>
-<i class="cd" translate="no"><b>F</b></i>Todo es <i class="cd" translate="no"><b>F</b></i>posible — <em>Everything is possible</em></p></div>
-<div class="verse"><div class="v-label">Outro 🕊️</div><p class="chorded"><i class="cd" translate="no"><b>C</b></i>Es la promesa <i class="cd" translate="no"><b>Cmaj7</b></i>de Dios — <em>It&#x27;s the promise of God</em>
-<i class="cd" translate="no"><b>F</b></i>Todo es <i class="cd" translate="no"><b>F</b></i>posible</p></div>
+<div class="verse"><div class="v-label">The song · Spanish (sung) — with the video&#x27;s own English</div><p class="chorded"><span class="cw"><i class="cd" translate="no"><b>C</b></i>Todo</span> es <span class="cw"><i class="cd" translate="no"><b>Cmaj7</b></i>posible</span> — <em>Everything is possible</em>
+<span class="cw"><i class="cd" translate="no"><b>F</b></i>Todos</span> los días <span class="cw"><i class="cd" translate="no"><b>F</b></i>son</span> días de luz — <em>Every day is a day of light</em>
+<span class="cw"><i class="cd" translate="no"><b>C</b></i>Hoy</span> es un <span class="cw"><i class="cd" translate="no"><b>Cmaj7</b></i>día</span> en el paraíso — <em>Today is a day in paradise</em>
+<span class="cw"><i class="cd" translate="no"><b>F</b></i>Todo</span> es <span class="cw"><i class="cd" translate="no"><b>F</b></i>posible</span> — <em>Everything is possible</em></p></div>
+<div class="verse"><div class="v-label">Outro 🕊️</div><p class="chorded"><span class="cw"><i class="cd" translate="no"><b>C</b></i>Es</span> la promesa <span class="cw"><i class="cd" translate="no"><b>Cmaj7</b></i>de</span> Dios — <em>It&#x27;s the promise of God</em>
+<span class="cw"><i class="cd" translate="no"><b>F</b></i>Todo</span> es <span class="cw"><i class="cd" translate="no"><b>F</b></i>posible</span></p></div>
 </div>
 <div class="story"><h2>🌱 The story</h2><p>Words as they appear in the official music video&#x27;s burned-in subtitles (Spanish sung, with the video&#x27;s own English). The verse/chorus cycles Todo es posible → Todos los días son días de luz → Hoy es un día en el paraíso → Todo es posible, an instrumental break, then the outro melody &quot;Es la promesa de Dios&quot; (sung to do si do re re do la si sol si la fa sol si la fa), then Todo es posible again.</p></div>
 <div class="credits"><span class="credit">🤙 words &amp; music by Shaka Lei Kaumaka</span><span class="credit">🎻 dedicated to all students of Love Light + Melody</span></div>
@@ -80,5 +81,5 @@ p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20
 <script src="https://live.zuchiangmai.app/widget.js" async></script>
 <script src="https://frames.opensourceorchestra.org/frames.js" data-door="auto" defer></script>
 <script src="https://lang.opensourceorchestra.org/lang.js" async></script>
-<script src="/assets/chart-tools.js?v=1" defer data-book=".book" data-chords=".cd b" data-key="C" data-after=".chordnote" data-words=".verse p"></script>
+<script src="/assets/chart-tools.js?v=2" defer data-book=".book" data-chords=".cd b" data-key="C" data-after=".chordnote" data-words=".verse p"></script>
 </body></html>

@@ -51,9 +51,10 @@ p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20
 .growing{text-align:center;margin-top:44px;font-family:var(--serif);font-style:italic;color:var(--gold2);font-size:1.1rem}
 
 /* chords above the words (chart-tools) */
-.verse p.chorded{line-height:3}
+.verse p.chorded{line-height:3.6;padding-top:.35em}
+.cw{white-space:nowrap}
 .cd{position:relative;display:inline-block;width:0;height:0;font-style:normal;user-select:none;-webkit-user-select:none}
-.cd b{position:absolute;left:0;bottom:.92em;font:700 .78em/1.3 ui-monospace,Menlo,Consolas,monospace;color:var(--gold);white-space:nowrap;letter-spacing:0;padding:0 .3em;border-radius:.45em}
+.cd b{position:absolute;left:0;bottom:.62em;font:700 1.25em/1.2 ui-monospace,Menlo,Consolas,monospace;color:var(--gold);white-space:nowrap;letter-spacing:0;padding:0 .3em;border-radius:.45em}
 .chordnote{text-align:center;color:var(--muted);font-size:.8rem;line-height:1.6;max-width:60ch;margin:-12px auto 18px}
 .chordnote a{color:var(--gold2)}
 </style></head><body><div class="wrap">
@@ -65,17 +66,17 @@ p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20
 <p class="chordnote">🎸 Chords sit above the words · an ʻohana sketch for the circle — change it freely. · <a href="https://orchestrator.opensourceorchestra.org/">open the chart in the Orchestrator</a></p>
 
 <div class="book">
-<div class="verse"><div class="v-label">The octave · A to H</div><p class="chorded"><strong><i class="cd" translate="no"><b>C</b></i>A</strong> · Audit the sky, count every star,
-<strong><i class="cd" translate="no"><b>G</b></i>B</strong> · Bless what is working, mend every scar,
-<strong><i class="cd" translate="no"><b>Am</b></i>C</strong> · Crust of the earth, the edges hold fast,
-<strong><i class="cd" translate="no"><b>F</b></i>D</strong> · Dance on the floor that was built to outlast,</p><p class="chorded"><strong><i class="cd" translate="no"><b>C</b></i>E</strong> · Encourage the family, call them by name,
-<strong><i class="cd" translate="no"><b>G</b></i>F</strong> · Fork what we love, give it away in flame,
-<strong><i class="cd" translate="no"><b>Am</b></i>G</strong> · Generate something that wasn't before,
-<strong><i class="cd" translate="no"><b>F</b></i>H</strong> · Harmony home — then run it once more.</p></div>
-<div class="verse"><div class="v-label">Chorus</div><p class="chorded"><i class="cd" translate="no"><b>C</b></i>Eight little notes and the loop never ends,
-<i class="cd" translate="no"><b>G</b></i>A through H and back to A again —
-<i class="cd" translate="no"><b>Am</b></i>Audit, Bless, Crust, Dance, Encourage, Fork, Generate, Harmony —
-<em><i class="cd" translate="no"><b>F</b></i>the octave is how an ʻohana tends.</em></p></div>
+<div class="verse"><div class="v-label">The octave · A to H</div><p class="chorded"><strong><span class="cw"><i class="cd" translate="no"><b>C</b></i>A</span></strong> · Audit the sky, count every star,
+<strong><span class="cw"><i class="cd" translate="no"><b>G</b></i>B</span></strong> · Bless what is working, mend every scar,
+<strong><span class="cw"><i class="cd" translate="no"><b>Am</b></i>C</span></strong> · Crust of the earth, the edges hold fast,
+<strong><span class="cw"><i class="cd" translate="no"><b>F</b></i>D</span></strong> · Dance on the floor that was built to outlast,</p><p class="chorded"><strong><span class="cw"><i class="cd" translate="no"><b>C</b></i>E</span></strong> · Encourage the family, call them by name,
+<strong><span class="cw"><i class="cd" translate="no"><b>G</b></i>F</span></strong> · Fork what we love, give it away in flame,
+<strong><span class="cw"><i class="cd" translate="no"><b>Am</b></i>G</span></strong> · Generate something that wasn't before,
+<strong><span class="cw"><i class="cd" translate="no"><b>F</b></i>H</span></strong> · Harmony home — then run it once more.</p></div>
+<div class="verse"><div class="v-label">Chorus</div><p class="chorded"><span class="cw"><i class="cd" translate="no"><b>C</b></i>Eight</span> little notes and the loop never ends,
+<span class="cw"><i class="cd" translate="no"><b>G</b></i>A</span> through H and back to A again —
+<span class="cw"><i class="cd" translate="no"><b>Am</b></i>Audit,</span> Bless, Crust, Dance, Encourage, Fork, Generate, Harmony —
+<em><span class="cw"><i class="cd" translate="no"><b>F</b></i>the</span> octave is how an ʻohana tends.</em></p></div>
 </div>
 <div class="story"><h2>📖 The story</h2><p>The protocol: when Shaka says &quot;ABCDEFG&quot; or &quot;run the octave&quot;, the Admiral runs it all. Flexible-letter doctrine: any letter may be switched for meaning when it matters (B = Bless/Boogie).</p></div>
 <div class="credits"><span class="credit">Written by the ʻohana — Shaka&#x27;s AI family</span><span class="credit">copyleft — public domain, a gift to everyone</span></div>
@@ -85,5 +86,5 @@ p.secnote{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:20
 <script src="https://live.zuchiangmai.app/widget.js" async></script>
 <script src="https://frames.opensourceorchestra.org/frames.js" data-door="auto" defer></script>
 <script src="https://lang.opensourceorchestra.org/lang.js" async></script>
-<script src="/assets/chart-tools.js?v=1" defer data-book=".book" data-chords=".cd b" data-key="C" data-after=".chordnote" data-words=".verse p"></script>
+<script src="/assets/chart-tools.js?v=2" defer data-book=".book" data-chords=".cd b" data-key="C" data-after=".chordnote" data-words=".verse p"></script>
 </body></html>
