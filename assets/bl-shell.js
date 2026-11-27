@@ -76,6 +76,7 @@ document.addEventListener('click', e => {
   if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
   const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
   if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+  if (a.closest('#oso-frames') && a.getAttribute('aria-haspopup') === 'dialog') return; // 27 Nov 2026: the frame's own card doors (🌊 pennies of aloha) open their modal, never the road — this capture listener fires before the frame's tap handler
   if (a.id === 'blroad-back' || a.closest('#blroad')) return;
   let u;
   try { u = new URL(a.getAttribute('href'), location.href); } catch(err){ return; }
