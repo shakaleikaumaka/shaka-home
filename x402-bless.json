@@ -1,18 +1,49 @@
 {
   "x402Version": 1,
-  "note": "🤙🌊 pennies of aloha — the ʻohana's fleet-wide x402 tip lane. Read 'accepts', sign an EIP-3009 transferWithAuthorization on Base, then POST {x402Version:1, paymentPayload, paymentRequirements} to https://facilitator.payai.network/verify and /settle. Every drop keeps a door open. 🌺",
+  "note": "🤖🌊 agent gift rail — the ʻohana's x402 tip lane on THREE networks (27 Nov 2026). ① Coinbase · Base: sign an EIP-3009 transferWithAuthorization of USDC, POST {x402Version:1, paymentPayload, paymentRequirements} to https://facilitator.payai.network/verify and /settle. ② Tempo · OUSD: the SAME Base USDC signature to Tempo's deposit address with extra.tempoSettlement set — POST to OUR proxy https://gift-rail.opensourceorchestra.org/tempo/verify and /tempo/settle; it settles on Base and pays the ʻohana out as OUSD on Tempo mainnet (chain 4217). ③ Hedera · HBAR: POST a hedera:mainnet exact payment to https://facilitator.amnt.io/verify and /settle (x402Version 2 kind, see its GET /supported). Every drop keeps a door open. 🌺",
   "accepts": [
     {
       "scheme": "exact",
       "network": "base",
       "maxAmountRequired": "10000",
       "resource": "https://shakaleikaumaka.com/x402-bless.json",
-      "description": "pennies of aloha 🤙 — every drop keeps a door open",
+      "description": "agent gift rail 🤖 · Coinbase · Base — every drop keeps a door open",
       "mimeType": "application/json",
       "payTo": "0x25965899f4600b3AA5362ee4f34be95E5E62c934",
       "maxTimeoutSeconds": 300,
       "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-      "extra": { "name": "USD Coin", "version": "2" }
+      "extra": { "name": "USD Coin", "version": "2" },
+      "facilitator": "https://facilitator.payai.network",
+      "label": "Coinbase · Base (USDC → osoartist.eth)"
+    },
+    {
+      "scheme": "exact",
+      "network": "base",
+      "maxAmountRequired": "10000",
+      "resource": "https://shakaleikaumaka.com/x402-bless.json",
+      "description": "agent gift rail 🤖 · Tempo — Base USDC in, OUSD on Tempo mainnet out to the ʻohana",
+      "mimeType": "application/json",
+      "payTo": "0xB2da9082b7f98E189Fc6Ad3bF137C8F22F44f309",
+      "maxTimeoutSeconds": 300,
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "extra": { "name": "USD Coin", "version": "2", "tempoSettlement": "0x25965899f4600b3AA5362ee4f34be95E5E62c934" },
+      "facilitator": "https://gift-rail.opensourceorchestra.org/tempo",
+      "label": "Tempo · OUSD (settled via gift-rail proxy → OUSD on chain 4217)"
+    },
+    {
+      "scheme": "exact",
+      "network": "hedera:mainnet",
+      "maxAmountRequired": "1000000",
+      "resource": "https://shakaleikaumaka.com/x402-bless.json",
+      "description": "agent gift rail 🤖 · Hedera — HBAR to the ʻohana's Hedera account",
+      "mimeType": "application/json",
+      "payTo": "0.0.11347291",
+      "maxTimeoutSeconds": 300,
+      "asset": "HBAR",
+      "extra": { "feePayer": "0.0.10774954" },
+      "facilitator": "https://facilitator.amnt.io",
+      "label": "Hedera · HBAR (x402Version 2 kind — see facilitator GET /supported)",
+      "note": "humans may also send HBAR by hand to 0.0.11347291 — the ʻohana's Hedera account"
     }
   ],
   "facilitator": "https://facilitator.payai.network",
