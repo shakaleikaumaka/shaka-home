@@ -1,4 +1,4 @@
-/* agent-gift-rail.js v1.0 — 🤖 agent gift rail (27 Nov 2026, Shaka: "replace the flower button with the x402 on
+/* agent-gift-rail.js v1.1 — 🤖 agent gift rail (27 Nov 2026, Shaka: "replace the flower button with the x402 on
    coinbase, tempo, and hedera fully wired, and show it as 'agent gift rail'").
    One small pill top-right (where the passport flower sat) → the three-rail card:
      · Coinbase · Base — USDC EIP-3009, gas-free for the giver, settled by PayAI → osoartist.eth (0x2596…c934)
@@ -6,6 +6,8 @@
        → paid out as OUSD on Tempo mainnet to the same ʻohana address (chain 4217)
      · Hedera · HBAR — agents settle x402 on hedera:mainnet via the AMNT facilitator (live, keyless like PayAI);
        humans send HBAR by hand to the ʻohana's Hedera account 0.0.11347291
+   v1.1: the gift-rail robot — a surfing robot on a moving wave (inline SVG comic, reduced-motion aware)
+   + the ONE-TIME comic bubble (aloha + mahalo, once per visitor, ✕, never covers words — probe or it stays away).
    Laws: NO COVERED TEXT (folds to its dot over words or page controls, never slides; tap/clear unfolds;
    visitor ✕ remembered) · bows out while the frame is off-by-✕ · honest machine line.
    Keep in sync with x402-tip.js v2.0 + frames/src/pieces/gift.js. */
@@ -50,21 +52,89 @@
   '#agr-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#9d97c9;font-size:20px;cursor:pointer}',
   '#agr-cardwrap{position:relative}',
   'html[data-osof-off] #agr-wrap,html[data-osof-off] #agr-mini,html[data-osof-off] #agr-ovl{display:none!important}',
-  '@media (max-width:520px){#agr-pill{font-size:11px;padding:6px 10px}}'
+  '.agr-ico{width:15px;height:15px;vertical-align:-2.5px;margin-right:5px}',
+  /* ——— the gift-rail robot: a surfing robot on a moving wave (fully animated + alive; reduced-motion stills it) ——— */
+  '.agr-scene{display:block;width:100%;height:auto;border-radius:14px;margin:2px 0 12px;box-shadow:inset 0 0 0 1px #2c2140}',
+  '@keyframes agrW1{from{transform:translateX(0)}to{transform:translateX(-16px)}}',
+  '@keyframes agrW2{from{transform:translateX(-10px)}to{transform:translateX(6px)}}',
+  '.agr-w1{animation:agrW1 6.5s ease-in-out infinite alternate}',
+  '.agr-w2{animation:agrW2 4.8s ease-in-out infinite alternate}',
+  '@keyframes agrBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2.4deg)}}',
+  '.agr-bot{animation:agrBob 3.4s ease-in-out infinite;transform-origin:170px 92px}',
+  '@keyframes agrBlink{0%,91%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}',
+  '.agr-eye{animation:agrBlink 4.6s infinite;transform-box:fill-box;transform-origin:center}',
+  '@keyframes agrAnt{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.3);opacity:1}}',
+  '.agr-ant{animation:agrAnt 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}',
+  '@keyframes agrFoam{0%{transform:translate(0,0) scale(.5);opacity:0}22%{opacity:.95}100%{transform:translate(-24px,-13px) scale(1.2);opacity:0}}',
+  '.agr-foam{animation:agrFoam 2.6s linear infinite}',
+  '.agr-foam.f2{animation-delay:.9s}.agr-foam.f3{animation-delay:1.7s}',
+  '@keyframes agrTwinkle{0%,100%{opacity:.2}50%{opacity:.95}}',
+  '.agr-star{animation:agrTwinkle 3.8s ease-in-out infinite}.agr-star.s2{animation-delay:1.2s}.agr-star.s3{animation-delay:2.4s}',
+  '@keyframes agrArmL{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(9deg)}}',
+  '@keyframes agrArmR{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-7deg)}}',
+  '.agr-arm-l{animation:agrArmL 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:top center}',
+  '.agr-arm-r{animation:agrArmR 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:top center}',
+  '@keyframes agrPop{0%{transform:scale(.35);opacity:0}70%{transform:scale(1.07)}100%{transform:scale(1);opacity:1}}',
+  '.agr-bubin{animation:agrPop .5s cubic-bezier(.2,.9,.3,1.25) .8s both;transform-box:fill-box;transform-origin:278px 26px}',
+  /* the ONE-TIME comic bubble near the pill */
+  '#agr-bubble{position:fixed;top:calc(84px + env(safe-area-inset-top,0px));right:80px;z-index:9998;max-width:min(300px,82vw);background:#fff;color:#161020;border:2.5px solid #161020;border-radius:16px;padding:10px 30px 10px 13px;font:700 13.5px/1.45 system-ui,-apple-system,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.5);display:none}',
+  '#agr-bubble::before{content:"";position:absolute;top:-9px;right:24px;width:14px;height:14px;background:#fff;border-left:2.5px solid #161020;border-top:2.5px solid #161020;transform:rotate(45deg)}',
+  '#agr-bubble .agr-bx{position:absolute;top:4px;right:6px;border:0;background:none;color:#161020;font-size:15px;cursor:pointer;padding:2px 4px;opacity:.65}',
+  '#agr-bubble .agr-bx:hover{opacity:1}',
+  '#agr-bubble.agr-show{display:block;animation:agrPop .45s cubic-bezier(.2,.9,.3,1.25) both;transform-origin:top right}',
+  '#agr-bubble.agr-bye{transition:opacity .5s,transform .5s;opacity:0;transform:translateY(-6px)}',
+  '@media (prefers-reduced-motion:reduce){.agr-w1,.agr-w2,.agr-bot,.agr-eye,.agr-ant,.agr-foam,.agr-star,.agr-arm-l,.agr-arm-r,.agr-bubin,.agr-scene,#agr-bubble.agr-show{animation:none!important}}',
+  '@media (max-width:520px){#agr-pill{font-size:11px;padding:6px 10px}#agr-bubble{right:64px;top:calc(64px + env(safe-area-inset-top,0px))}}'
   ].join('\n');
   document.head.appendChild(css);
 
+  /* ── the gift-rail robot (inline SVG comic — fully animated + alive) ── */
+  var SCENE_SVG=''
+  +'<svg class="agr-scene" viewBox="0 0 360 120" role="img" aria-label="the gift-rail robot: a little robot surfing a moving wave, calling aloha and mahalo">'
+  +'<defs>'
+  +'<linearGradient id="agrDawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#170b28"/><stop offset=".62" stop-color="#3d1c42"/><stop offset="1" stop-color="#123a7a"/></linearGradient>'
+  +'<linearGradient id="agrWaveG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f97ff"/><stop offset="1" stop-color="#0a4fd6"/></linearGradient>'
+  +'</defs>'
+  +'<rect width="360" height="120" rx="13" fill="url(#agrDawn)"/>'
+  +'<circle class="agr-star" cx="34" cy="18" r="1.6" fill="#fbe2a0"/><circle class="agr-star s2" cx="86" cy="10" r="1.2" fill="#fff"/><circle class="agr-star s3" cx="132" cy="22" r="1.4" fill="#ffd7ef"/><circle class="agr-star s2" cx="322" cy="14" r="1.5" fill="#fff"/>'
+  +'<g class="agr-w1"><path d="M-24,88 C26,64 66,62 108,78 C148,92 196,96 238,76 C278,58 330,62 392,82 L392,132 L-24,132 Z" fill="#1e6fd9" opacity=".72"/></g>'
+  +'<g class="agr-bot">'
+  +'<ellipse cx="172" cy="99" rx="49" ry="9.5" fill="#7c4ba8" stroke="#24170d" stroke-width="2.5"/>'
+  +'<path d="M128,96 Q172,107 216,96" stroke="#fbe2a0" stroke-width="3" fill="none" stroke-linecap="round"/>'
+  +'<circle class="agr-foam" cx="128" cy="94" r="3.2" fill="#dff3ff"/><circle class="agr-foam f2" cx="134" cy="99" r="2.4" fill="#fff"/><circle class="agr-foam f3" cx="124" cy="90" r="2" fill="#bfe6ff"/>'
+  +'<g class="agr-arm-l"><path d="M156,66 L138,56" stroke="#e8f4ff" stroke-width="7" stroke-linecap="round"/><path d="M156,66 L138,56" stroke="#24170d" stroke-width="7" stroke-linecap="round" opacity=".18"/></g>'
+  +'<g class="agr-arm-r"><path d="M188,66 L206,54" stroke="#e8f4ff" stroke-width="7" stroke-linecap="round"/><path d="M188,66 L206,54" stroke="#24170d" stroke-width="7" stroke-linecap="round" opacity=".18"/></g>'
+  +'<rect x="154" y="58" width="36" height="36" rx="9" fill="#e8f4ff" stroke="#24170d" stroke-width="2.5"/>'
+  +'<circle cx="172" cy="74" r="6.5" fill="#ff7ab8" stroke="#24170d" stroke-width="1.6"/><circle cx="172" cy="74" r="2.4" fill="#fbe2a0"/>'
+  +'<rect x="146" y="16" width="52" height="44" rx="11" fill="#ffffff" stroke="#24170d" stroke-width="2.5"/>'
+  +'<line x1="172" y1="16" x2="172" y2="7" stroke="#24170d" stroke-width="2.5" stroke-linecap="round"/>'
+  +'<circle class="agr-ant" cx="172" cy="6" r="3.6" fill="#fbe2a0" stroke="#24170d" stroke-width="1.6"/>'
+  +'<circle class="agr-eye" cx="161" cy="34" r="4.4" fill="#161020"/><circle class="agr-eye" cx="183" cy="34" r="4.4" fill="#161020"/>'
+  +'<circle cx="162.6" cy="32.4" r="1.3" fill="#fff"/><circle cx="184.6" cy="32.4" r="1.3" fill="#fff"/>'
+  +'<path d="M163,46 Q172,53 181,46" stroke="#161020" stroke-width="2.6" fill="none" stroke-linecap="round"/>'
+  +'<text x="192" y="26" font-size="11" text-anchor="middle">🌺</text>'
+  +'</g>'
+  +'<g class="agr-w2"><path d="M-24,102 C40,82 92,86 142,98 C190,109 238,110 292,92 C330,80 366,86 392,94 L392,132 L-24,132 Z" fill="url(#agrWaveG)"/>'
+  +'<circle cx="66" cy="88" r="3.4" fill="#dff3ff"/><circle cx="80" cy="85" r="2.2" fill="#fff"/><circle cx="310" cy="84" r="3" fill="#dff3ff"/><circle cx="326" cy="81" r="2" fill="#fff"/></g>'
+  +'<g class="agr-bubin">'
+  +'<path d="M246,14 L332,14 Q342,14 342,24 L342,52 Q342,62 332,62 L288,62 L272,76 L276,62 L246,62 Q236,62 236,52 L236,24 Q236,14 246,14 Z" fill="#fff" stroke="#161020" stroke-width="2.5"/>'
+  +'<text x="289" y="33" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-weight="800" font-size="12.5" fill="#161020">aloha! 🤙</text>'
+  +'<text x="289" y="49" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-weight="700" font-size="10.5" fill="#4a3565">every drop — mahalo! 🌺</text>'
+  +'</g>'
+  +'</svg>';
+  var ICON_SVG='<svg class="agr-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3" width="12" height="10" rx="3.2" fill="#fff" stroke="#161020" stroke-width="1.4"/><line x1="12" y1="3" x2="12" y2="1.4" stroke="#161020" stroke-width="1.2"/><circle cx="12" cy="1" r="1" fill="#fbe2a0"/><circle cx="9.6" cy="7.4" r="1.2" fill="#161020"/><circle cx="14.4" cy="7.4" r="1.2" fill="#161020"/><path d="M9.4,10.2 Q12,11.8 14.6,10.2" stroke="#161020" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M1,17 C5,13.5 9,13.5 12,16 C15,18.5 19,18.5 23,15.5 L23,24 L1,24 Z" fill="#3f97ff"/></svg>';
+
   var wrap=document.createElement('div'); wrap.id='agr-wrap';
-  wrap.innerHTML='<button id="agr-pill" aria-haspopup="dialog" aria-label="agent gift rail — x402 on coinbase, tempo, and hedera">🤖 agent gift rail</button><button id="agr-x" title="tuck away" aria-label="tuck away">✕</button>';
+  wrap.innerHTML='<button id="agr-pill" aria-haspopup="dialog" aria-label="agent gift rail — x402 on coinbase, tempo, and hedera">'+ICON_SVG+'agent gift rail</button><button id="agr-x" title="tuck away" aria-label="tuck away">✕</button>';
   var mini=document.createElement('button'); mini.id='agr-mini'; mini.title='agent gift rail'; mini.setAttribute('aria-label','agent gift rail — show the button'); mini.textContent='🤖';
   var ovl=document.createElement('div'); ovl.id='agr-ovl';
 
   /* ── NO COVERED TEXT probes (same law as x402-tip.js v2.0 / frames core) ── */
   var TEXT_TAGS={A:1,P:1,SPAN:1,LI:1,H1:1,H2:1,H3:1,H4:1,H5:1,H6:1,BUTTON:1,LABEL:1,TD:1,TH:1,SUMMARY:1,FIGCAPTION:1,BLOCKQUOTE:1,Q:1,CITE:1};
-  function ownEl(a){ return wrap.contains(a)||mini.contains(a)||ovl.contains(a); }
+  function ownEl(a){ return wrap.contains(a)||mini.contains(a)||ovl.contains(a)||a.id==='agr-bubble'; }
   function isBubble(a){ try{ return !!(a.matches&&a.matches('[class*="bubble"],[class*="caption"],[class*="speech"],[class*="balloon"],.cap,.kaaak,blockquote,figcaption,q,cite')); }catch(e){ return false; } }
   function ownTextLen(a){ var n=0,c=a.childNodes; for(var i=0;i<c.length;i++) if(c[i].nodeType===3) n+=(c[i].nodeValue||'').replace(/\s+/g,' ').trim().length; return n; }
-  function patchAt(x,y,mode){
+  function patchAt(x,y,mode,familyOk){
     if(!document.elementsFromPoint) return false;
     var vw=window.innerWidth,vh=window.innerHeight,S=12;
     var gx=[x+2,x+S/2,x+S-2],gy=[y+2,y+S/2,y+S-2];
@@ -77,7 +147,7 @@
         if(el===document.body||el===document.documentElement) continue;
         for(var a=el;a&&a!==document.body&&a!==document.documentElement;a=a.parentElement){
           if(ownEl(a)) break;
-          if(a.id==='oso-frames'||(a.closest&&a.closest('#oso-frames'))) break;      // the frame is family — it folds itself
+          if(familyOk!==false&&(a.id==='oso-frames'||(a.closest&&a.closest('#oso-frames')))) break;      // the frame is family — it folds itself
           var cs=window.getComputedStyle(a);
           if(cs.visibility==='hidden'||+cs.opacity<0.05) break;
           var fixed=(cs.position==='fixed'||cs.position==='sticky');
@@ -95,12 +165,12 @@
     }
     return false;
   }
-  function rectProbe(r,mode){
+  function rectProbe(r,mode,familyOk){
     var S=12,h=r.height||32,ys=[r.top,r.top+h/2-S/2,r.top+h-S];
     for(var yy=r.top+18;yy<r.top+h-S-2;yy+=16) ys.push(yy);
     for(var i=0;i<ys.length;i++){
-      for(var x=r.left;x<=r.right-S+1;x+=22) if(patchAt(x,ys[i],mode)) return true;
-      if(patchAt(Math.max(r.left,r.right-S),ys[i],mode)) return true;
+      for(var x=r.left;x<=r.right-S+1;x+=22) if(patchAt(x,ys[i],mode,familyOk)) return true;
+      if(patchAt(Math.max(r.left,r.right-S),ys[i],mode,familyOk)) return true;
     }
     return false;
   }
@@ -152,6 +222,7 @@
     ovl.innerHTML='<div id="agr-cardwrap"><div id="agr-card" role="dialog" aria-modal="true" aria-label="agent gift rail">'
       +'<button id="agr-close" title="close" aria-label="close">✕</button>'
       +'<h3>🤖 agent gift rail</h3>'
+      +SCENE_SVG
       +'<div class="agr-sub">one aloha, three networks — every drop to the ʻohana (osoartist.eth).</div>'
       +'<div class="agr-rails">'
       +'<button class="agr-rail sel" data-r="coinbase">'+d.coinbase.tab+'</button>'
@@ -280,7 +351,30 @@
     $('agr-hcopy').onclick=function(){ var b=this;
       function ok(){ b.textContent='✅ copied — mahalo!'; setTimeout(function(){b.textContent='📋 copy Hedera account';},2500); }
       if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(HEDERA_ACCT).then(ok,function(){ok();}); } else ok(); };
-    window.AgentGiftRail={open:openCard,close:closeCard,version:'1.0'};
+    /* the ONE-TIME comic bubble: aloha + mahalo, once per visitor, never on words (probe or it stays away) */
+    var bub=document.createElement('div'); bub.id='agr-bubble';
+    bub.innerHTML='<button class="agr-bx" aria-label="close">✕</button><span id="agr-bubtxt"></span>';
+    document.body.appendChild(bub);
+    var BUBLSK='agr_bub', BUBLINE='Aloha! 🤙 I\u2019m the gift-rail robot — I surf USDC · OUSD · HBAR straight to the ʻohana. Mahalo for every drop! 🌺';
+    function byeBub(){ if(!bub.classList.contains('agr-show')) return; bub.classList.add('agr-bye'); setTimeout(function(){ bub.style.display='none'; },600); try{localStorage.setItem(BUBLSK,'1');}catch(e){} }
+    bub.querySelector('.agr-bx').onclick=byeBub;
+    function maybeBubble(){
+      var seen='0'; try{seen=localStorage.getItem(BUBLSK)||'0';}catch(e){}
+      if(seen==='1'||frameOff()) return;
+      bub.style.display='block';
+      var clear=measurable(bub,function(r){ return !rectProbe(r,'any',false); });   /* the bubble covers nobody: no words, no page controls, no frame pieces */
+      if(!clear){ bub.style.display='none'; return; }              /* no clear ground ⇒ it stays away (the law) */
+      bub.classList.add('agr-show');
+      try{localStorage.setItem(BUBLSK,'1');}catch(e){}
+      var tgt=bub.querySelector('#agr-bubtxt'), reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduced){ tgt.textContent=BUBLINE; } else {
+        var i=0; tgt.textContent='';
+        var ti=setInterval(function(){ i+=2; tgt.textContent=BUBLINE.slice(0,i); if(i>=BUBLINE.length) clearInterval(ti); },26);
+      }
+      setTimeout(byeBub, 11000);
+    }
+    setTimeout(maybeBubble, 1900);
+    window.AgentGiftRail={open:openCard,close:closeCard,version:'1.1'};
     apply(); scheduleProbe(900); scheduleProbe(2600);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
