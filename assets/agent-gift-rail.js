@@ -119,7 +119,7 @@
   +'<g class="agr-bubin">'
   +'<path d="M246,14 L332,14 Q342,14 342,24 L342,52 Q342,62 332,62 L288,62 L272,76 L276,62 L246,62 Q236,62 236,52 L236,24 Q236,14 246,14 Z" fill="#fff" stroke="#161020" stroke-width="2.5"/>'
   +'<text x="289" y="33" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-weight="800" font-size="12.5" fill="#161020">aloha! 🤙</text>'
-  +'<text x="289" y="49" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-weight="700" font-size="10.5" fill="#4a3565">every drop — mahalo! 🌺</text>'
+  +'<text x="289" y="49" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-weight="700" font-size="10" fill="#4a3565">every drop — mahalo 🌺</text>'
   +'</g>'
   +'</svg>';
   var ICON_SVG='<svg class="agr-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3" width="12" height="10" rx="3.2" fill="#fff" stroke="#161020" stroke-width="1.4"/><line x1="12" y1="3" x2="12" y2="1.4" stroke="#161020" stroke-width="1.2"/><circle cx="12" cy="1" r="1" fill="#fbe2a0"/><circle cx="9.6" cy="7.4" r="1.2" fill="#161020"/><circle cx="14.4" cy="7.4" r="1.2" fill="#161020"/><path d="M9.4,10.2 Q12,11.8 14.6,10.2" stroke="#161020" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M1,17 C5,13.5 9,13.5 12,16 C15,18.5 19,18.5 23,15.5 L23,24 L1,24 Z" fill="#3f97ff"/></svg>';
