@@ -70,7 +70,7 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;font-si
 <table>
   <tr><th scope="row">from</th><td>your own address</td></tr>
   <tr><th scope="row">to</th><td><code>0x25965899f4600b3AA5362ee4f34be95E5E62c934</code> — <b>osoartist.eth</b>, the ʻohana's one gift address (<a href="https://basescan.org/address/0x25965899f4600b3AA5362ee4f34be95E5E62c934" target="_blank" rel="noopener">see it on BaseScan ↗</a>)</td></tr>
-  <tr><th scope="row">value</th><td>your amount in millionths of a dollar: <code>10000</code> = 1¢ · <code>100000</code> = 10¢ · <code>1000000</code> = $1</td></tr>
+  <tr><th scope="row">value</th><td>your amount in millionths of a dollar: <code>1000000</code> = $1 · <code>10000000</code> = $10 · <code>100000000</code> = $100</td></tr>
   <tr><th scope="row">validAfter</th><td><code>0</code> (valid immediately)</td></tr>
   <tr><th scope="row">validBefore</th><td>about <b>5 minutes</b> from now (a Unix time) — after that it is dead</td></tr>
   <tr><th scope="row">nonce</th><td>a random one-time number — the same message can never be used twice</td></tr>
@@ -86,7 +86,7 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;font-si
   "domain": { "name":"USD Coin", "version":"2", "chainId":8453,
               "verifyingContract":"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" },
   "message": { "from":"&lt;your address&gt;", "to":"0x25965899f4600b3AA5362ee4f34be95E5E62c934",
-               "value":"10000", "validAfter":"0", "validBefore":"&lt;now + 300 s&gt;", "nonce":"&lt;random 32 bytes&gt;" }
+               "value":"10000000", "validAfter":"0", "validBefore":"&lt;now + 300 s&gt;", "nonce":"&lt;random 32 bytes&gt;" }
 }</pre>
 This is the open EIP-3009 / x402 standard that Circle's USDC contract itself implements. The page code is open source and the signing is done by <i>your wallet</i> — we never see a key.
 </details>
