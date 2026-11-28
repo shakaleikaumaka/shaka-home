@@ -19,7 +19,6 @@
   /* 2 · tap the surf → a chord */
   var tap = fig.querySelector('.sfa-tap');
   var hint = fig.querySelector('[data-sfa-hint]');
-  var hintText = hint ? hint.textContent : '';
   var NAMES = ['C', 'Am', 'F', 'G7'];
   var CHORDS = [[392.00, 261.63, 329.63, 523.25],   /* C   0003 (re-entrant G C E C) */
                 [440.00, 261.63, 329.63, 440.00],   /* Am  2000 */
