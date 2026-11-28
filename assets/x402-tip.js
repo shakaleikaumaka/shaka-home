@@ -1,4 +1,4 @@
-/* x402-tip.js v2.5 — 🤖 agent pennies of aloha x402 · "temple" (27 Nov 2026) · wallet connect (28 Nov 2026)
+/* x402-tip.js v2.6 — 🤖 agent pennies of aloha x402 · "temple" (27 Nov 2026) · wallet connect (28 Nov 2026)
    Self-contained x402 tip lane for any ʻohana door (fleet injectable, bl-player style).
    MetaMask → Base (0x2105) → USDC EIP-3009 transferWithAuthorization (gas-free for payer)
    → PayAI facilitator (facilitator.payai.network) verify + settle → agent-launch wallet
@@ -40,7 +40,7 @@ var OWH=function(){var e=window,t=document,n=e.navigator||{},o=n.userAgent||"",a
   '#x4-pill:hover{opacity:1;filter:brightness(1.1)}',
   '#x4-x{background:rgba(20,14,30,.85);color:#cfc6e8;border:1px solid #7c4ba8;border-radius:50%;width:24px;height:24px;line-height:1;font-size:12px;cursor:pointer;padding:0}',
   '#x4-mini{position:fixed;top:calc(74px + env(safe-area-inset-top,0px));right:10px;z-index:9998;height:26px;border-radius:999px;background:rgba(20,14,30,.9);border:1px solid #7c4ba8;font-size:12px;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;opacity:.7;padding:0 7px}',
-  '#x4-ovl{position:fixed;inset:0;z-index:100002;background:rgba(6,3,10,.72);display:none;align-items:center;justify-content:center;padding:16px;font-family:system-ui,-apple-system,sans-serif}',
+  '#x4-ovl{position:fixed;inset:0;z-index:2147483000;background:rgba(6,3,10,.72);display:none;align-items:center;justify-content:center;padding:16px;font-family:system-ui,-apple-system,sans-serif}',
   '#x4-card{box-sizing:border-box;background:#120a1c;border:1px solid #7c4ba8;border-radius:18px;max-width:420px;width:100%;padding:22px;color:#f5efe6;box-shadow:0 10px 50px rgba(0,0,0,.6);max-height:88vh;max-height:calc(100dvh - 32px);overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}',
   '#x4-card h3{margin:0 0 8px;font-size:18px;padding-right:34px}',
   '#x4-card .x4-sub{color:#9d97c9;font-size:13px;line-height:1.5;margin-bottom:14px}',
@@ -186,7 +186,7 @@ var OWH=function(){var e=window,t=document,n=e.navigator||{},o=n.userAgent||"",a
       try{ $('x4-close').focus(); }catch(e){}
     }
     function closeCard(){ cardOpen=false; ovl.style.display='none'; }
-    window.OSOX402={open:openCard,close:closeCard,version:'2.5'};   // the frame's 🌊 piece may reuse this card
+    window.OSOX402={open:openCard,close:closeCard,version:'2.6'};   // the frame's 🌊 piece may reuse this card
     $('x4-pill').onclick=openCard;
     $('x4-close').onclick=closeCard;
     ovl.addEventListener('click',function(e){ if(e.target===ovl) closeCard(); });

@@ -1,4 +1,4 @@
-/* agent-gift-rail.js v1.6 — 🤖 agent gift rail (27 Nov 2026, Shaka: "replace the flower button with the x402 on
+/* agent-gift-rail.js v1.7 — 🤖 agent gift rail (27 Nov 2026, Shaka: "replace the flower button with the x402 on
    coinbase, tempo, and hedera fully wired, and show it as 'agent gift rail'").
    One small pill top-right (where the passport flower sat) → the three-rail card:
      · Coinbase · Base — USDC EIP-3009, gas-free for the giver, settled by PayAI → osoartist.eth (0x2596…c934)
@@ -38,7 +38,7 @@ var OWH=function(){var e=window,t=document,n=e.navigator||{},o=n.userAgent||"",a
   '#agr-pill:hover{opacity:1;filter:brightness(1.12)}',
   '#agr-x{background:rgba(20,14,30,.85);color:#cfc6e8;border:1px solid #7c4ba8;border-radius:50%;width:22px;height:22px;line-height:1;font-size:11px;cursor:pointer;padding:0}',
   '#agr-mini{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:9998;width:28px;height:28px;border-radius:50%;background:rgba(20,14,30,.9);border:1px solid #7c4ba8;font-size:14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;opacity:.75;padding:0}',
-  '#agr-ovl{position:fixed;inset:0;z-index:100003;background:rgba(6,3,10,.74);display:none;align-items:center;justify-content:center;padding:16px;font-family:system-ui,-apple-system,sans-serif}',
+  '#agr-ovl{position:fixed;inset:0;z-index:2147483000;background:rgba(6,3,10,.74);display:none;align-items:center;justify-content:center;padding:16px;font-family:system-ui,-apple-system,sans-serif}',
   '#agr-card{box-sizing:border-box;background:#120a1c;border:1px solid #7c4ba8;border-radius:18px;max-width:430px;width:100%;padding:22px;color:#f5efe6;box-shadow:0 10px 50px rgba(0,0,0,.6);max-height:88vh;max-height:calc(100dvh - 32px);overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}',
   '#agr-card h3{margin:0 0 6px;font-size:18px;padding-right:34px}',
   '#agr-card .agr-sub{color:#9d97c9;font-size:13px;line-height:1.5;margin-bottom:12px}',
@@ -358,7 +358,7 @@ var OWH=function(){var e=window,t=document,n=e.navigator||{},o=n.userAgent||"",a
       setTimeout(byeBub, 11000);
     }
     setTimeout(maybeBubble, 1900);
-    window.AgentGiftRail={open:openCard,close:closeCard,version:'1.6'};
+    window.AgentGiftRail={open:openCard,close:closeCard,version:'1.7'};
     apply(); scheduleProbe(900); scheduleProbe(2600);
     /* the way back: a wallet app opened this page from our link → the card opens by itself with the chosen amount (+ starts, ≤ $10) */
     var P=OWH.pending('agr');
