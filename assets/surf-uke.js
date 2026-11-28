@@ -88,6 +88,10 @@
       document.head.appendChild(s);
     });
   }
+  /* the way back from a wallet app: the Fountain's "open in MetaMask / Coinbase / Phantom" reopens THIS page as ?osogift=surf:<usd>:c<chainId>:go
+     inside the wallet's browser → hand it straight back (the Fountain reads + cleans the URL itself; a failed load does nothing). LAUNCHER.md §RETURN */
+  if (/[?&]osogift=surf:/.test(location.search)) ofnLoad().then(function (F) { F.open({ surface: 'surf', pending: true }); }).catch(function () {});
+
   window.addEventListener('click', function (e) {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target && e.target.closest ? e.target.closest('[data-ohana-gift]') : null;
