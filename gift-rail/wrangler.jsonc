@@ -1,0 +1,13 @@
+{
+  "name": "oso-gift-rail",
+  "main": "worker.js",
+  "compatibility_date": "2026-11-27",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "gift-rail.opensourceorchestra.org", "custom_domain": true }
+  ],
+  "observability": { "enabled": true },
+  "ratelimits": [
+    { "name": "GIFT_LIMITER", "namespace_id": "4802", "simple": { "limit": 40, "period": 60 } }
+  ]
+}
