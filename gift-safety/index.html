@@ -51,7 +51,7 @@ footer{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;font-si
     <li>It is <b>not</b> an approval or an allowance. Nothing is left open, nothing can be pulled later, and the message can be used only once.</li>
     <li>You pay <b>no network fee</b> on Base — the payment service submits it for you. (That is why it is a signature and not a normal send.)</li>
     <li>Wallets such as MetaMask often label this kind of gasless USDC payment a <b>“high-risk approval”</b> or say the recipient is an <b>“untrusted EOA”</b>. That is a <i>generic</i> caution for any such signature to an address the wallet hasn't seen before — other sites report the very same wording for ordinary x402 payments — not a verdict on this particular address. <b>Your job is to check two things in the message: the amount and the address.</b> If either doesn't match this page, tap reject.</li>
-    <li>Prefer not to sign anything? <a href="#plain">Send USDC on Base by hand</a> — a normal send, a fraction of a cent of gas.</li>
+    <li>Prefer not to sign anything? Tap <b>🪙 plain transfer</b> on the gift card — a normal USDC send from your own wallet, no signature screens, a fraction of a cent of gas — or <a href="#plain">send USDC on Base by hand</a>.</li>
   </ul>
 </div>
 
@@ -101,6 +101,7 @@ This is the open EIP-3009 / x402 standard that Circle's USDC contract itself imp
 <section id="plain">
 <h2>Rather not sign? Give a plain way</h2>
 <ul>
+  <li><b>🪙 Plain transfer</b> — on the gift card, under the big button (it shows once your wallet is detected). It is an ordinary <code>transfer</code> of exactly the amount you chose to <code>0x25965899f4600b3AA5362ee4f34be95E5E62c934</code> (osoartist.eth) on Base: your wallet shows a normal “send” screen — no “TransferWithAuthorization”, no “high-risk approval” — and you pay a fraction of a cent for the network fee (a little ETH on Base). It never goes through our payment service; the receipt is the BaseScan link the card shows.</li>
   <li><b>Send USDC on Base by hand</b> to <code>0x25965899f4600b3AA5362ee4f34be95E5E62c934</code> (osoartist.eth). Choose the <b>Base</b> network in your wallet and check the first/last characters. The card's “copy address” button gives you this exact address.</li>
   <li><b>Card, PayPal or Venmo</b> instead of a wallet: <a href="https://blessingpool.com/">blessingpool.com</a> lists the human routes.</li>
 </ul>
