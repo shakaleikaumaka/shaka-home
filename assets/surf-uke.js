@@ -1,0 +1,89 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later
+   Built by Open Source Orchestra: Shaka Lei Kaumaka & the AI ʻohana (https://opensourceorchestra.org)
+   surf-uke.js — the surf agent's three small behaviours (the scene itself is pure HTML + CSS, no script needed):
+   1 · sleeps when scrolled off-screen · 2 · tap/click = one ukulele chord, synthesised in your browser (nothing downloaded, only on your tap)
+   3 · the gift button's hook: a gift UI may listen for "ohana:gift-open" and call preventDefault() to open in place; otherwise the link just goes. */
+(function () {
+  'use strict';
+  var fig = document.getElementById('surf-agent');
+  if (!fig || fig.getAttribute('data-sfa')) return;
+  fig.setAttribute('data-sfa', '1');
+
+  /* 1 · sleep when off-screen */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { fig.classList.toggle('sfa-off', !e.isIntersecting); });
+    }, { rootMargin: '120px' }).observe(fig);
+  }
+
+  /* 2 · tap the surf → a chord */
+  var tap = fig.querySelector('.sfa-tap');
+  var hint = fig.querySelector('[data-sfa-hint]');
+  var hintText = hint ? hint.textContent : '';
+  var NAMES = ['C', 'Am', 'F', 'G7'];
+  var CHORDS = [[392.00, 261.63, 329.63, 523.25],   /* C   0003 (re-entrant G C E C) */
+                [440.00, 261.63, 329.63, 440.00],   /* Am  2000 */
+                [440.00, 261.63, 349.23, 440.00],   /* F   2010 */
+                [392.00, 293.66, 349.23, 493.88]];  /* G7  0212 */
+  var ac = null, master = null, bank = {}, step = 0, hitT = 0;
+
+  function pluck(freq) {                               /* Karplus–Strong: a plucked nylon string */
+    var key = freq.toFixed(2);
+    if (bank[key]) return bank[key];
+    var sr = ac.sampleRate, n = Math.floor(sr * 1.9), L = Math.max(2, Math.round(sr / freq));
+    var buf = ac.createBuffer(1, n, sr), out = buf.getChannelData(0), ring = new Float32Array(L), prev = 0, i, p = 0, peak = 0;
+    for (i = 0; i < L; i++) { prev = prev * 0.55 + (Math.random() * 2 - 1) * 0.45; ring[i] = prev; }
+    for (i = 0; i < n; i++) {
+      var q = (p + 1) % L, v = 0.4975 * (ring[p] + ring[q]);
+      ring[p] = v; out[i] = v; p = q;
+      var a = v < 0 ? -v : v; if (a > peak) peak = a;
+    }
+    if (peak > 0) for (i = 0; i < n; i++) out[i] /= peak;
+    return (bank[key] = buf);
+  }
+
+  function strum() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    if (!ac) {
+      ac = new AC();
+      var comp = ac.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 4;
+      var body = ac.createBiquadFilter(); body.type = 'peaking'; body.frequency.value = 320; body.gain.value = 4; body.Q.value = 1.1;
+      var lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 5200;
+      master = ac.createGain(); master.gain.value = 0.5;
+      master.connect(body); body.connect(lp); lp.connect(comp); comp.connect(ac.destination);
+    }
+    if (ac.state === 'suspended' && ac.resume) ac.resume();
+    var t = ac.currentTime + 0.03, idx = step++ % CHORDS.length, chord = CHORDS[idx];
+    chord.forEach(function (f, i) {
+      var src = ac.createBufferSource(), g = ac.createGain(), t0 = t + i * 0.026 + Math.random() * 0.004;
+      src.buffer = pluck(f);
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.linearRampToValueAtTime(0.3 - i * 0.02, t0 + 0.005);
+      g.gain.exponentialRampToValueAtTime(0.0008, t0 + 1.8);
+      src.connect(g); g.connect(master); src.start(t0); src.stop(t0 + 1.9);
+    });
+    if (hint) hint.textContent = '🎶 ' + NAMES[idx] + ' · tap again for the next chord';
+  }
+
+  function hit() {
+    fig.classList.remove('sfa-hit'); void fig.offsetWidth; fig.classList.add('sfa-hit');
+    clearTimeout(hitT); hitT = setTimeout(function () { fig.classList.remove('sfa-hit'); }, 1400);
+  }
+
+  if (tap) tap.addEventListener('click', function () { hit(); try { strum(); } catch (e) { /* silent: the animation still plays */ } });
+  window.addEventListener('x402:gift', function () { hit(); });   /* a gift landed on the rail → the surfer cheers */
+
+  /* 3 · the gift button — a gift UI may take the click over.
+     The page's own shell (bl-shell.js) catches in-family links on document-capture to open them in its "road" overlay,
+     so this listener sits on window-capture (it runs first): fire "ohana:gift-open"; if a listener calls preventDefault(),
+     the gift UI is opening in place and the link stays put. Otherwise nothing changes — the shell (or the browser) follows the link. */
+  window.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target && e.target.closest ? e.target.closest('[data-ohana-gift]') : null;
+    if (!a || !fig.contains(a)) return;
+    var ev;
+    try { ev = new CustomEvent('ohana:gift-open', { cancelable: true, detail: { from: 'surf-agent' } }); } catch (x) { return; }
+    if (!window.dispatchEvent(ev)) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+})();
