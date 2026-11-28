@@ -137,6 +137,8 @@
   .gallery img{width:100%;display:block;aspect-ratio:2/3;object-fit:cover}
   .gallery .g-wide{grid-column:span 3}
   .gallery .g-wide img{aspect-ratio:auto}
+  /* 28 Nov 2026 (mobile flow): the <img> tags now carry width/height (no layout jump while they lazy-load) — keep the CSS in charge of the displayed height */
+  .photo-hero img,.photo-wide img,.gallery img{height:auto}
   @media(max-width:700px){.gallery{grid-template-columns:1fr 1fr}.gallery .g-wide{grid-column:span 2}}
   @media(max-width:600px){.photo-duo{grid-template-columns:1fr}}
 
@@ -454,7 +456,7 @@ box-shadow:0 10px 28px rgba(240,180,41,.38),inset 0 1px 0 rgba(255,255,255,.6);t
 </figure>
 <!-- surf-uke:end -->
     <div class="staff" aria-hidden="true">𝄞 ♪ ♫ ♪ 𝄞</div>
-    <div class="photo-hero"><img src="assets/eth-sigil-circle.jpg" alt="The Ethereum sigil in neon above the stage, musicians in a circle below, a child reaching up"></div>
+    <div class="photo-hero"><img src="assets/eth-sigil-circle-800.webp" srcset="assets/eth-sigil-circle-480.webp 480w, assets/eth-sigil-circle-800.webp 800w, assets/eth-sigil-circle-853.webp 853w" sizes="(max-width:700px) 92vw, 520px" width="853" height="1280" loading="lazy" decoding="async" fetchpriority="low" alt="The Ethereum sigil in neon above the stage, musicians in a circle below, a child reaching up"></div>
     <p class="photo-cap">The sigil above the circle — the orchestra on the Ethereum stage: <strong>Jakub, Noah &amp; Manu</strong> in the circle, and the next generation reaching up 🌺<br>📸 ETH Prague · Municipal Palace</p>
   </div>
 </header>
@@ -508,17 +510,17 @@ box-shadow:0 10px 28px rgba(240,180,41,.38),inset 0 1px 0 rgba(255,255,255,.6);t
   <div class="wrap">
     <div class="kicker" style="text-align:center">The Bard, Mid-Offering</div>
     <h2>This is what <em>giving first</em> looks like</h2>
-    <div class="photo-wide"><img src="assets/shaka-live.jpg" alt="Shaka lost in the music, playing guitar under purple stage light"></div>
+    <div class="photo-wide"><img src="assets/shaka-live-800.webp" srcset="assets/shaka-live-480.webp 480w, assets/shaka-live-800.webp 800w, assets/shaka-live-1200.webp 1200w" sizes="(max-width:700px) 92vw, 850px" width="1280" height="853" loading="lazy" decoding="async" fetchpriority="low" alt="Shaka lost in the music, playing guitar under purple stage light"></div>
     <p class="photo-cap">Every stage, every village — the gift moving outward 🎸<br>📸 ETH Prague · Municipal Palace</p>
     <div class="gallery">
-      <figure class="g-wide"><img src="assets/cannes-shaka-drums.jpg" alt="Shaka barefoot on ukulele, jamming with a drummer amid a sea of cables and synths"></figure>
-      <figure><img src="assets/shaka-uke-smile.jpg" alt="Shaka smiling, playing ukulele in purple light"></figure>
-      <figure><img src="assets/cannes-drummer.jpg" alt="Drummer in cap and sunglasses deep in the groove"></figure>
-      <figure><img src="assets/cannes-sax.jpg" alt="Saxophonist in a butterfly jacket under blue light"></figure>
-      <figure><img src="assets/cannes-bass.jpg" alt="Morat on bass, lost in the music"></figure>
-      <figure><img src="assets/shaka-uke-hands.jpg" alt="Close-up of hands on the ukulele fretboard, stage lights bokeh"></figure>
-      <figure><img src="assets/cannes-alaska.jpg" alt="Alaska at the synth station in front of the glowing cube wall"></figure>
-      <figure class="g-wide"><img src="assets/cannes-crowd.jpg" alt="The crowd at the afterparty, glowing cube installation and disco ball"></figure>
+      <figure class="g-wide"><img src="assets/cannes-shaka-drums-800.webp" srcset="assets/cannes-shaka-drums-480.webp 480w, assets/cannes-shaka-drums-800.webp 800w, assets/cannes-shaka-drums-1200.webp 1200w" sizes="(max-width:700px) 92vw, 850px" width="1400" height="2099" loading="lazy" decoding="async" fetchpriority="low" alt="Shaka barefoot on ukulele, jamming with a drummer amid a sea of cables and synths"></figure>
+      <figure><img src="assets/shaka-uke-smile-800.webp" srcset="assets/shaka-uke-smile-480.webp 480w, assets/shaka-uke-smile-800.webp 800w, assets/shaka-uke-smile-1200.webp 1200w" sizes="(max-width:700px) 46vw, 300px" width="1400" height="2099" loading="lazy" decoding="async" fetchpriority="low" alt="Shaka smiling, playing ukulele in purple light"></figure>
+      <figure><img src="assets/cannes-drummer-800.webp" srcset="assets/cannes-drummer-480.webp 480w, assets/cannes-drummer-800.webp 800w, assets/cannes-drummer-1200.webp 1200w" sizes="(max-width:700px) 46vw, 300px" width="1400" height="2100" loading="lazy" decoding="async" fetchpriority="low" alt="Drummer in cap and sunglasses deep in the groove"></figure>
+      <figure><img src="assets/cannes-sax-800.webp" srcset="assets/cannes-sax-480.webp 480w, assets/cannes-sax-800.webp 800w, assets/cannes-sax-1200.webp 1200w" sizes="(max-width:700px) 46vw, 300px" width="1400" height="2100" loading="lazy" decoding="async" fetchpriority="low" alt="Saxophonist in a butterfly jacket under blue light"></figure>
+      <figure><img src="assets/cannes-bass-800.webp" srcset="assets/cannes-bass-480.webp 480w, assets/cannes-bass-800.webp 800w, assets/cannes-bass-1200.webp 1200w" sizes="(max-width:700px) 46vw, 300px" width="1400" height="2099" loading="lazy" decoding="async" fetchpriority="low" alt="Morat on bass, lost in the music"></figure>
+      <figure><img src="assets/shaka-uke-hands-800.webp" srcset="assets/shaka-uke-hands-480.webp 480w, assets/shaka-uke-hands-800.webp 800w, assets/shaka-uke-hands-1200.webp 1200w" sizes="(max-width:700px) 46vw, 300px" width="1400" height="2099" loading="lazy" decoding="async" fetchpriority="low" alt="Close-up of hands on the ukulele fretboard, stage lights bokeh"></figure>
+      <figure><img src="assets/cannes-alaska-800.webp" srcset="assets/cannes-alaska-480.webp 480w, assets/cannes-alaska-800.webp 800w, assets/cannes-alaska-1200.webp 1200w" sizes="(max-width:700px) 46vw, 300px" width="1400" height="933" loading="lazy" decoding="async" fetchpriority="low" alt="Alaska at the synth station in front of the glowing cube wall"></figure>
+      <figure class="g-wide"><img src="assets/cannes-crowd-800.webp" srcset="assets/cannes-crowd-480.webp 480w, assets/cannes-crowd-800.webp 800w, assets/cannes-crowd-1200.webp 1200w" sizes="(max-width:700px) 92vw, 850px" width="1400" height="933" loading="lazy" decoding="async" fetchpriority="low" alt="The crowd at the afterparty, glowing cube installation and disco ball"></figure>
     </div>
     <p class="photo-cap">The ETH CC afterparty — Palais des Festivals, Cannes 🌴 · barefoot uke, butterflies on sax, Alaska at the decks, Morat on bass, and the whole garden dancing 🎶</p>
   </div>
@@ -694,7 +696,7 @@ box-shadow:0 10px 28px rgba(240,180,41,.38),inset 0 1px 0 rgba(255,255,255,.6);t
     <p style="text-align:center;margin-top:16px;color:var(--teal);font-size:.92rem;font-style:italic">…and the circle closes where it began — Zuzalu Library, start and finish. The road out is the road home. 🌀</p>
     <p style="text-align:center;margin-top:10px;font-size:.95rem"><strong>🦄 Road to Devcon 9 · Lisbon · 12–14 October 2027</strong> — the ukulele's road home. The Open Source Orchestra hopes to bring a Music Sanctuary to Lisbon; everyone is welcome: <a href="https://opensourceorchestra.org/join/">join the circle</a> · <a href="https://opensourceorchestra.org/mandala-room/">the Mandala Room (Devcon 8, in photos)</a></p>
     <p style="text-align:center;margin-top:8px;font-size:.9rem;color:var(--teal)">🗓️ <strong>2027 road:</strong> EthCC[10] Cannes Apr · ETHGlobal Cannes Apr · ETHConf + ETHGlobal New York Jun · ETHGlobal Tokyo Aug · Devcon IX + ETHGlobal Lisbon Oct (the organisers' dates, no promised slot) → <a href="https://opensourceorchestra.org/join/">the Open Source Orchestra is open for forking &amp; hosting: invite us or contribute</a> 🎻</p>
-    <div class="photo-wide"><img src="assets/oso-music-stage-devcon.jpg" alt="The Music Stage at Devcon SEA — neon sign, jungle leaves, musicians and instruments in a circle"></div>
+    <div class="photo-wide"><img src="assets/oso-music-stage-devcon-800.webp" srcset="assets/oso-music-stage-devcon-480.webp 480w, assets/oso-music-stage-devcon-800.webp 800w, assets/oso-music-stage-devcon-1200.webp 1200w" sizes="(max-width:700px) 92vw, 850px" width="1600" height="1066" loading="lazy" decoding="async" fetchpriority="low" alt="The Music Stage at Devcon SEA — neon sign, jungle leaves, musicians and instruments in a circle"></div>
     <p class="photo-cap"><a href="https://forum.devcon.org/t/infinite-art-garden-space-for-live-music-visuals-dance-and-painting/3581">The Music Stage at Devcon 7</a> — Queen Sirikit National Convention Center, Bangkok 🌴 — the <a href="https://forum.devcon.org/t/infinite-art-garden-space-for-live-music-visuals-dance-and-painting/3581">Infinite Art Garden</a> where every voice is a node. Mumbai draws it bigger. 🎻</p>
   </div>
 </section>
@@ -736,7 +738,7 @@ box-shadow:0 10px 28px rgba(240,180,41,.38),inset 0 1px 0 rgba(255,255,255,.6);t
 </script>
 
 <!-- 🌐 shaka-shell retired 2026-08-01 (Shaka: links go straight to each front door — every door is native now, address bars stay clean) -->
-<script src="assets/bl-player.js?v=7.7"></script>
+<script src="assets/bl-player.js?v=7.8" defer></script>
 <script src="assets/bl-shell.js?v=1.5"></script>
 <!-- devcon ticket float: live-page only, NEVER commit to repo (Shaka canon Jul 27 2026: only shaka front page + opensourceorchestra.org carry it) -->
 
@@ -849,7 +851,7 @@ html[data-osof-on] #cmag,html[data-osof-on] #cmagb{display:none!important} /* 27
     if(anyOpen()||document.hidden)return;
     t=t||TIPS[Math.floor(Math.random()*TIPS.length)];
     var el=document.getElementById(t[0]);if(!el)return;
-    var r=el.getBoundingClientRect();
+    var r=el.getBoundingClientRect();if(!r.width||!r.height)return;   /* 28 Nov 2026: the frame absorbs #oviol/#oflo → nothing to point at, nothing to churn the body for */
     var b=document.createElement('div');b.className='obub';b.textContent=t[1];
     var goLeft=r.left<window.innerWidth/2;
     b.classList.add(goLeft?'left':'right');
@@ -864,13 +866,13 @@ html[data-osof-on] #cmag,html[data-osof-on] #cmagb{display:none!important} /* 27
   function glowRandom(){ /* sometimes, a quiet glow with no words */
     if(anyOpen()||document.hidden)return;
     var el=document.getElementById(TIPS[Math.floor(Math.random()*TIPS.length)][0]);
-    if(el){el.classList.add('oglowing');setTimeout(function(){el.classList.remove('oglowing');},2500);}
+    if(el&&el.getClientRects().length){el.classList.add('oglowing');setTimeout(function(){el.classList.remove('oglowing');},2500);}
   }
   var NOTES=['♪','♫','♬','♩'];
   function note(){
     var v=document.getElementById('oviol');if(!v||document.hidden)return;
-    var r=v.getBoundingClientRect();
-    var n=document.createElement('span');n.className='onote';
+    var r=v.getBoundingClientRect();if(!r.width||!r.height)return;   /* hidden (absorbed by the frame) → no floating notes, no body churn */
+    var n=document.createElement('span');n.className='onote';n.setAttribute('data-osof-ignore','');
     n.textContent=NOTES[Math.floor(Math.random()*NOTES.length)];
     n.style.left=(r.left+r.width/2)+'px';n.style.top=(r.top+4)+'px';
     n.style.setProperty('--dx',(Math.random()*80-15)+'px');
@@ -978,7 +980,7 @@ if(mob()){
 #sp-fab-x{position:absolute;top:-11px;left:-11px;width:24px;height:24px;border-radius:999px;background:linear-gradient(135deg,#3d1c42,#2a1740);border:1px solid rgba(255,255,255,.5);color:#ffd7ec;font-size:.72rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 3px 10px rgba(0,0,0,.5);z-index:2}
 #sp-fab-x:hover{transform:scale(1.12)}
 #sp-mini{display:none;position:fixed;right:22px;bottom:92px;z-index:10004;width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#fb7185,#e11d48);border:1px solid rgba(255,255,255,.35);color:#fff5f6;font-size:1.15rem;cursor:pointer;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 14px rgba(225,29,72,.45)}
-#sp-fab{position:relative;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#fb7185,#e11d48);color:#fff5f6;border:none;border-radius:50px;padding:12px 20px;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 6px 24px rgba(225,29,72,.45);font-family:'Segoe UI',sans-serif;transition:transform .18s,box-shadow .18s}#sp-fab:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(225,29,72,.6)}#sp-fab .heart{display:inline-block;animation:heartbeat 1.6s ease-in-out infinite;transform-origin:center;font-size:1.25rem;filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}@keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.25)}24%{transform:scale(1)}36%{transform:scale(1.18)}48%{transform:scale(1)}}#sp-fab .livedot{position:absolute;top:2px;right:6px;width:10px;height:10px;background:#4ade80;border:2px solid #fff5f6;border-radius:50%;animation:sppulse 2s infinite}@keyframes sppulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 7px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+#sp-fab{position:relative;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#fb7185,#e11d48);color:#fff5f6;border:none;border-radius:50px;padding:12px 20px;font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:0 6px 24px rgba(225,29,72,.45);font-family:'Segoe UI',sans-serif;transition:transform .18s,box-shadow .18s}#sp-fab:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(225,29,72,.6)}#sp-fab .heart{display:inline-block;animation:heartbeat 1.6s ease-in-out infinite;transform-origin:center;font-size:1.25rem;filter:drop-shadow(0 0 6px rgba(255,255,255,.5))}@keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.25)}24%{transform:scale(1)}36%{transform:scale(1.18)}48%{transform:scale(1)}}#sp-fab .livedot{position:absolute;top:2px;right:6px;width:10px;height:10px;background:#4ade80;border:2px solid #fff5f6;border-radius:50%}#sp-fab .livedot::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(74,222,128,.55);pointer-events:none;animation:sppulse 2s infinite}@keyframes sppulse{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(2.4);opacity:0}}@media (prefers-reduced-motion:reduce){#sp-fab .livedot::after{animation:none;opacity:0}}
 #sp-fab:hover{transform:translateY(-2px)}
 #sp-chat{position:fixed;right:22px;bottom:160px;z-index:10003;width:min(390px,calc(100vw - 32px));height:min(540px,calc(100vh - 130px));background:#131b2e;border:1px solid #263252;border-radius:16px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.5)}
 #sp-chat.open{display:flex}
@@ -1096,8 +1098,8 @@ if(localStorage.getItem('sp_code')){const na=document.getElementById('nav-accoun
 })();
 </script>
 <script defer src="/ohana-beacon.js" data-hub="shaka" data-anchor="#sp-chat" data-place="append"></script>
-<script src="/assets/x402-tip.js?v=2.1" defer></script>
-<script src="/assets/agent-gift-rail.js?v=1.2" defer></script> <!-- 🤖 agent gift rail: x402 on Coinbase · Tempo · Hedera (replaces the passport flower, Shaka 27 Nov 2026) -->
+<script src="/assets/x402-tip.js?v=2.2" defer></script>
+<script src="/assets/agent-gift-rail.js?v=1.3" defer></script> <!-- 🤖 agent gift rail: x402 on Coinbase · Tempo · Hedera (replaces the passport flower, Shaka 27 Nov 2026) -->
 <script src="/assets/surf-uke.js?v=1.1" defer></script> <!-- 🏄🎶 the surf agent: sleeps off-screen · tap = a ukulele chord · gift-button hook (28 Nov 2026) -->
 <!-- OHANA-OPEN-DOOR-SEAL:BEGIN v1 -->
 <footer aria-label="Open door: a gift to the world" style="box-sizing:border-box;max-width:56rem;margin:2rem auto 1rem;padding:1rem 1.25rem;border-top:1px solid #777;color:#555;background:#fff;font:400 .875rem/1.5 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-align:center">

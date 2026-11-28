@@ -174,7 +174,7 @@ TRACKS.forEach(t => { t.artistName = /Tambussi|Marek/.test(t.sub) ? 'Matteo Tamb
 const wrap = document.createElement('div');
 wrap.innerHTML = `
 <div id="miniplayer" style="position:fixed;bottom:14px;right:14px;z-index:99999;display:flex;align-items:center;gap:7px;background:linear-gradient(150deg,rgba(240,180,41,.16),rgba(23,17,38,.92));border:1px solid #f0b429;border-radius:999px;padding:6px 12px 6px 7px;backdrop-filter:blur(8px);box-shadow:0 8px 40px rgba(240,180,41,.25);font-family:'Avenir Next','Segoe UI',system-ui,sans-serif">
-  <button id="songbtn" style="width:32px;height:32px;border-radius:50%;border:none;background:#f0b429;color:#241a02;font-size:.85rem;cursor:pointer;animation:blpulse 2s infinite">▶</button>
+  <button id="songbtn" style="width:32px;height:32px;border-radius:50%;border:none;background:#f0b429;color:#241a02;font-size:.85rem;cursor:pointer">▶</button>
   <div style="line-height:1.25">
     <div id="songstatus" style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#ffd97a">tap to play — ${TRACKS[0].title}</div>
     <div id="songsub" style="font-size:.64rem;color:#b9a8cf">${TRACKS[0].sub}</div>
@@ -204,7 +204,7 @@ wrap.innerHTML = `
 #blnote:hover{opacity:1}
 #miniplayer a{color:#b9a8cf;text-decoration:none;border-bottom:1px dotted rgba(45,212,191,.5)}
 #miniplayer a:hover{color:#2dd4bf}
-@keyframes blpulse{0%,100%{box-shadow:0 0 0 0 rgba(240,180,41,.5)}50%{box-shadow:0 0 0 12px rgba(240,180,41,0)}}@keyframes bleq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}.blbars{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px;margin-right:2px}.blbars i{width:3px;background:#f0b429;border-radius:2px;animation:bleq .9s ease-in-out infinite}.blbars i:nth-child(2){animation-delay:.2s}.blbars i:nth-child(3){animation-delay:.4s}#blyricsbody p{margin:0 0 14px}#blyricsbody strong{color:#f3ead8}
+#songbtn{position:relative}#songbtn::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid rgba(240,180,41,.55);pointer-events:none;animation:blring 2s infinite}#songbtn.blfast::after{animation-duration:1.2s}#songbtn.blstill::after{animation:none;opacity:0}@keyframes blring{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.9);opacity:0}}@media (prefers-reduced-motion:reduce){#songbtn::after{animation:none;opacity:0}}@keyframes bleq{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}.blbars{display:inline-flex;gap:2.5px;align-items:flex-end;height:14px;margin-right:2px}.blbars i{width:3px;background:#f0b429;border-radius:2px;animation:bleq .9s ease-in-out infinite}.blbars i:nth-child(2){animation-delay:.2s}.blbars i:nth-child(3){animation-delay:.4s}#blyricsbody p{margin:0 0 14px}#blyricsbody strong{color:#f3ead8}
 /* v4.5 perfectionist canon (Shaka, Jul 27 2026): cap the text column so the bar can NEVER grow wide enough to touch the manifesto paper */
 #miniplayer > div{max-width:200px}
 #songstatus,#songsub{white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important;max-width:200px}
@@ -322,7 +322,7 @@ function label(){
 function setPlaying(on, broadcast){
   playing = on;
   btn.textContent = on ? '❚❚' : '▶';
-  btn.style.animation = on ? 'none' : 'blpulse 2s infinite';
+  btn.classList.toggle('blstill', on); btn.classList.remove('blfast');   // v7.8 (28 Nov 2026, mobile flow): the pulse is a composited ring now (transform+opacity), not a 60 fps box-shadow loop
   if (on) {
     const t = TRACKS[ti].icon + ' ' + TRACKS[ti].title + ' · ' + TRACKS[ti].artistName + '   🌺   ';
     status.innerHTML = '<span class="blbars"><i></i><i></i><i></i></span><span style="display:inline-block;max-width:150px;overflow:hidden;vertical-align:bottom"><span class="blmarq"><span>' + escH(t) + '</span><span>' + escH(t) + '</span></span></span>';
@@ -372,7 +372,7 @@ window.addEventListener('load', ()=>{
   const stWasPlaying = (q.get('bl_play') === '1') || (st && st.playing);
   if (stWasPlaying && !blIsFocus(BL_HOST) && !popAlive) {
     status.innerHTML = '▶ the song follows you — tap anywhere to continue';
-    btn.style.animation = 'blpulse 1.2s infinite';
+    btn.classList.add('blfast');
     const resumeOnce = () => {
       document.removeEventListener('pointerdown', resumeOnce);
       song.play().then(()=>setPlaying(true, true)).catch(()=>setPlaying(false, true));
