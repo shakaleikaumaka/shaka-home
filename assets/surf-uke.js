@@ -2,7 +2,7 @@
    Built by Open Source Orchestra: Shaka Lei Kaumaka & the AI ʻohana (https://opensourceorchestra.org)
    surf-uke.js — the surf agent's three small behaviours (the scene itself is pure HTML + CSS, no script needed):
    1 · sleeps when scrolled off-screen · 2 · tap/click = one ukulele chord, synthesised in your browser (nothing downloaded, only on your tap)
-   3 · the gift button's hook: a gift UI may listen for "ohana:gift-open" and call preventDefault() to open in place; otherwise the link just goes. */
+   3 · the gift button: the Universe Fountain when it exists (OSOFountain.open), otherwise the link to the Funding Pool. */
 (function () {
   'use strict';
   var fig = document.getElementById('surf-agent');
@@ -73,16 +73,28 @@
   if (tap) tap.addEventListener('click', function () { hit(); try { strum(); } catch (e) { /* silent: the animation still plays */ } });
   window.addEventListener('x402:gift', function () { hit(); });   /* a gift landed on the rail → the surfer cheers */
 
-  /* 3 · the gift button — a gift UI may take the click over.
-     The page's own shell (bl-shell.js) catches in-family links on document-capture to open them in its "road" overlay,
-     so this listener sits on window-capture (it runs first): fire "ohana:gift-open"; if a listener calls preventDefault(),
-     the gift UI is opening in place and the link stays put. Otherwise nothing changes — the shell (or the browser) follows the link. */
+  /* 3 · the gift button → ONE gift screen (contract: /shared/fountain/LAUNCHER.md)
+     (1) window.OSOFountain already loaded → open it · (2) else lazy-load frames.opensourceorchestra.org/lib/fountain.js — only on a tap, 4 s at most
+     (a 404 fails fast) · (3) else the link simply goes on to the Funding Pool, Lane A "a gift to Shaka" (card · Stripe · PayPal · Venmo · the any-chain tip jar).
+     The listener sits on window-capture so it runs before bl-shell's document-capture handler (which would open the link in its "road" overlay). */
+  var ofnDead = false;
+  function ofnLoad() {
+    return new Promise(function (res, rej) {
+      if (window.OSOFountain) return res(window.OSOFountain);
+      var s = document.createElement('script'), t = setTimeout(function () { rej(new Error('timeout')); }, 4000);
+      s.src = 'https://frames.opensourceorchestra.org/lib/fountain.js'; s.async = true;
+      s.onload = function () { clearTimeout(t); window.OSOFountain ? res(window.OSOFountain) : rej(new Error('missing')); };
+      s.onerror = function () { clearTimeout(t); rej(new Error('load')); };
+      document.head.appendChild(s);
+    });
+  }
   window.addEventListener('click', function (e) {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var a = e.target && e.target.closest ? e.target.closest('[data-ohana-gift]') : null;
-    if (!a || !fig.contains(a)) return;
-    var ev;
-    try { ev = new CustomEvent('ohana:gift-open', { cancelable: true, detail: { from: 'surf-agent' } }); } catch (x) { return; }
-    if (!window.dispatchEvent(ev)) { e.preventDefault(); e.stopPropagation(); }
+    if (!a || !fig.contains(a) || a.__sfaGo || (ofnDead && !window.OSOFountain)) return;   // known-absent Fountain → the link behaves normally, no delay
+    e.preventDefault(); e.stopPropagation();
+    a.classList.add('sfa-busy');
+    ofnLoad().then(function (F) { a.classList.remove('sfa-busy'); F.open({ surface: 'surf', from: a }); })
+      .catch(function () { ofnDead = true; a.classList.remove('sfa-busy'); a.__sfaGo = 1; a.click(); a.__sfaGo = 0; });
   }, true);
 })();
